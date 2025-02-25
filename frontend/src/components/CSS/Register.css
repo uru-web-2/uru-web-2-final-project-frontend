@@ -1,0 +1,131 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #d2dbe8;
+    margin: 0;
+}
+
+.register-box {
+    width: 400px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #1a4567;
+    border-radius: 18px;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.register-title {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: -6px;
+    margin-top: 20px;
+}
+
+.register-paragraph {
+    color: #fff;
+    font-size: 12px;
+    margin-bottom: 20px;
+    font-style: italic;
+    text-align: center;
+}
+
+.register-input-pair {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+.register-input-box {
+    width: 48%;
+    position: relative;
+}
+
+.register-input-box input {
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+    background-color: #ebf3f7;
+    color: #1a4567;
+    border: 1px solid #1a4567;
+    text-align: center;
+}
+
+.register-input-box input::placeholder {
+    color: #1a4567;
+    text-align: center;
+}
+
+.register-icon {
+    color: #ffffff;
+    font-size: 25px;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.register-input-box .register-icon {
+    color: #507485;
+}
+
+.register-input-box .register-eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #1a4567;
+    cursor: pointer;
+}
+
+.register-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffffff;
+    color: #1a4567;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+button:hover {
+    background-color: #b0c4de;
+    color: #1a4567;
+}
+
+.register-toggle-button {
+    background-color: #1a4567;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.register-toggle-button:hover {
+    background-color: #b0c4de;
+    color: #1a4567;
+}
+
+.register-error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}

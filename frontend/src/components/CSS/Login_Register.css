@@ -1,0 +1,38 @@
+.combined-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.component-box {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.component-box,.overlay-container{
+    width: 500px;
+    height: 500px;
+    border-radius: 18px;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    left:  -40px;
+}
+
+.overlay-container {
+    position: relative;
+}
+
+.overlay-container > * {
+    position: absolute;
+    top: 0;
+    left: -60px;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
