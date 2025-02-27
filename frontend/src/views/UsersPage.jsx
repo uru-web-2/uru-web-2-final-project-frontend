@@ -6,7 +6,6 @@ import SideBar from '../components/SideBar';
 import CustomDrawer from '../components/CustomDrawer'; // Importa CustomDrawer
 import MenuItem from '../components/MenuItem'; // Importa MenuItem
 import { menuItems } from '../Services/menuItems'; // Importa menuItems
-import WelcomeAdmin from '../components/WelcomeAdmin';
 //import { drawerStyles, listItemTextStyles } from '../components/styles'; // Importa estilos
 
 // Datos de ejemplo para la tabla
@@ -35,11 +34,11 @@ const profiles = [
 const MainContent = () => (
   <Container>
     <Toolbar /> {/* Espacio para el AppBar */}
-    <WelcomeAdmin  /> {/* Pasa la data como prop */}
+    <GridContainer data={users} /> {/* Pasa la data como prop */}
   </Container>
 );
 
-const AdminDashboard = () => {
+const UsersPage = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -72,4 +71,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default UsersPage;

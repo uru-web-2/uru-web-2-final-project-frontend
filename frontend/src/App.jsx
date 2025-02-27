@@ -4,6 +4,8 @@ import Login_Register from './views/Login_Register';
 import StudentDashboard from './views/StudentDashboard';
 import LibrarianDashboard from './views/LibrarianDashboard';
 import AdminDashboard from './views/AdminDashboard';
+import UsersPage from './views/UsersPage'; // Nueva página para Usuarios
+import ProfilesPage from './views/ProfilesPage'; // Nueva página para Perfiles
 import ProtectedRoute from './components/ProtectedRoute'; // Importa la protección de rutas
 
 function App() {
@@ -54,6 +56,19 @@ function App() {
         <Route path="/admin-dashboard" element={
           <ProtectedRoute allowedRoles={["super admin"]}>
             <AdminDashboard />
+          </ProtectedRoute>
+        } />
+
+        Nuevas rutas para Usuarios y Perfiles
+        <Route path="/security/users" element={
+          <ProtectedRoute allowedRoles={["super admin"]}>
+            <UsersPage />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/security/profiles" element={
+          <ProtectedRoute allowedRoles={["super admin"]}>
+            <ProfilesPage />
           </ProtectedRoute>
         } />
 

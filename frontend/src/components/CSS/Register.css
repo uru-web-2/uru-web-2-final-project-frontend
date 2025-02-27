@@ -10,7 +10,7 @@ body {
 
 .register-box {
     width: 400px;
-    height: 600px;
+    min-height: 600px; /* Usar min-height en lugar de height fijo */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -20,13 +20,15 @@ body {
     color: white;
     padding: 20px;
     box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
 }
 
 .register-title {
     color: #fff;
     font-size: 24px;
-    margin-bottom: -6px;
+    margin-bottom: 10px; /* Ajuste del margen */
     margin-top: 20px;
+    font-weight: bold; /* Texto en negrita */
 }
 
 .register-paragraph {
@@ -35,6 +37,7 @@ body {
     margin-bottom: 20px;
     font-style: italic;
     text-align: center;
+    opacity: 0.8; /* Texto un poco más suave */
 }
 
 .register-input-pair {
@@ -43,6 +46,7 @@ body {
     width: 100%;
     max-width: 600px;
     margin-bottom: 20px;
+    gap: 10px; /* Espacio entre inputs */
 }
 
 .register-input-box {
@@ -50,7 +54,8 @@ body {
     position: relative;
 }
 
-.register-input-box input {
+.register-input-box input,
+.register-input-box select {
     width: 100%;
     padding: 10px 10px 10px 40px;
     border: none;
@@ -60,25 +65,28 @@ body {
     background-color: #ebf3f7;
     color: #1a4567;
     border: 1px solid #1a4567;
-    text-align: center;
+    text-align: left; /* Alinear texto a la izquierda */
+    transition: border-color 0.3s ease; /* Transición suave */
 }
 
 .register-input-box input::placeholder {
     color: #1a4567;
-    text-align: center;
+    opacity: 0.7; /* Placeholder más suave */
+}
+
+.register-input-box input:focus,
+.register-input-box select:focus {
+    border-color: #b0c4de; /* Cambiar color del borde al enfocar */
+    outline: none; /* Eliminar el outline por defecto */
 }
 
 .register-icon {
-    color: #ffffff;
-    font-size: 25px;
+    color: #507485;
+    font-size: 20px; /* Tamaño reducido del ícono */
     position: absolute;
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
-}
-
-.register-input-box .register-icon {
-    color: #507485;
 }
 
 .register-input-box .register-eye-icon {
@@ -88,44 +96,49 @@ body {
     transform: translateY(-50%);
     color: #1a4567;
     cursor: pointer;
+    font-size: 18px; /* Tamaño reducido del ícono */
 }
 
 .register-button {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     background-color: #ffffff;
     color: #1a4567;
     border: none;
     border-radius: 6px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
     margin-top: 20px;
     margin-bottom: 20px;
+    font-weight: bold; /* Texto en negrita */
 }
 
-button:hover {
+.register-button:hover {
     background-color: #b0c4de;
     color: #1a4567;
 }
 
 .register-toggle-button {
-    background-color: #1a4567;
+    background-color: transparent; /* Fondo transparente */
     color: white;
+    border: none;
     padding: 10px;
     border-radius: 6px;
     text-align: center;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 14px;
 }
 
 .register-toggle-button:hover {
-    background-color: #b0c4de;
-    color: #1a4567;
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente */
+    color: #b0c4de;
 }
 
 .register-error-message {
-    color: red;
+    color: #ff6b6b; /* Rojo más suave */
     font-size: 14px;
     margin-top: 10px;
+    text-align: center;
 }

@@ -35,3 +35,25 @@ export const loginService = async (username, password, profile = 'null') => {
 
     return data;
 };
+
+export const registerService = async (data) => {
+    const response = await fetch('/api/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+    console.log(data);
+    
+    const res = await response.json();
+    console.log(res);
+    
+    if (!response.ok) {
+        const error = new Error(res);
+        error.data = res;
+        throw error.data;
+    }
+
+    return res;
+}

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { FaUserCircle, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { getCountry } from '../Services/countryService'; // Importa getNames para obtener la lista de países
 import '../components/CSS/Register.css';
+import { registerService } from '../Services/authService'; // Importa el servicio de registro
 
 const Register = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
@@ -15,11 +17,25 @@ const Register = () => {
     const [documentNumber, setDocumentNumber] = useState('');
     const [error, setError] = useState('');
 
+    // Obtener la lista de países
+    const countries = getCountry(); // Usa getNames para obtener un objeto { código: nombre }
+
+    // Convertir el objeto de países en un arreglo de { code, name }
+    const countryList = Object.entries(countries).map(([code, name]) => ({
+        code,
+        name,
+    }));
+
+    const documentTypes = [
+        { code: 'V', name: 'identity_document' },
+        { code: 'P', name: 'passport' },
+    ];
+
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (password !== confirmPassword) {
             setError('Passwords do not match');
@@ -36,6 +52,23 @@ const Register = () => {
             document_type: documentType,
             document_number: documentNumber,
         });
+
+        try{
+            // Aquí puedes llamar a tu servicio de registro
+            await registerService({
+                first_name: firstName,
+                last_name: lastName,
+                username,
+                email,
+                password,
+                document_country: documentCountry,
+                document_type: documentType,
+                document_number: documentNumber,
+        });
+        } catch (error) {
+            setError(error.data?.username || error.data?.password || 'Registration failed');
+        }
+
         setError('');
     };
 
@@ -126,21 +159,31 @@ const Register = () => {
                     <div className="register-input-pair">
                         <div className="register-input-box">
                             <FaUserCircle className="register-icon" />
-                            <input
-                                type="text"
-                                placeholder="Document Country"
+                            <select
                                 value={documentCountry}
                                 onChange={(e) => setDocumentCountry(e.target.value)}
-                            />
+                            >
+                                <option value="">Select Country</option>
+                                {countryList.map((country) => (
+                                    <option key={country.code} value={country.name}>
+                                        {country.name}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                         <div className="register-input-box">
                             <FaUserCircle className="register-icon" />
-                            <input
-                                type="text"
-                                placeholder="Document Type"
+                            <select
                                 value={documentType}
                                 onChange={(e) => setDocumentType(e.target.value)}
-                            />
+                            >
+                                <option value="">Select Document</option>
+                                {documentTypes.map((document) => (
+                                    <option key={document.code} value={document.name}>
+                                        {document.name}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                     </div>
                     <div className="register-input-box">
