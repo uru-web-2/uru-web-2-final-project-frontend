@@ -54,20 +54,20 @@ function App() {
         } />
 
         <Route path="/admin-dashboard" element={
-          <ProtectedRoute allowedRoles={["super admin"]}>
+          <ProtectedRoute allowedRoles={["super admin", "student"]}>
             <AdminDashboard />
           </ProtectedRoute>
         } />
 
         Nuevas rutas para Usuarios y Perfiles
         <Route path="/security/users" element={
-          <ProtectedRoute allowedRoles={["super admin"]}>
+          <ProtectedRoute allowedRoles={["super admin", "student"]}>
             <UsersPage />
           </ProtectedRoute>
         } />
 
         <Route path="/security/profiles" element={
-          <ProtectedRoute allowedRoles={["super admin"]}>
+          <ProtectedRoute allowedRoles={["super admin", "student"]}>
             <ProfilesPage />
           </ProtectedRoute>
         } />
