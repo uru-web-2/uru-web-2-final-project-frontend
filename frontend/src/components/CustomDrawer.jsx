@@ -4,7 +4,7 @@ import { Drawer, Toolbar, List } from '@mui/material';
 const CustomDrawer = ({ open, onClose, children }) => {
   return (
     <Drawer
-      variant="temporary"
+      variant="permanent"
       open={open}
       onClose={onClose}
       sx={{

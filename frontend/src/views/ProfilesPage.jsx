@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Toolbar, CssBaseline, Container } from '@mui/material';
-import GridContainer from '../components/GridContainer';
+import GridProfiles from '../components/GridProfiles';
 import Navbar from '../components/Navbar';
 import SideBar from '../components/SideBar';
 import CustomDrawer from '../components/CustomDrawer'; // Importa CustomDrawer
@@ -19,7 +19,7 @@ const profiles = [
 const MainContent = () => (
   <Container>
     <Toolbar /> {/* Espacio para el AppBar */}
-    <GridContainer data={profiles} /> {/* Pasa la data como prop */}
+    <GridProfiles data={profiles} /> {/* Pasa la data como prop */}
   </Container>
 );
 

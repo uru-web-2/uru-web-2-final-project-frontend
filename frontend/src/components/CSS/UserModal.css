@@ -1,0 +1,92 @@
+/* Contenedor principal para los detalles del usuario */
+.user-details-container {
+    display: flex; /* Coloca los divs uno al lado del otro */
+    justify-content: space-between; /* Espacio entre las columnas */
+    gap: 20px; /* Espacio entre columnas */
+    font-family: 'roboto'; /* Fuente del texto */
+}
+
+/* Estilo para cada columna de detalles */
+.user-details-column {
+    flex: 1; /* Cada columna ocupa el mismo espacio */
+    background-color: #f9f9f9; /* Fondo claro para cada columna */
+    padding: 15px; /* Espacio interno */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    justify-items: flex-start;
+    border: 1px solid #e0e0e0;
+}
+
+/* Estilo para los textos dentro de las columnas */
+.user-details-column p {
+    margin: 0 0 10px 0; /* Espacio entre los párrafos */
+    font-size: 14px; /* Tamaño del texto */
+    color: #333; /* Color del texto */
+}
+
+.user-details-column strong {
+    font-weight: 600; /* Texto en negrita */
+    color: #445380; /* Color azul */
+}
+
+.user-details-column p {
+    color: #6177b7; /* Color azul */
+}
+
+.profiles-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+
+h3 {
+    font-size: x-large;
+}
+
+.profiles-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.profile-item {
+    background-color: #6177b7;
+    color: white;
+    font-family: roboto;
+    border-radius: 20px;
+    padding: 10px 15px; /* Espaciado interno */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 100px;
+    max-width: fit-content; /* Ancho responsivo */
+}
+
+.profile-item .profile-text {
+    margin-right: 10px; /* Espaciado entre el texto y el icono */
+}
+
+.delete-icon {
+    cursor: pointer;
+    color: white;
+}
+
+/* Estilo para el select */
+.profiles-header select {
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 1px solid #c2c2c2;
+    background-color: #f9f9f9;
+    color: #000000;
+    font-family: 'roboto';
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+    width: 200px;
+}
+
+.profiles-header select:focus {
+    border-color: #445380;
+}
