@@ -48,11 +48,11 @@ const UsersPage = () => {
     <div style={{ 
       backgroundColor: '#F5F5F5', 
       height: '100vh', 
-      width: '98.4vw', 
+      width: '100vw', 
       overflow: 'hidden',
       boxSizing: 'border-box',
-      left: '-140px',
-      position: 'relative',
+      display: 'flex',
+      alignItems: 'center',
     }}>
       <CssBaseline />
       <Navbar handleDrawerToggle={handleDrawerToggle} />
