@@ -4,11 +4,16 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 
-const CardComponent = ({type}) => {
+const CardComponent = ({type = 'digital', image,title, text1, text2, text3, categories}) => {
 
+    //Para renderizar las categorias
     const renderChips = () => {
+        return categories.map((category) => {
+            return <Chip sx={{height:15}}color='primary' label={category} size='small'/>
+        });
     }
 
+    //Para renderizar la info adicional en caso de que sea libro (Copias, seccion, estante) o en caso de que sea cliente (Reservar)
     const renderAdditional = () => {
     
         switch (type) {
@@ -30,6 +35,7 @@ const CardComponent = ({type}) => {
         }
     }
 
+    //Para renderozar las opciones en caso de que sea digital (Descargar, Compartir) o en caso de que sea fisico (Mas opciones)
     const renderOptions = () => {
 
         switch (type) {
@@ -59,27 +65,23 @@ const CardComponent = ({type}) => {
 
 
     return (
-    <Paper elevation={3}>
+    <Paper elevation={3} sx={{'&:hover': { backgroundColor: 'rgba(234, 234, 234, 0.83)'}}}>
         <div className="cardContainer">
             <div className='cardImage'>
                 <CardMedia
                     sx={{ width: 65, height: 92, boxShadow: 6}}
                     component="img"
-                    image="https://picsum.photos/65/92"
+                    image={image}
                     alt="random"
                 />
             </div>
             <div className='cardContent'>
-                <Typography sx={{fontFamily:'Arial', fontSize:20, fontWeight:'bold',textAlign:'left'}}>
-                Revista de Ciencia y Tecnologia
-                </Typography>
-                <Typography sx={{lineHeight:1.5, fontSize: 15}} align='left' >Universidad Nacional de Innovacion Tecnologica</Typography>
-                <Typography sx={{lineHeight:1.5, fontSize: 15}} align='left'>Vol 2. Ed 1.</Typography>
-                <Typography sx={{lineHeight:1.5, fontSize: 15}} align='left'>ISSN 2345-6789</Typography>
+                <Typography sx={{fontFamily:'Arial', fontSize:20, fontWeight:'bold',textAlign:'left'}}>{title}</Typography>
+                <Typography sx={{lineHeight:1.5, fontSize: 15}} align='left' >{text1}</Typography>
+                <Typography sx={{lineHeight:1.5, fontSize: 15}} align='left'>{text2}</Typography>
+                <Typography sx={{lineHeight:1.5, fontSize: 15}} align='left'>{text3}</Typography>
                 <Stack direction="row" spacing={1}>
-                    <Chip sx={{height:15}}color='primary' label="History" size='small'/>
-                    <Chip sx={{height:15}}color='primary' label="History" size='small'/>
-                    <Chip sx={{height:15}}color='primary' label="History" size='small'/>
+                    {renderChips()}
                 </Stack>
             </div>
             <div className='cardOptions'>
@@ -92,5 +94,16 @@ const CardComponent = ({type}) => {
     </Paper>  
     );
 }
+
+//Componente de prueba
+
+{/* <CardComponent 
+      type='client' 
+      image='https://picsum.photos/65/92'
+      title='Revista de Ciencia y Tecnologia' 
+      text1='Universidad Nacional de Innovacion Tecnologica' 
+      text2='Vol 2 Ed.1' 
+      text3='ISSN 5464 3434' 
+      categories={['History', 'Technology', 'Science']}/> */}
 
 export default CardComponent;
