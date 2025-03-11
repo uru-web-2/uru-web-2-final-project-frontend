@@ -4,12 +4,12 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 
-const CardComponent = ({type = 'digital', image,title, text1, text2, text3, categories}) => {
+const CardComponent = ({type = 'digital', image,title, text1, text2, text3, categories, id}) => {
 
     //Para renderizar las categorias
     const renderChips = () => {
-        return categories.map((category) => {
-            return <Chip sx={{height:15}}color='primary' label={category} size='small'/>
+        return categories.map((category, index) => {
+            return <Chip key={`${id}_${index}`} sx={{height:15}}color='primary' label={category} size='small'/>
         });
     }
 
