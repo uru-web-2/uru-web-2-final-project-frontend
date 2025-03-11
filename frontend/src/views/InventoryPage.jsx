@@ -28,7 +28,7 @@ function InventoryPage() {
     return (
         <Layout>
             <Paper elevation={3} sx={{pb: 2}}>
-                <CardList data={data} itemsPerPage={10}/>
+                <CardList data={data}/>
             </Paper>
         </Layout>
     );
