@@ -59,6 +59,12 @@ function App() {
           </ProtectedRoute>
         } />
 
+        <Route path="/inventory/books" element={
+          <ProtectedRoute allowedRoles={["super admin","student"]}>
+            <InventoryPage />
+          </ProtectedRoute>
+        } />
+
         Nuevas rutas para Usuarios y Perfiles
         <Route path="/security/users" element={
           <ProtectedRoute allowedRoles={["super admin"]}>

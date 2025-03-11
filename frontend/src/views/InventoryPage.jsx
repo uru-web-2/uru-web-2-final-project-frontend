@@ -1,7 +1,8 @@
 import CardList from "../components/CardList";
-import { Paper } from "@mui/material";
+import { Paper,Box, Button } from "@mui/material";
 import React, { useState } from "react";
 import Layout from "../components/Layout";
+
 
 const generateData = (numItems) => {
     const data = [];
@@ -14,6 +15,7 @@ const generateData = (numItems) => {
             text2: `Año ${2020 + i}`,
             text3: `ISBN ${Math.floor(Math.random() * 1000000)}`,
             categories: ['No ficción', 'Ciencia'],
+        
         });
     }
     return data;
@@ -26,7 +28,7 @@ function InventoryPage() {
     return (
         <Layout>
             <Paper elevation={3} sx={{pb: 2}}>
-                <CardList data={data} itemsPerPage={5}/>
+                <CardList data={data} itemsPerPage={10}/>
             </Paper>
         </Layout>
     );

@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { CssBaseline } from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 import Navbar from "../components/Navbar";
 import SideBar from "../components/SideBar";
 import CustomDrawer from "../components/CustomDrawer";
@@ -18,13 +18,13 @@ function Layout({children}) {
 
   return (
     <div style={{ 
-      backgroundColor: '#F5F5F5', 
-      height: '100vh', 
-      width: '100vw', 
-      overflow: 'hidden',
-      boxSizing: 'border-box',
-      display: 'flex',
-      alignItems: 'center',
+        backgroundColor: '#F5F5F5', 
+        height: '100vh', 
+        width: '100vw', 
+        overflowY: 'scroll',
+        boxSizing: 'border-box',
+        display: 'flex',
+        alignItems: 'center',
     }}>
       <CssBaseline />
       <Navbar handleDrawerToggle={handleDrawerToggle} />
@@ -37,7 +37,10 @@ function Layout({children}) {
         //listItemTextStyles={listItemTextStyles}
         CustomDrawer={CustomDrawer}
       />
-      {children}
+      <Box sx={{ml: 12, height:'77%', width:'77%'}}>
+        {children}
+      </Box>
+      
     </div>
   );
 }

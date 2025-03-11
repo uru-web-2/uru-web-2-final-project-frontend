@@ -17,9 +17,9 @@ const CardList = ({ data, itemsPerPage }) => {
 
     return (
 
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
+        <Box sx={{ display: 'grid', justifyItems: 'center', gap: 3, bgColor:'black'}}>
 
-            <Stack spacing={0.2} sx={{ justifyContent: 'center' }}>
+            <Stack spacing={0.2} sx={{ width: '100%' }}>
                 {currentItems.map((item) => (
                     <CardComponent
                     image={item.image}
@@ -30,6 +30,7 @@ const CardList = ({ data, itemsPerPage }) => {
                     categories={item.categories}
                     id={item.id}
                     key={item.id}
+                    type='physical'
                     />
                 ))}
             </Stack>
