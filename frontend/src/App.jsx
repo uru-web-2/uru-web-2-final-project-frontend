@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import Login_Register from './views/Login_Register';
-import StudentDashboard from './views/StudentDashboard';
+import StudentHomepage from './views/StudentHomepage';
 import LibrarianDashboard from './views/LibrarianDashboard';
 import AdminDashboard from './views/AdminDashboard';
 import UsersPage from './views/UsersPage'; // Nueva página para Usuarios
@@ -18,9 +18,9 @@ function App() {
     }
     
     const routes = {
-      "student": "/student-dashboard",
+      "student": "/student-homepage",
       "librarian": "/librarian-dashboard",
-      "super admin": "/admin-dashboard"
+      "super admin": "/admin-dashboard",
     };
 
     for (const role of roles) {
@@ -41,9 +41,9 @@ function App() {
       <Routes>
         <Route path="/login" element={isAuthenticated() ? <Navigate to={getDashboardRoute()} /> : <Login_Register />} />
 
-        <Route path="/student-dashboard" element={
-          <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
-            <StudentDashboard />
+        <Route path="/student-homepage" element={
+          <ProtectedRoute allowedRoles={["student", "librarian", "super admin", "user"]}>
+            <StudentHomepage />
           </ProtectedRoute>
         } />
 
@@ -71,6 +71,7 @@ function App() {
             <ProfilesPage />
           </ProtectedRoute>
         } />
+
 
         <Route path="*" element={<Navigate to={getDashboardRoute()} />} />
       </Routes>

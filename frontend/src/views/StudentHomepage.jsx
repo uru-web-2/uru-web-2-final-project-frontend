@@ -2,7 +2,7 @@
 
 function StudentDashboard() {
   return (
-    <div>StudentDashboard</div>
+    <div>StudentHomepage</div>
   )
 }
 
