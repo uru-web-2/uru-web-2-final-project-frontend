@@ -6,9 +6,14 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PeopleIcon from '@mui/icons-material/People'; // Ícono para Usuarios
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'; // Ícono para Perfiles
+import MenuBookIcon from '@mui/icons-material/MenuBook'; // Ícono para Books
 
 export const menuItems = [
-  { text: 'Inventario', icon: <InventoryIcon sx={{ color: '#FFFFFF' }} /> },
+  { text: 'Inventario', icon: <InventoryIcon sx={{ color: '#FFFFFF' }} />,
+  children:[
+    { text: 'Books', icon: <MenuBookIcon sx={{ color: '#FFFFFF'}}/>, path: '/inventory/books'},
+    ],
+  },
   { text: 'Préstamos', icon: <LocalAtmIcon sx={{ color: '#FFFFFF' }} /> },
   {
     text: 'Seguridad',

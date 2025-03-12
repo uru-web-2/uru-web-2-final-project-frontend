@@ -7,6 +7,7 @@ import AdminDashboard from './views/AdminDashboard';
 import UsersPage from './views/UsersPage'; // Nueva página para Usuarios
 import ProfilesPage from './views/ProfilesPage'; // Nueva página para Perfiles
 import ProtectedRoute from './components/ProtectedRoute'; // Importa la protección de rutas
+import InventoryPage from './views/InventoryPage'
 
 function App() {
   const getDashboardRoute = () => {
@@ -56,6 +57,12 @@ function App() {
         <Route path="/admin-dashboard" element={
           <ProtectedRoute allowedRoles={["super admin", "student"]}>
             <AdminDashboard />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/inventory/books" element={
+          <ProtectedRoute allowedRoles={["super admin","student"]}>
+            <InventoryPage />
           </ProtectedRoute>
         } />
 

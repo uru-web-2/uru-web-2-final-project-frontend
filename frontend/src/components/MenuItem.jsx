@@ -29,7 +29,14 @@ const MenuItem = ({ text, icon, sx, children, path, onClickItem }) => {
         sx={sx}
       >
         <ListItemIcon>{icon}</ListItemIcon>
-        <ListItemText primary={text} />
+        <ListItemText primary={text} slotProps={{
+            primary: {
+              sx: {
+                fontSize: '20px',
+                fontWeight: 'medium'
+              }
+            }
+          }} />
         {children ? (open ? <ExpandLess /> : <ExpandMore />) : null}
       </ListItem>
       {children && (

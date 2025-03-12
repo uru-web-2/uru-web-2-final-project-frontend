@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Paper, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Button, Pagination, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import ModalWrapper from './ModalWrapper'; // Asegúrate de importar el ModalWrapper
+import UserDetailsModal from './UserDetailsModal';
 
-const GridContainer = ({ data }) => {
+const GridUsers = ({ data }) => {
   const columns = data.length > 0 ? Object.keys(data[0]) : [];
 
   // Estado para la paginación
@@ -146,7 +148,7 @@ const GridContainer = ({ data }) => {
               >
                 {columns.map((column) => (
                   <TableCell key={`${user.id}-${column}`}>
-                    {user[column]}
+                    {Array.isArray(user[column]) ? user[column].join(', ') : user[column]}
                   </TableCell>
                 ))}
                 <TableCell>
@@ -175,15 +177,16 @@ const GridContainer = ({ data }) => {
         />
       </div>
 
-      {/* Lógica del Modal (solo la implementación) */}
-      {isModalOpen && (
-        <div>
-          {/* Aquí iría el componente del modal */}
-          {/* Por ejemplo: <ModalComponent user={selectedUser} onClose={handleCloseModal} /> */}
-        </div>
-      )}
+      {/* Modal */}
+      <UserDetailsModal
+        isOpen={isModalOpen}
+        title="Información Personal"
+        onClose={handleCloseModal}
+        user={selectedUser}
+      >
+      </UserDetailsModal>
     </Paper>
   );
 };
 
-export default GridContainer;
+export default GridUsers;
