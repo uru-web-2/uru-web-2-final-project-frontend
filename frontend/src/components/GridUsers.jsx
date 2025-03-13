@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Paper, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Button, Pagination, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import ModalWrapper from './ModalWrapper'; // Asegúrate de importar el ModalWrapper
 import UserDetailsModal from './UserDetailsModal';
+import Search from './Search';
 
 const GridUsers = ({ data }) => {
   const columns = data.length > 0 ? Object.keys(data[0]) : [];
@@ -50,18 +51,7 @@ const GridUsers = ({ data }) => {
 
       {/* Barra de búsqueda, selector de items por página y botón "Add" */}
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}>
-        <TextField
-          label="Search"
-          variant="outlined"
-          size="small"
-          sx={{ 
-            width: '300px',  
-            borderRadius: '20px',
-            '& .MuiOutlinedInput-root': {
-              borderRadius: '20px',
-            },
-          }}
-        />
+        <Search />
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <FormControl variant="outlined" size="small" sx={{ minWidth: 120, marginRight: 2 }}>
             <InputLabel>Items per page</InputLabel>

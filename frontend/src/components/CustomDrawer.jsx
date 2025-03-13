@@ -11,7 +11,7 @@ const CustomDrawer = ({ open, onClose, children }) => {
         width: 240,
         flexShrink: 0,
         [`& .MuiDrawer-paper`]: {
-          width: 300,
+          width: 280,
           boxSizing: 'border-box',
           backgroundColor: '#1A4568',
           color: '#FFFFFF',

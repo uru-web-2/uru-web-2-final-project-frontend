@@ -37,7 +37,7 @@ function Layout({children}) {
         //listItemTextStyles={listItemTextStyles}
         CustomDrawer={CustomDrawer}
       />
-      <Box sx={{ml: 12, height:'74%', width:'74%', bgcolor:'black'}}>
+      <Box sx={{ml: 12, height:'74%', width:'74%'}}>
         {children}
       </Box>
       
