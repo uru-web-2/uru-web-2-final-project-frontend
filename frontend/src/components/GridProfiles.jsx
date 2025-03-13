@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Paper, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Button, Pagination, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { Paper, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Pagination, Box } from '@mui/material';
 import ModalWrapper from './ModalWrapper'; // Asegúrate de importar el ModalWrapper
 import Search from './Search';
+import PageSizeSelector from './PageSizeSelector';
 
 const GridProfiles = ({ data }) => {
   const columns = data.length > 0 ? Object.keys(data[0]) : [];
@@ -49,28 +50,16 @@ const GridProfiles = ({ data }) => {
       </Typography>
 
       {/* Barra de búsqueda, selector de items por página y botón "Add" */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}>
+      <Box sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
         <Search />
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <FormControl variant="outlined" size="small" sx={{ minWidth: 120, marginRight: 2 }}>
-            <InputLabel>Items per page</InputLabel>
-            <Select
-              value={itemsPerPage}
-              onChange={handleItemsPerPageChange}
-              label="Items per page"
-            >
-              <MenuItem value={1}>1</MenuItem>
-              <MenuItem value={5}>5</MenuItem>
-              <MenuItem value={7}>7</MenuItem>
-              <MenuItem value={10}>10</MenuItem>
-              <MenuItem value={15}>15</MenuItem>
-            </Select>
-          </FormControl>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <PageSizeSelector numberItems={[1,5,7,10,15]} onChange={handleItemsPerPageChange} value={itemsPerPage}/>
           <Button variant="contained" color="primary">
             + Add
           </Button>
-        </div>
-      </div>
+        </Box>
+      </Box>
+      
 
       {/* Tabla de usuarios */}
       <TableContainer 

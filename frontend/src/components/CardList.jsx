@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Box, Pagination, Stack, FormControl, Select, InputLabel, MenuItem,Button} from '@mui/material';
+import { Box, Pagination, Stack, Button} from '@mui/material';
 import Search from './Search';
 import CardComponent from './Card'; 
+import PageSizeSelector from './PageSizeSelector';
 
 
 const CardList = ({ data , showHeader = true, itemsPage = 5}) => {
@@ -31,22 +32,8 @@ const CardList = ({ data , showHeader = true, itemsPage = 5}) => {
 
                 
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <FormControl variant="outlined" size="small" sx={{ minWidth: 120, marginRight: 2 }}>
-                    <InputLabel>Items per page</InputLabel>
-                        <Select
-                            value={itemsPerPage}
-                            onChange={handlePageChange}
-                            label="Items per page"
-                            >
-                            <MenuItem value={5}>5</MenuItem>
-                            <MenuItem value={7}>7</MenuItem>
-                            <MenuItem value={10}>10</MenuItem>
-                            <MenuItem value={15}>15</MenuItem>
-                        </Select>
-                </FormControl>
+                <PageSizeSelector numberItems={[5,10,15,20]} onChange={handlePageChange} value={itemsPerPage}/>
                 <Search/>
-                
-
             </Box>
                 <Button variant="contained" color="primary">
                 + Add

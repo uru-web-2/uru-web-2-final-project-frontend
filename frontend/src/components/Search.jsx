@@ -15,14 +15,13 @@ function Search() {
                     padding: 1.5, pl: 3
                 }}
             }}
-            backgroundColor='white'
             slotProps={{
                 input: {
                 endAdornment: (
                     <InputAdornment position="end">
-                    <IconButton disableFocusRipple style={{ outline: 'none' }}>
-                        <SearchIcon />
-                    </IconButton>
+                        <IconButton disableFocusRipple style={{ outline: 'none' }}>
+                            <SearchIcon />
+                        </IconButton>
                     </InputAdornment>
                 ),
                 },
