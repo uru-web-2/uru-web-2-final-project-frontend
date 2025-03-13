@@ -1,3 +1,4 @@
+import React from "react";
 import { AppBar, Toolbar, Typography, IconButton, Button, Box } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"; // Ícono de usuario
 
