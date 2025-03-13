@@ -43,7 +43,7 @@ function App() {
         <Route path="/login" element={isAuthenticated() ? <Navigate to={getDashboardRoute()} /> : <Login_Register />} />
 
         <Route path="/student-homepage" element={
-          <ProtectedRoute allowedRoles={["student", "librarian", "super admin", "user"]}>
+          <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
             <StudentHomepage />
           </ProtectedRoute>
         } />
