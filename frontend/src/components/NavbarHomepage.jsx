@@ -8,7 +8,7 @@ const Navbar = () => {
       <Toolbar sx= {{ display: "flex", justifyContent: "space-between", minHeight: "64px" }}>
         
         {/*Logo*/}
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box sx={{ display: "flex", alignItems: "center"}}>
             <img src="ubook.png" alt="U-BOOK logo" style={{height: "60px", marginRight: "2px",  width: "80px"}} />
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
                 Biblioteca Digital
