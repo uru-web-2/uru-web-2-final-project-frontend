@@ -8,9 +8,12 @@ import UsersPage from './views/UsersPage'; // Nueva página para Usuarios
 import ProfilesPage from './views/ProfilesPage'; // Nueva página para Perfiles
 import ProtectedRoute from './components/ProtectedRoute'; // Importa la protección de rutas
 import InventoryPage from './views/InventoryPage'
-
+import StudentCatalog from './views/StudentCatalog'
 import BookForm from './views/BookFormPage'
-
+import NavbarHomepage from './components/NavbarHomepage';
+import StudentLoans from './views/StudentLoans';
+import StudentAbout from './views/StudentAbout';
+import StudentSupport from './views/StudentSupport';
 
 function App() {
   const getDashboardRoute = () => {
@@ -52,9 +55,39 @@ function App() {
           </ProtectedRoute>
         } />
 
-  
+        {/*Estudiante-catálogo*/}
+        <Route path="/catalogo" element={
+          <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
+            <StudentCatalog />
+            <NavbarHomepage />
+          </ProtectedRoute>
+        } />
 
-    
+        {/*Estudiante-soporte*/}
+        <Route path="/soporte" element={
+          <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
+            <StudentSupport />
+            <NavbarHomepage />
+          </ProtectedRoute>
+        } />
+
+
+        {/*Estudiante-préstamos*/}
+        <Route path="/prestamos" element={
+          <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
+            <StudentLoans />
+            <NavbarHomepage />
+          </ProtectedRoute>
+        } />
+
+        {/*Estudiante-nosotros*/}
+        <Route path="/nosotros" element={
+          <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
+            <StudentAbout />
+            <NavbarHomepage />
+          </ProtectedRoute>
+        } />
+
 
 
         {/*Bibliotecario-dashboard*/}
@@ -88,11 +121,7 @@ function App() {
 
         {/*Usuario*/}
         <Route path="/security/users" element={
-
           <ProtectedRoute allowedRoles={["super admin", "student"]}>
-
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
-
             <UsersPage />
           </ProtectedRoute>
         } />
@@ -100,9 +129,6 @@ function App() {
         {/*Perfiles*/}
         <Route path="/security/profiles" element={
           <ProtectedRoute allowedRoles={["super admin", "student"]}>
-
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
-
             <ProfilesPage />
           </ProtectedRoute>
         } />
