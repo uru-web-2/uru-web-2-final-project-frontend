@@ -3,9 +3,17 @@ import { Paper, Typography, Table, TableBody, TableCell, TableContainer, TableHe
 import ModalWrapper from './ModalWrapper'; // Asegúrate de importar el ModalWrapper
 import Search from './Search';
 import PageSizeSelector from './PageSizeSelector';
+import { useNavigate } from 'react-router-dom';
 
 const GridProfiles = ({ data }) => {
-  const columns = data.length > 0 ? Object.keys(data[0]) : [];
+  // Hook para redireccionar
+  const navigate = useNavigate();
+
+  // Definir las columnas que se mostrarán
+  const columns = [
+    { key: 'profile_id', label: 'ID' },
+    { key: 'profile_name', label: 'Name' },
+  ];
 
   // Estado para la paginación
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,10 +51,15 @@ const GridProfiles = ({ data }) => {
     setSelectedUser(null); // Limpia el usuario seleccionado
   };
 
+  // Redirigir a la página de permisos
+  const handlePermissions = (profileId) => {
+    navigate(`/security/permissions/${profileId}`); // Redirige a la ruta dinámica
+  };
+
   return (
     <Paper elevation={3} sx={{ padding: 2, margin: 2 }}>
       <Typography variant="h6" gutterBottom>
-        Users
+        Profiles
       </Typography>
 
       {/* Barra de búsqueda, selector de items por página y botón "Add" */}
@@ -61,7 +74,7 @@ const GridProfiles = ({ data }) => {
       </Box>
       
 
-      {/* Tabla de usuarios */}
+      {/* Tabla de perfiles */}
       <TableContainer 
         component={Paper} 
         sx={{ 
@@ -86,9 +99,10 @@ const GridProfiles = ({ data }) => {
         <Table stickyHeader>
           <TableHead>
             <TableRow>
+              {/* Columnas dinámicas */}
               {columns.map((column) => (
                 <TableCell 
-                  key={column} 
+                  key={column.key} 
                   sx={{ 
                     backgroundColor: '#1A4568',
                     color: '#FFFFFF',
@@ -97,9 +111,10 @@ const GridProfiles = ({ data }) => {
                     zIndex: 1,
                   }}
                 >
-                  {column.charAt(0).toUpperCase() + column.slice(1).replace(/([A-Z])/g, ' $1')}
+                  {column.label}
                 </TableCell>
               ))}
+              {/* Columna Actions (siempre al final) */}
               <TableCell 
                 sx={{ 
                   backgroundColor: '#1A4568',
@@ -116,7 +131,7 @@ const GridProfiles = ({ data }) => {
           <TableBody>
             {currentUsers.map((user, index) => (
               <TableRow
-                key={user.id}
+                key={user.profile_id}
                 sx={{
                   backgroundColor: index % 2 === 0 ? '#FFFFFF' : '#E3EAF9',
                   '&:hover': {
@@ -124,19 +139,28 @@ const GridProfiles = ({ data }) => {
                   },
                 }}
               >
+                {/* Columnas dinámicas */}
                 {columns.map((column) => (
-                  <TableCell key={`${user.id}-${column}`}>
-                    {user[column]}
+                  <TableCell key={`${user.profile_id}-${column.key}`}>
+                    {user[column.key]}
                   </TableCell>
                 ))}
+                {/* Columna Actions (siempre al final) */}
                 <TableCell>
                   <Button 
-                    onClick={() => handleOpenModal(user)} // Abre el modal con el usuario seleccionado
+                    onClick={() => handleOpenModal(user)} // Abre el modal con el perfil seleccionado
                     variant="outlined" 
                     color="primary" 
                     sx={{ mr: 1 }}
                   >
                     Details
+                  </Button>
+                  <Button 
+                    onClick={() => handlePermissions(user.profile_id)} // Redirige a la página de permisos
+                    variant="outlined" 
+                    color="secondary" 
+                  >
+                    Permissions
                   </Button>
                 </TableCell>
               </TableRow>
@@ -158,15 +182,14 @@ const GridProfiles = ({ data }) => {
       {/* Modal */}
       <ModalWrapper
         isOpen={isModalOpen}
-        title="User Details"
+        title="Profile Details"
         onClose={handleCloseModal}
       >
         {selectedUser && (
           <div>
             {columns.map((column) => (
-              <Typography key={column}>
-                <strong>{column.charAt(0).toUpperCase() + column.slice(1).replace(/([A-Z])/g, ' $1')}:</strong> 
-                -{selectedUser[column]}
+              <Typography key={column.key}>
+                <strong>{column.label}:</strong> {selectedUser[column.key]}
               </Typography>
             ))}
           </div>

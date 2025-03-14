@@ -13,6 +13,7 @@ import MagazinesPage from './views/MagazinesPage'
 import ThesesPage from './views/ThesesPage'
 import StudentCatalog from './views/StudentCatalog'
 import BookForm from './views/BookFormPage'
+import PermissionsPage from './views/PermissionsPage'; // Nueva página para Permisos
 import NavbarHomepage from './components/NavbarHomepage';
 import StudentLoans from './views/StudentLoans';
 import StudentAbout from './views/StudentAbout';
@@ -154,6 +155,11 @@ function App() {
           </ProtectedRoute>
         } />
 
+        <Route path="/security/permissions/:id" element={
+          <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
+            <PermissionsPage />
+          </ProtectedRoute>
+        } />
 
         <Route path="*" element={<Navigate to={getDashboardRoute()} />} />
       </Routes>
