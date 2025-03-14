@@ -41,13 +41,13 @@ const CardComponent = ({type = 'digital', image,title, text1, text2, text3, cate
         switch (type) {
             case 'digital':
                 return (
-                    <IconButton aria-label='Favorite' color='primary' sx={{'&:focus': {outline: 'none'},}} >
+                    <IconButton aria-label='Favorite' color='primary' disableFocusRipple style={{ outline: 'none' }} >
                         <MoreVertIcon fontSize='large'/>
                     </IconButton>
                 );
             case 'physical':
                 return (
-                    <IconButton aria-label='Favorite' color='primary' sx={{'&:focus': {outline: 'none'},}} >
+                    <IconButton aria-label='Favorite' color='primary' disableFocusRipple style={{ outline: 'none' }} >
                         <MoreVertIcon fontSize='large'/>
                     </IconButton>
                 );
