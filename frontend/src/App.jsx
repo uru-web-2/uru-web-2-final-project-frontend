@@ -7,7 +7,10 @@ import AdminDashboard from './views/AdminDashboard';
 import UsersPage from './views/UsersPage'; // Nueva página para Usuarios
 import ProfilesPage from './views/ProfilesPage'; // Nueva página para Perfiles
 import ProtectedRoute from './components/ProtectedRoute'; // Importa la protección de rutas
-import InventoryPage from './views/InventoryPage'
+import BooksPage from './views/BooksPage'
+import ArticlesPage from './views/ArticlesPage'
+import MagazinesPage from './views/MagazinesPage'
+import ThesesPage from './views/ThesesPage'
 import StudentCatalog from './views/StudentCatalog'
 import BookForm from './views/BookFormPage'
 import NavbarHomepage from './components/NavbarHomepage';
