@@ -4,11 +4,11 @@ import SearchIcon from '@mui/icons-material/Search';
 
 function Search() {
     return (
-        <Box sx={{ width: 'fit-content', height: 45, bgcolor: 'white', borderRadius: '20px', borderColor:'black'}}>
+        <Box sx={{ width: 'fit-content', height: 'min-height', bgcolor: 'white', borderRadius: '20px', borderColor:'black'}}>
             <TextField
             variant="outlined"
             placeholder='Search'
-            sx={{width: 400 , height:50,borderRadius: '20px',
+            sx={{width: 400 , height:'min-height',borderRadius: '20px',
                 '& .MuiOutlinedInput-root': {
                     borderRadius: '20px',
                 '& .MuiInputBase-input': {
