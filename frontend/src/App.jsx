@@ -7,8 +7,11 @@ import AdminDashboard from './views/AdminDashboard';
 import UsersPage from './views/UsersPage'; // Nueva página para Usuarios
 import ProfilesPage from './views/ProfilesPage'; // Nueva página para Perfiles
 import ProtectedRoute from './components/ProtectedRoute'; // Importa la protección de rutas
-import InventoryPage from './views/InventoryPage'
+import BooksPage from './views/BooksPage'
 import BookForm from './views/BookFormPage'
+import ArticlesPage from './views/ArticlesPage';
+import MagazinesPage from './views/MagazinesPage';
+import ThesesPage from './views/ThesesPage';
 
 function App() {
   const getDashboardRoute = () => {
@@ -63,7 +66,25 @@ function App() {
 
         <Route path="/inventory/books" element={
           <ProtectedRoute allowedRoles={["super admin","student"]}>
-            <InventoryPage />
+            <BooksPage />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/inventory/articles" element={
+          <ProtectedRoute allowedRoles={["super admin","student"]}>
+            <ArticlesPage />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/inventory/magazines" element={
+          <ProtectedRoute allowedRoles={["super admin","student"]}>
+            <MagazinesPage />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/inventory/theses" element={
+          <ProtectedRoute allowedRoles={["super admin","student"]}>
+            <ThesesPage />
           </ProtectedRoute>
         } />
 

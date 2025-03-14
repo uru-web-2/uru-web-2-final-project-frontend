@@ -19,7 +19,6 @@ const MenuItem = ({ text, icon, sx, children, path, onClickItem }) => {
   return (
     <>
       <ListItem
-        button
         onClick={(e) => {
           handleClick(); // Maneja la expansión
           if (!children) {

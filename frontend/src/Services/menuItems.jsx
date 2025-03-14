@@ -7,11 +7,17 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import PeopleIcon from '@mui/icons-material/People'; // Ícono para Usuarios
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'; // Ícono para Perfiles
 import MenuBookIcon from '@mui/icons-material/MenuBook'; // Ícono para Books
+import DescriptionIcon from '@mui/icons-material/Description'; // Ícono para Articles
+import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
+import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 
 export const menuItems = [
   { text: 'Inventario', icon: <InventoryIcon sx={{ color: '#FFFFFF' }} />,
   children:[
     { text: 'Books', icon: <MenuBookIcon sx={{ color: '#FFFFFF'}}/>, path: '/inventory/books'},
+    { text: 'Articles', icon:<DescriptionIcon sx={{color: '#FFFFFF'}}/>, path: '/inventory/articles'},
+    { text: 'Theses', icon: <CollectionsBookmarkIcon sx={{ color: '#FFFFFF'}}/>, path: '/inventory/theses'},
+    { text: 'Magazines', icon: <ImportContactsIcon sx={{ color: '#FFFFFF'}}/>, path: '/inventory/magazines'},
     ],
   },
   { text: 'Préstamos', icon: <LocalAtmIcon sx={{ color: '#FFFFFF' }} /> },

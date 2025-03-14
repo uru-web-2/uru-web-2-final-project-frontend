@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import CoverImage from "../components/CoverImage";
 
 
-function BookForm() {
+function BookFormPage() {
     return (
         <Layout>
             <CoverImage image="https://picsum.photos/200/300" />
@@ -11,4 +11,4 @@ function BookForm() {
     );
 }
 
-export default BookForm;
+export default BookFormPage;

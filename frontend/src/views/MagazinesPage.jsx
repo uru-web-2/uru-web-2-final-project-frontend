@@ -10,7 +10,7 @@ const generateData = (numItems) => {
         data.push({
             id: i,
             image: 'https://picsum.photos/200/300',
-            title: `Libro ${i}`,
+            title: `Magazine ${i}`,
             text1: `Autor ${i}`,
             text2: `Año ${2020 + i}`,
             text3: `ISBN ${Math.floor(Math.random() * 1000000)}`,
@@ -23,7 +23,7 @@ const generateData = (numItems) => {
 
 const data = generateData(20);
 
-function InventoryPage() {
+function MagazinesPage() {
 
     return (
         <Layout>
@@ -34,4 +34,4 @@ function InventoryPage() {
     );
 }
 
-export default InventoryPage;
+export default MagazinesPage;
