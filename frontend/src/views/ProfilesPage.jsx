@@ -1,33 +1,35 @@
-import { useState } from 'react';
-import { Toolbar, CssBaseline, Container } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { Container } from '@mui/material';
 import GridProfiles from '../components/GridProfiles';
 import Layout from '../components/Layout';
-//import { drawerStyles, listItemTextStyles } from '../components/styles'; // Importa estilos
+import { getAllProfiles } from '../Services/userPageService';
 
-// Datos de ejemplo para la tabla
-
-const profiles = [
-  { id: 1, name: 'student'},
-  { id: 2, name: 'student'},
-  { id: 3, name: 'student'}
-]
-
-const MainContent = () => (
+// eslint-disable-next-line react/prop-types
+const MainContent = ({ profiles }) => (
   <Container>
     <GridProfiles data={profiles} /> {/* Pasa la data como prop */}
   </Container>
 );
 
 const ProfilesPage = () => {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [profiles, setProfiles] = useState([]);
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+  useEffect(() => {
+    const fetchProfiles = async () => {
+      try {
+        const data = await getAllProfiles();
+        setProfiles(data);
+      } catch (error) {
+        console.error('Error fetching profiles:', error);
+      }
+    };
+
+    fetchProfiles();
+  }, []);
 
   return (
     <Layout>
-      <MainContent />
+      <MainContent profiles={profiles} />
     </Layout>
   );
 };

@@ -9,6 +9,7 @@ import ProfilesPage from './views/ProfilesPage'; // Nueva página para Perfiles
 import ProtectedRoute from './components/ProtectedRoute'; // Importa la protección de rutas
 import InventoryPage from './views/InventoryPage'
 import BookForm from './views/BookFormPage'
+import PermissionsPage from './views/PermissionsPage'; // Nueva página para Permisos
 
 function App() {
   const getDashboardRoute = () => {
@@ -83,6 +84,12 @@ function App() {
         <Route path="/security/profiles" element={
           <ProtectedRoute allowedRoles={["super admin","student"]}>
             <ProfilesPage />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/security/permissions/:id" element={
+          <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
+            <PermissionsPage />
           </ProtectedRoute>
         } />
 

@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import GridUsers from '../components/GridUsers';
 //import { drawerStyles, listItemTextStyles } from '../components/styles'; // Importa estilos
 
+
 // Datos de ejemplo para la tabla
 const users = [
   { id: 1, name: 'Mario', lastname: 'Castañeda', email: 'hold@gmail.com', username: 'mcastaneda', country: 'Venezuela', type_document: 'V', number_document: '30123032', role: ['Admin','user','lol','achu'], joinedAt: '12/12/2001' },
