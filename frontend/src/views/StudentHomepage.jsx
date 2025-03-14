@@ -40,37 +40,42 @@ const StudentHomePage = () => {
                 padding: "10px 20px", 
               },
             }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
+            slotProps={{
+              input:{
+                endAdornment: (
+                  <InputAdornment position="end">
                   <SearchIcon sx={{ color: "gray" }} />
                 </InputAdornment>
-              ),
-            }}
-            
+                )
+              }
+            }}  
           />
           
         </Container>
-
+        
         {/* Sección de tarjetas */}
         <Container sx={{ marginTop: 5 }}>
           <Grid2 container spacing={3} justifyContent="center">
             {cardsData.map((card, index) => (
               <Grid2 item key={index} xs={12} sm={6} md={3}>
-                <Card sx={{ maxWidth: 270 }}>
+                <Card sx={{ maxWidth: "270px" }}>
                   <CardMedia 
                     component="img" 
-                    height="140" 
                     image={card.image} 
                     alt={card.title}
-                    sx={{ objectFit: "cover" }}
+                    sx={{ 
+                      objectFit: "cover",
+                      height: 180,
+                      borderTopLeftRadius: "10px",
+                      borderTopRightRadius: "10px",
+                 }}
                   />
                   <CardContent>
                     <Typography variant="h6">{card.title}</Typography>
                     <Typography variant="body2" color="text.secondary">
                       {card.description}
                     </Typography>
-                    <Button variant="contained" sx={{ marginTop: 5, backgroundColor: "#003366" }} >
+                    <Button variant="contained" sx={{ marginTop: 4, backgroundColor: "#003366" }} >
                       Ver {card.title.toLowerCase()}
                     </Button>
                   </CardContent>
