@@ -45,6 +45,7 @@
 .form-input input,
 .form-input textarea,
 .form-input select{
+    min-width: 150px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
