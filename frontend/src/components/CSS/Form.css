@@ -1,0 +1,117 @@
+.form-container{
+    height: 'min-heght';
+    padding: 50px;
+    display: grid;
+    gap: 20px;
+}
+
+.form-bottom-group button{
+    background-color: #1a4567;
+    font-size: 25px;
+    color: #fff;
+    height: min-content;
+    padding: 0px;
+    width: 35px;
+}
+
+.form-left-group{grid-area: form-left-group; }
+.form-right-group{grid-area: form-right-group;}
+.form-bottom-group{grid-area: form-bottom-group; background-color: aquamarine;}
+
+.form-content{
+    display: grid;
+    grid-template-areas:
+    'form-left-group form-right-group'
+    'form-bottom-group form-bottom-group';
+    grid-template-columns: 1fr 1.5fr;
+    grid-template-rows: 4fr 2fr;
+    column-gap: 60px;
+    row-gap: 30px;
+}
+
+.form-input{
+    display:grid;
+}
+
+.form-input input,
+.form-input textarea,
+.form-input select{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    box-sizing: border-box; 
+}
+
+
+
+.form-input textarea{
+    resize: none;
+    min-height: 150px;
+}
+
+.form-input input{
+    max-height: 40px;
+    height: 100%;
+}
+.form-input label{
+    justify-self: left;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+}
+
+.form-top-group{
+    justify-self: left;
+}
+
+.form-left-group, .form-right-group{
+    display:grid;
+    gap: 20px;
+}
+
+.form-left-group, .form-cover-image, .form-right-group{
+    align-self: start;
+}
+
+.form-bottom-group{
+    display: flex;
+    gap:50px;
+}
+
+.form-input-list{
+    display: grid;
+    align-self: start;
+    text-align: left;
+    gap: 20px;
+}
+
+.form-input-list input{
+    width: 300px;
+}
+.form-input-list-item input{
+    border: none;
+    border-bottom: 2px solid #000;
+    outline: none; 
+    font-size: 18px;
+    width: 265px;
+    background-color: transparent;
+}
+.form-input-list-item input:focus{
+    border-bottom: 2px solid #1a4567;
+}
+
+.form-input-list-item{
+    display: flex;
+    justify-content: left;
+    align-items: end;
+}
+.form-input-list-item button{
+    background-color: transparent;
+    color: #000000;
+    font-size: 18px;
+    height: 30px;
+    border-bottom: 2px solid #000;
+    border-radius: 0;
+}

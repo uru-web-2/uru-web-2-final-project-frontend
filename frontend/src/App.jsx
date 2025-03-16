@@ -12,12 +12,12 @@ import ArticlesPage from './views/ArticlesPage'
 import MagazinesPage from './views/MagazinesPage'
 import ThesesPage from './views/ThesesPage'
 import StudentCatalog from './views/StudentCatalog'
-import BookForm from './views/BookFormPage'
 import PermissionsPage from './views/PermissionsPage'; // Nueva página para Permisos
 import NavbarHomepage from './components/NavbarHomepage';
 import StudentLoans from './views/StudentLoans';
 import StudentAbout from './views/StudentAbout';
 import StudentSupport from './views/StudentSupport';
+import BookFormPage from './views/BookFormPage';
 
 function App() {
   const getDashboardRoute = () => {
@@ -62,8 +62,7 @@ function App() {
         {/*Estudiante-catálogo*/}
         <Route path="/catalogo" element={
           <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
-            <StudentCatalog />
-            <NavbarHomepage />
+            <BookFormPage/>
           </ProtectedRoute>
         } />
 
@@ -135,7 +134,7 @@ function App() {
 
         <Route path="/book/form" element={
           <ProtectedRoute allowedRoles={["super admin","student"]}>
-            <BookForm/>
+            <BookFormPage/>
           </ProtectedRoute>
         } />
 
