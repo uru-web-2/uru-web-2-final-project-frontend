@@ -16,21 +16,30 @@
 
 .form-left-group{grid-area: form-left-group; }
 .form-right-group{grid-area: form-right-group;}
-.form-bottom-group{grid-area: form-bottom-group; background-color: aquamarine;}
+.form-bottom-group{grid-area: form-bottom-group;}
+.form-bottom-group-2{grid-area: form-bottom-group-2;}
 
 .form-content{
     display: grid;
     grid-template-areas:
     'form-left-group form-right-group'
-    'form-bottom-group form-bottom-group';
+    'form-bottom-group form-bottom-group'
+    'form-bottom-group-2 form-bottom-group-2';
     grid-template-columns: 1fr 1.5fr;
-    grid-template-rows: 4fr 2fr;
+    grid-template-rows: auto minmax(0, auto) minmax(0, auto);
     column-gap: 60px;
     row-gap: 30px;
 }
 
 .form-input{
     display:grid;
+}
+
+.form-button{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 20px;
 }
 
 .form-input input,
@@ -68,16 +77,22 @@
 
 .form-left-group, .form-right-group{
     display:grid;
+    max-height: fit-content;
     gap: 20px;
 }
 
-.form-left-group, .form-cover-image, .form-right-group{
+.form-left-group, .form-cover-image, .form-right-group, .form-bottom-group{
     align-self: start;
 }
 
 .form-bottom-group{
     display: flex;
     gap:50px;
+}
+
+.form-bottom-group-2{
+    display: grid;
+    gap:30px;
 }
 
 .form-input-list{
@@ -87,8 +102,11 @@
     gap: 20px;
 }
 
-.form-input-list input{
+.form-input-list input,
+.form-bottom-group-2 input,
+.form-bottom-group-2 select{
     width: 300px;
+    min-height: 42px;
 }
 .form-input-list-item input{
     border: none;
@@ -115,3 +133,15 @@
     border-bottom: 2px solid #000;
     border-radius: 0;
 }
+
+.form-input-list-item button:hover{
+    border-color: transparent;
+    border-bottom-color:black; ;
+    color: #999999;
+}
+
+.disabled-input {
+    opacity: 0.6; 
+    cursor: not-allowed;
+    color: #ccc;
+  }
