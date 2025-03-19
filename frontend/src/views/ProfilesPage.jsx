@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container } from '@mui/material';
 import GridProfiles from '../components/GridProfiles';
 import Layout from '../components/Layout';
-import { getAllProfiles } from '../Services/userPageService';
+import { getAllProfiles } from '../Services/permissionsPageService';
 
 // eslint-disable-next-line react/prop-types
 const MainContent = ({ profiles }) => (

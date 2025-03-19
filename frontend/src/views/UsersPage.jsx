@@ -4,7 +4,6 @@ import Layout from '../components/Layout';
 import GridUsers from '../components/GridUsers';
 //import { drawerStyles, listItemTextStyles } from '../components/styles'; // Importa estilos
 
-
 // Datos de ejemplo para la tabla
 const users = [
   { id: 1, name: 'Mario', lastname: 'Castañeda', email: 'hold@gmail.com', username: 'mcastaneda', country: 'Venezuela', type_document: 'V', number_document: '30123032', role: ['Admin','user','lol','achu'], joinedAt: '12/12/2001' },
@@ -20,12 +19,6 @@ const users = [
   { id: 51, name: 'Ortodoncia', lastname: 'Limpieza', email: 'ortodoncia@example.com', username: 'ortodoncia', country: 'Venezuela', type_document: 'V', number_document: '11223344', role: ['User'], joinedAt: '07/07/2017' },
   { id: 61, name: 'Cirugia', lastname: 'Limpieza', email: 'cirugia@example.com', username: 'cirugia', country: 'Venezuela', type_document: 'V', number_document: '44332211', role: ['User'], joinedAt: '09/09/2019' },
 ];
-
-const profiles = [
-  { id: 1, name: 'student'},
-  { id: 2, name: 'student'},
-  { id: 3, name: 'student'}
-]
 
 const MainContent = () => (
   <Container>

@@ -1,14 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Paper, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Pagination, Box } from '@mui/material';
-import ModalWrapper from './ModalWrapper'; // Asegúrate de importar el ModalWrapper
 import UserDetailsModal from './UserDetailsModal';
 import Search from './Search';
 import PageSizeSelector from './PageSizeSelector';
-import CreateUserModal from './CreateUserModal'; // Importa el componente CreateUserModal
+import CreateUserModal from './CreateUserModal';
+import { getAllUsers, GetUserDetailsByUserID } from '../Services/userPageServices';
 
-const GridUsers = ({ data: initialData }) => {
+// Componente de la tabla de usuarios
+const GridUsers = () => {
+  // Estado para los datos de usuarios
+  const [data, setData] = useState([]);
+
+  // Estado para los detalles del usuario seleccionado
+  const [userDetails, setUserDetails] = useState(null);
+
+  // Columnas excluidas de la tabla
   const excludedColumns = ['type_document', 'number_document', 'role'];
-  const columns = initialData.length > 0 ? Object.keys(initialData[0]).filter(column => !excludedColumns.includes(column)) : [];
+  const columns = data.length > 0 ? Object.keys(data[0]).filter(column => !excludedColumns.includes(column)) : [];
 
   // Estado para la paginación
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,9 +28,6 @@ const GridUsers = ({ data: initialData }) => {
 
   // Estado para el modal de creación de usuario
   const [isCreateUserModalOpen, setIsCreateUserModalOpen] = useState(false);
-
-  // Estado para los datos de usuarios
-  const [data, setData] = useState(initialData);
 
   // Calcular los usuarios que deben mostrarse en la página actual
   const indexOfLastUser = currentPage * itemsPerPage;
@@ -50,6 +55,7 @@ const GridUsers = ({ data: initialData }) => {
   const handleCloseDetailsModal = () => {
     setIsDetailsModalOpen(false); // Cierra el modal
     setSelectedUser(null); // Limpia el usuario seleccionado
+    setUserDetails(null); // Limpia los detalles del usuario
   };
 
   // Abrir el modal de creación de usuario
@@ -67,6 +73,39 @@ const GridUsers = ({ data: initialData }) => {
     setData([...data, { ...newUser, id: data.length + 1 }]); // Agrega el nuevo usuario a la lista
     handleCloseCreateUserModal(); // Cierra el modal
   };
+
+  // Llamar a getAllUsers cuando el componente se monte
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await getAllUsers();
+        setData(response.data); // Almacena los datos en el estado local
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    };
+
+    fetchUsers();
+  }, []); // El array vacío asegura que solo se ejecute al montar el componente
+
+  // Llamar a GetUserDetailsByUserID cuando se seleccione un usuario
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      if (selectedUser) {
+        try {
+          const response = await GetUserDetailsByUserID(selectedUser.user_id); // Obtiene los detalles del usuario
+          console.log(response.data.users, 'user achu');
+          
+          setUserDetails(response.data.users); // Almacena los detalles en el estado
+        } catch (error) {
+          console.error('Error fetching user details:', error);
+        }
+      }
+      
+    };
+
+    fetchUserDetails();
+  }, [selectedUser]); // Se ejecuta cuando selectedUser cambia
 
   return (
     <Paper elevation={3} sx={{ padding: 2, margin: 2 }}>
@@ -140,7 +179,7 @@ const GridUsers = ({ data: initialData }) => {
           <TableBody>
             {currentUsers.map((user, index) => (
               <TableRow
-                key={user.id}
+                key={user.user_id} // Clave única para cada fila
                 sx={{
                   backgroundColor: index % 2 === 0 ? '#FFFFFF' : '#E3EAF9',
                   '&:hover': {
@@ -149,13 +188,13 @@ const GridUsers = ({ data: initialData }) => {
                 }}
               >
                 {columns.map((column) => (
-                  <TableCell key={`${user.id}-${column}`}>
+                  <TableCell key={`${user.user_id}-${column}`}>
                     {Array.isArray(user[column]) ? user[column].join(', ') : user[column]}
                   </TableCell>
                 ))}
                 <TableCell>
                   <Button
-                    onClick={() => handleOpenDetailsModal(user)} // Abre el modal con el usuario seleccionado
+                    onClick={() => handleOpenDetailsModal(user)}
                     variant="outlined"
                     color="primary"
                     sx={{ mr: 1 }}
@@ -180,12 +219,16 @@ const GridUsers = ({ data: initialData }) => {
       </div>
 
       {/* Modal de detalles */}
-      <UserDetailsModal
-        isOpen={isDetailsModalOpen}
-        title="Información Personal"
-        onClose={handleCloseDetailsModal}
-        user={selectedUser}
-      />
+      {isDetailsModalOpen && userDetails && (
+        console.log(userDetails, 'userdetails8'),
+        <UserDetailsModal
+          isOpen={isDetailsModalOpen}
+          title="Información Personal"
+          onClose={handleCloseDetailsModal}
+          user={selectedUser}
+          userDetails={userDetails} // Pasamos los detalles del usuario al modal
+        />
+      )}
 
       {/* Modal de creación de usuario */}
       <CreateUserModal

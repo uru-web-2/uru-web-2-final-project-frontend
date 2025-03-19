@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Paper, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Select, MenuItem, FormControl, InputLabel, Checkbox, Box } from '@mui/material';
-import { getModModules, getObjectsByModuleID, getMethodsByObjectID } from '../Services/userPageService'; // Importa las funciones para obtener datos
+import { getModModules, getObjectsByModuleID, getMethodsByObjectID } from '../Services/permissionsPageService'; // Importa las funciones para obtener datos
 
 const PermissionsGrid = () => {
   const [modules, setModules] = useState([]); // Módulos disponibles
@@ -10,10 +10,15 @@ const PermissionsGrid = () => {
   const [selectedObject, setSelectedObject] = useState(''); // Objeto seleccionado
   const [selectedMethods, setSelectedMethods] = useState({}); // Métodos seleccionados
   const [isModified, setIsModified] = useState(false); // Estado de modificación
-
+  console.log(modules);
   // Cargar módulos al montar el componente
   useEffect(() => {
-    getModModules().then(modulesData=> {setModules(modulesData)}).catch(err=>console.error('Error fetching modules:', err))
+    getModModules().then(modulesData=> 
+      {
+        console.log(modulesData);
+        setModules(modulesData)
+      }
+    ).catch(err=>console.error('Error fetching modules:', err))
   }, []);
 
   // Cargar objetos cuando se selecciona un módulo
@@ -22,6 +27,8 @@ const PermissionsGrid = () => {
       const fetchObjects = async () => {
         try {
           const objectsData = await getObjectsByModuleID(selectedModule);
+          console.log(objectsData,'objectsGrid');
+          
           setObjects(objectsData);
           setSelectedObject(''); // Reiniciar el objeto seleccionado
           setMethods([]); // Reiniciar los métodos
@@ -65,7 +72,10 @@ const PermissionsGrid = () => {
 
   // Seleccionar todos los métodos de un objeto
   const handleSelectAll = (objectId) => {
-    const allMethods = methods.filter(m => m.object_id === objectId).map(m => m.method_id);
+    const allMethods = methods.filter(m => {
+      console.log(m,'m');
+      
+      m.id === objectId}).map(m => m.id);
     const allSelected = allMethods.every(methodId => selectedMethods[objectId]?.[methodId]);
 
     setSelectedMethods(prev => ({
@@ -102,7 +112,7 @@ const PermissionsGrid = () => {
             >
               {modules.map(module => (
                 <MenuItem key={module.id} value={module.id}>
-                  {module.module_name}
+                  {module.name}
                 </MenuItem>
               ))}
             </Select>
@@ -116,8 +126,8 @@ const PermissionsGrid = () => {
               label="Object"
             >
               {objects.map(obj => (
-                <MenuItem key={obj.object_id} value={obj.object_id}>
-                  {obj.object_name}
+                <MenuItem key={obj.id} value={obj.id}>
+                  {obj.name}
                 </MenuItem>
               ))}
             </Select>
@@ -197,7 +207,7 @@ const PermissionsGrid = () => {
                   }}
                 >
                   <Checkbox
-                    checked={methods.every(m => selectedMethods[selectedObject]?.[m.method_id])}
+                    checked={methods.every(m => selectedMethods[selectedObject]?.[m.id])}
                     onChange={() => handleSelectAll(selectedObject)}
                     sx={{ color: '#FFFFFF' }} // Color del checkbox en el header
                   />
@@ -207,7 +217,7 @@ const PermissionsGrid = () => {
             <TableBody>
               {methods.map((method, index) => (
                 <TableRow
-                  key={method.method_id}
+                  key={method.id}
                   sx={{
                     backgroundColor: index % 2 === 0 ? '#FFFFFF' : '#E3EAF9',
                     '&:hover': {
@@ -215,12 +225,12 @@ const PermissionsGrid = () => {
                     },
                   }}
                 >
-                  <TableCell>{method.method_name}</TableCell>
-                  <TableCell>{method.method_description}</TableCell>
+                  <TableCell>{method.name}</TableCell>
+                  <TableCell>{method.description}</TableCell>
                   <TableCell align="right">
                     <Checkbox
-                      checked={!!selectedMethods[selectedObject]?.[method.method_id]}
-                      onChange={() => handleMethodChange(selectedObject, method.method_id)}
+                      checked={!!selectedMethods[selectedObject]?.[method.id]}
+                      onChange={() => handleMethodChange(selectedObject, method.id)}
                     />
                   </TableCell>
                 </TableRow>

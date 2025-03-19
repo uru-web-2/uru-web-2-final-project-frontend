@@ -1,4 +1,4 @@
-import { APIWrapper } from '../Services/APIWrapper';
+import { APIWrapper } from './APIWrapper';
 
 const api = new APIWrapper('/api');
 
