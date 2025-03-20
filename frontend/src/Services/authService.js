@@ -8,6 +8,8 @@ export const loginService = async (username, password, profile = 'null') => {
     });
     
     const data = await response.json();
+    console.log(data);
+    
     
     // Manejar el caso específico del error de múltiples perfiles
     if (data.status === 'fail' && data.data?.profile) {

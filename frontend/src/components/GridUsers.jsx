@@ -4,7 +4,7 @@ import UserDetailsModal from './UserDetailsModal';
 import Search from './Search';
 import PageSizeSelector from './PageSizeSelector';
 import CreateUserModal from './CreateUserModal';
-import { getAllUsers, GetUserDetailsByUserID } from '../Services/userPageServices';
+import { getAllUsers, GetUserDetailsByUserID, createUsers } from '../Services/userPageServices';
 
 // Componente de la tabla de usuarios
 const GridUsers = () => {
@@ -68,10 +68,32 @@ const GridUsers = () => {
     setIsCreateUserModalOpen(false);
   };
 
-  // Manejar la creación de un nuevo usuario
-  const handleCreateUser = (newUser) => {
-    setData([...data, { ...newUser, id: data.length + 1 }]); // Agrega el nuevo usuario a la lista
-    handleCloseCreateUserModal(); // Cierra el modal
+  const handleCreateUser = async (newUser) => {
+    try {
+      console.log(newUser, 'newUser');
+      
+      // Enviar los datos del nuevo usuario al servidor
+      const response = await createUsers(newUser);
+      console.log(1);
+      console.log(response, 'respuesta');
+      
+      // Verificar si la respuesta es exitosa
+      if (response.status === 'success' || response.status === 201) {
+        console.log(response.status, 'user');
+        console.log(2);
+  
+        // Volver a cargar la lista de usuarios desde el servidor
+        const updatedUsersResponse = await getAllUsers();
+        setData(updatedUsersResponse.data.users); // Actualiza el estado con la lista completa
+  
+        // Cerrar el modal de creación de usuario
+        handleCloseCreateUserModal();
+      } else {
+        console.error('Error al crear el usuario:', response.data);
+      }
+    } catch (error) {
+      console.error('Error al crear el usuario:', error);
+    }
   };
 
   // Llamar a getAllUsers cuando el componente se monte
@@ -79,7 +101,7 @@ const GridUsers = () => {
     const fetchUsers = async () => {
       try {
         const response = await getAllUsers();
-        setData(response.data); // Almacena los datos en el estado local
+        setData(response.data.users); // Almacena los datos en el estado local
       } catch (error) {
         console.error('Error fetching users:', error);
       }
@@ -94,9 +116,9 @@ const GridUsers = () => {
       if (selectedUser) {
         try {
           const response = await GetUserDetailsByUserID(selectedUser.user_id); // Obtiene los detalles del usuario
-          console.log(response.data.users, 'user achu');
+          console.log(response.data, 'user achu');
           
-          setUserDetails(response.data.users); // Almacena los detalles en el estado
+          setUserDetails(response.data); // Almacena los detalles en el estado
         } catch (error) {
           console.error('Error fetching user details:', error);
         }

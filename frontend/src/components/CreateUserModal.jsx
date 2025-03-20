@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ModalWrapper from './ModalWrapper';
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { countryList } from '../Services/countryService';
 
 const CreateUserModal = ({ isOpen, onClose, onCreateUser }) => {
   // Estado para manejar los valores del formulario
@@ -90,15 +91,23 @@ const CreateUserModal = ({ isOpen, onClose, onCreateUser }) => {
           margin="normal"
           size="small"
         />
-        <TextField
-          fullWidth
-          label="País del documento"
-          name="document_country"
-          value={formData.document_country}
-          onChange={handleChange}
-          margin="normal"
-          size="small"
-        />
+        <FormControl fullWidth margin="normal" size="small">
+          <InputLabel id="document-country-label">País del documento</InputLabel>
+          <Select
+            labelId="document-country-label"
+            id="document-country"
+            label="País del documento"
+            name="document_country"
+            value={formData.document_country}
+            onChange={handleChange}
+          >
+            {countryList.map((country) => (
+              <MenuItem value={country}>
+                {country}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <TextField
           fullWidth
           label="Tipo de documento"
