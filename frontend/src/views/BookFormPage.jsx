@@ -1,14 +1,19 @@
 import React from "react";
 import Layout from "../components/Layout";
-import CoverImage from "../components/CoverImage";
+import {Paper} from "@mui/material";
+import BookForm from "../components/BookForm";
+
+function BookFormPage() {
 
 
-function BookForm() {
     return (
+
         <Layout>
-            <CoverImage image="https://picsum.photos/200/300" />
+            <Paper elevation={5}>
+                <BookForm/>
+            </Paper>
         </Layout>
     );
 }
 
-export default BookForm;
+export default BookFormPage;
