@@ -22,7 +22,7 @@ const Login = () => {
     };
 
     const profileRoutes = {
-        "student": "/student-dashboard",
+        "student": "/student-homepage",
         "librarian": "/librarian-dashboard",
         "super admin": "/admin-dashboard",
     };

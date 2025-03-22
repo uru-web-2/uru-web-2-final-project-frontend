@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import CoverImage from "../components/CoverImage";
+import CoverImage from "../CoverImage";
 import { Box,Typography, Button} from "@mui/material";
 import { useForm, useFieldArray } from 'react-hook-form'
-import './CSS/Form.css'
+import '../CSS/Form.css'
 
 
 function MagazineForm() {

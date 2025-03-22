@@ -2,7 +2,7 @@ import CardList from "../components/CardList";
 import { Paper,Box, Button } from "@mui/material";
 import React, { useState } from "react";
 import Layout from "../components/Layout";
-
+import { useNavigate } from 'react-router-dom';
 
 const generateData = (numItems) => {
     const data = [];
@@ -23,12 +23,20 @@ const generateData = (numItems) => {
 
 const data = generateData(20);
 
+
+
 function ArticlesPage() {
+
+    const navigate = useNavigate();
+    
+    const addArticle = () =>{
+        navigate('/inventory/articles/form');
+    }
 
     return (
         <Layout>
             <Paper elevation={3} sx={{pb: 2}}>
-                <CardList data={data}/>
+                <CardList data={data} addFunction={addArticle}/>
             </Paper>
         </Layout>
     );

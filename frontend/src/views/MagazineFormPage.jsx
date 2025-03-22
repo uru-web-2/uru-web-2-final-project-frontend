@@ -1,19 +1,19 @@
 import React from "react";
 import Layout from "../components/Layout";
 import {Paper} from "@mui/material";
-import BookForm from "../components/InventoryForms/BookForm";
+import MagazineForm from "../components/InventoryForms/MagazineForm";
 
-function BookFormPage() {
+function MagazineFormPage() {
 
 
     return (
 
         <Layout>
             <Paper elevation={5}>
-                <BookForm/>
+                <MagazineForm/>
             </Paper>
         </Layout>
     );
 }
 
-export default BookFormPage;
+export default MagazineFormPage;

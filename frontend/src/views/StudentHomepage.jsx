@@ -20,8 +20,8 @@ const StudentHomePage = () => {
         <NavbarHomepage />
         <div style={{ marginTop: "80px" }}></div>
 
-   {/*Componente search (usandolo)*/}
-      <Container sx={{ 
+        {/*Componente search (usandolo)*/}
+        <Container sx={{ 
         display: "flex", 
         justifyContent: "center",
         }}>    
@@ -33,7 +33,7 @@ const StudentHomePage = () => {
         <Container sx={{ marginTop: 5 }}>
           <Grid2 container spacing={3} justifyContent="center" alignItems={"stretch"}>
             {cardsData.map((card, index) => (
-              <Grid2 item key={index} xs={12} sm={6} md={3} sx={{ display: "flex"}}>
+              <Grid2 key={index} xs={12} sm={6} md={3} sx={{ display: "flex"}}>
                 <Card sx={{ 
                   flexDirection: "column",
                   justifyContent: "space-between",

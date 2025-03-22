@@ -15,8 +15,8 @@
 }
 
 .form-left-group{grid-area: form-left-group; }
-.form-right-group{grid-area: form-right-group;}
-.form-bottom-group{grid-area: form-bottom-group;}
+.form-right-group{grid-area: form-right-group; } 
+.form-bottom-group{grid-area: form-bottom-group; }
 .form-bottom-group-2{grid-area: form-bottom-group-2;}
 
 .form-content{

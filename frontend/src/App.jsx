@@ -18,6 +18,10 @@ import StudentLoans from './views/StudentLoans';
 import StudentAbout from './views/StudentAbout';
 import StudentSupport from './views/StudentSupport';
 import BookFormPage from './views/BookFormPage';
+import ArticleFormPage from './views/ArticleFormPage';
+import MagazineFormPage from './views/MagazineFormPage';
+import ThesisFormPage from './views/ThesisFormPage';
+
 
 function App() {
   const getDashboardRoute = () => {
@@ -52,30 +56,26 @@ function App() {
       <Routes>
         <Route path="/login" element={isAuthenticated() ? <Navigate to={getDashboardRoute()} /> : <Login_Register />} />
 
-        {/*Estudiante-homepage*/}
+        {/*Student Module */}
         <Route path="/student-homepage" element={
           <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
             <StudentHomepage />
           </ProtectedRoute>
         } />
 
-        {/*Estudiante-catálogo*/}
         <Route path="/catalogo" element={
           <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
-            <BookFormPage/>
+            <StudentCatalog/>
           </ProtectedRoute>
         } />
 
-        {/*Estudiante-soporte*/}
         <Route path="/soporte" element={
           <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
             <StudentSupport />
-            <NavbarHomepage />
           </ProtectedRoute>
         } />
 
 
-        {/*Estudiante-préstamos*/}
         <Route path="/prestamos" element={
           <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
             <StudentLoans />
@@ -83,7 +83,6 @@ function App() {
           </ProtectedRoute>
         } />
 
-        {/*Estudiante-nosotros*/}
         <Route path="/nosotros" element={
           <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
             <StudentAbout />
@@ -91,28 +90,50 @@ function App() {
           </ProtectedRoute>
         } />
 
-
-
-        {/*Bibliotecario-dashboard*/}
+        {/*Dashboards */}
         <Route path="/librarian-dashboard" element={
           <ProtectedRoute allowedRoles={["librarian"]}>
             <LibrarianDashboard />
           </ProtectedRoute>
         } />
 
-        {/*Admin-dashboard*/}
         <Route path="/admin-dashboard" element={
           <ProtectedRoute allowedRoles={["super admin", "student"]}>
             <AdminDashboard />
           </ProtectedRoute>
         } />
 
-        {/*Inventario-libros*/}
+        {/*Inventory Module */}
         <Route path="/inventory/books" element={
           <ProtectedRoute allowedRoles={["super admin","student"]}>
             <BooksPage />
           </ProtectedRoute>
         } />
+
+        <Route path="/inventory/books/form" element={
+          <ProtectedRoute allowedRoles={["super admin","student"]}>
+            <BookFormPage />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/inventory/magazines/form" element={
+          <ProtectedRoute allowedRoles={["super admin","student"]}>
+            <MagazineFormPage />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/inventory/articles/form" element={
+          <ProtectedRoute allowedRoles={["super admin","student"]}>
+            <ArticleFormPage />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/inventory/theses/form" element={
+          <ProtectedRoute allowedRoles={["super admin","student"]}>
+            <ThesisFormPage />
+          </ProtectedRoute>
+        } />
+        
 
         <Route path="/inventory/articles" element={
           <ProtectedRoute allowedRoles={["super admin","student"]}>
@@ -132,22 +153,13 @@ function App() {
           </ProtectedRoute>
         } />
 
-        <Route path="/book/form" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
-            <BookFormPage/>
-          </ProtectedRoute>
-        } />
-
-        Nuevas rutas para Usuarios y Perfiles
-
-        {/*Usuario*/}
+        {/*Security Module */}
         <Route path="/security/users" element={
           <ProtectedRoute allowedRoles={["super admin", "student"]}>
             <UsersPage />
           </ProtectedRoute>
         } />
 
-        {/*Perfiles*/}
         <Route path="/security/profiles" element={
           <ProtectedRoute allowedRoles={["super admin", "student"]}>
             <ProfilesPage />
