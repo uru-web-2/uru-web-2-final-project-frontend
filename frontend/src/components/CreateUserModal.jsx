@@ -102,21 +102,26 @@ const CreateUserModal = ({ isOpen, onClose, onCreateUser }) => {
             onChange={handleChange}
           >
             {countryList.map((country) => (
-              <MenuItem value={country}>
+              <MenuItem key={country} value={country}>
                 {country}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
-        <TextField
-          fullWidth
-          label="Tipo de documento"
-          name="document_type"
-          value={formData.document_type}
-          onChange={handleChange}
-          margin="normal"
-          size="small"
-        />
+        <FormControl fullWidth margin="normal" size="small">
+          <InputLabel id="document-type-label">Tipo de documento</InputLabel>
+          <Select
+            labelId="document-type-label"
+            id="document-type"
+            label="Tipo de documento"
+            name="document_type"
+            value={formData.document_type}
+            onChange={handleChange}
+          >
+            <MenuItem value="Identity Document">Identity Document</MenuItem>
+            <MenuItem value="Passport">Passport</MenuItem>
+          </Select>
+        </FormControl>
         <TextField
           fullWidth
           label="Número de documento"

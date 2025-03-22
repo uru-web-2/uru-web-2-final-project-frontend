@@ -67,9 +67,9 @@ const GridProfiles = ({ data }) => {
         <Search />
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <PageSizeSelector numberItems={[1,5,7,10,15]} onChange={handleItemsPerPageChange} value={itemsPerPage}/>
-          <Button variant="contained" color="primary">
+          {/* <Button variant="contained" color="primary">
             + Add
-          </Button>
+          </Button> */}
         </Box>
       </Box>
       

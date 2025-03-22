@@ -4,7 +4,7 @@ import UserDetailsModal from './UserDetailsModal';
 import Search from './Search';
 import PageSizeSelector from './PageSizeSelector';
 import CreateUserModal from './CreateUserModal';
-import { getAllUsers, GetUserDetailsByUserID, createUsers } from '../Services/userPageServices';
+import { apiService } from '../Services/Services';
 
 // Componente de la tabla de usuarios
 const GridUsers = () => {
@@ -33,6 +33,24 @@ const GridUsers = () => {
   const indexOfLastUser = currentPage * itemsPerPage;
   const indexOfFirstUser = indexOfLastUser - itemsPerPage;
   const currentUsers = data.slice(indexOfFirstUser, indexOfLastUser);
+
+  const handleSearchClick = async (userSearch) => {
+
+    try {
+      const response = await apiService.searchUser(userSearch)
+      console.log(response);
+      if(userSearch==''){
+        const updatedUsersResponse = await apiService.getAllUsers();
+        setData(updatedUsersResponse.data.users); // Actualiza el estado con la lista completa
+      }else{
+        setData(response)
+      }
+      
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
 
   // Cambiar de página
   const handlePageChange = (event, page) => {
@@ -73,7 +91,7 @@ const GridUsers = () => {
       console.log(newUser, 'newUser');
       
       // Enviar los datos del nuevo usuario al servidor
-      const response = await createUsers(newUser);
+      const response = await apiService.createUsers(newUser);
       console.log(1);
       console.log(response, 'respuesta');
       
@@ -83,7 +101,7 @@ const GridUsers = () => {
         console.log(2);
   
         // Volver a cargar la lista de usuarios desde el servidor
-        const updatedUsersResponse = await getAllUsers();
+        const updatedUsersResponse = await apiService.getAllUsers();
         setData(updatedUsersResponse.data.users); // Actualiza el estado con la lista completa
   
         // Cerrar el modal de creación de usuario
@@ -100,7 +118,7 @@ const GridUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await getAllUsers();
+        const response = await apiService.getAllUsers(); // Obtiene la lista de usuarios
         setData(response.data.users); // Almacena los datos en el estado local
       } catch (error) {
         console.error('Error fetching users:', error);
@@ -115,7 +133,7 @@ const GridUsers = () => {
     const fetchUserDetails = async () => {
       if (selectedUser) {
         try {
-          const response = await GetUserDetailsByUserID(selectedUser.user_id); // Obtiene los detalles del usuario
+          const response = await apiService.getUserDetailsByUserID(selectedUser.user_id); // Obtiene los detalles del usuario
           console.log(response.data, 'user achu');
           
           setUserDetails(response.data); // Almacena los detalles en el estado
@@ -137,7 +155,7 @@ const GridUsers = () => {
 
       {/* Barra de búsqueda, selector de items por página y botón "Add" */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Search />
+        <Search click={handleSearchClick} />
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <PageSizeSelector numberItems={[1, 5, 7, 10, 15]} onChange={handleItemsPerPageChange} value={itemsPerPage} />
           <Button variant="contained" color="primary" onClick={handleOpenCreateUserModal}>
