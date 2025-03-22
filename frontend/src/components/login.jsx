@@ -22,9 +22,9 @@ const Login = () => {
     };
 
     const profileRoutes = {
-        "student": "/student-dashboard",
-        "librarian": "/librarian-dashboard",
-        "super admin": "/admin-dashboard",
+        "Student": "/student-homepage",
+        "Librarian": "/librarian-dashboard",
+        "Super Admin": "/admin-dashboard",
     };
 
     const togglePasswordVisibility = () => {

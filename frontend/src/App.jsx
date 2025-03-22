@@ -29,9 +29,9 @@ function App() {
     }
     
     const routes = {
-      "student": "/student-homepage",
-      "librarian": "/librarian-dashboard",
-      "super admin": "/admin-dashboard",
+      "Student": "/student-homepage",
+      "Librarian": "/librarian-dashboard",
+      "Super Admin": "/admin-dashboard",
     };
 
     for (const role of roles) {
@@ -48,27 +48,28 @@ function App() {
   };
 
   return (
+
     <Router>
       <Routes>
         <Route path="/login" element={isAuthenticated() ? <Navigate to={getDashboardRoute()} /> : <Login_Register />} />
 
         {/*Estudiante-homepage*/}
         <Route path="/student-homepage" element={
-          <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
+          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
             <StudentHomepage />
           </ProtectedRoute>
         } />
 
         {/*Estudiante-catálogo*/}
         <Route path="/catalogo" element={
-          <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
+          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
             <BookFormPage/>
           </ProtectedRoute>
         } />
 
         {/*Estudiante-soporte*/}
         <Route path="/soporte" element={
-          <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
+          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
             <StudentSupport />
             <NavbarHomepage />
           </ProtectedRoute>
@@ -77,7 +78,7 @@ function App() {
 
         {/*Estudiante-préstamos*/}
         <Route path="/prestamos" element={
-          <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
+          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
             <StudentLoans />
             <NavbarHomepage />
           </ProtectedRoute>
@@ -85,77 +86,75 @@ function App() {
 
         {/*Estudiante-nosotros*/}
         <Route path="/nosotros" element={
-          <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
+          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
             <StudentAbout />
             <NavbarHomepage />
           </ProtectedRoute>
         } />
-
-
-
+        
         {/*Bibliotecario-dashboard*/}
         <Route path="/librarian-dashboard" element={
-          <ProtectedRoute allowedRoles={["librarian"]}>
+          <ProtectedRoute allowedRoles={["Librarian"]}>
             <LibrarianDashboard />
           </ProtectedRoute>
         } />
 
         {/*Admin-dashboard*/}
         <Route path="/admin-dashboard" element={
-          <ProtectedRoute allowedRoles={["super admin", "student"]}>
+          <ProtectedRoute allowedRoles={["Super Admin", "Student"]}>
             <AdminDashboard />
           </ProtectedRoute>
         } />
 
         {/*Inventario-libros*/}
         <Route path="/inventory/books" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super Admin","Student"]}>
             <BooksPage />
           </ProtectedRoute>
         } />
 
         <Route path="/inventory/articles" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super Admin","Student"]}>
             <ArticlesPage />
           </ProtectedRoute>
         } />
 
         <Route path="/inventory/magazines" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super Admin","Student"]}>
             <MagazinesPage />
           </ProtectedRoute>
         } />
 
         <Route path="/inventory/theses" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super Admin","Student"]}>
             <ThesesPage />
           </ProtectedRoute>
         } />
 
         <Route path="/book/form" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super Admin","Student"]}>
             <BookFormPage/>
           </ProtectedRoute>
         } />
 
-        Nuevas rutas para Usuarios y Perfiles
+        {/* Nuevas rutas para Usuarios y Perfiles */}
 
         {/*Usuario*/}
         <Route path="/security/users" element={
-          <ProtectedRoute allowedRoles={["super admin", "student"]}>
+          <ProtectedRoute allowedRoles={["Super Admin", "Student"]}>
             <UsersPage />
           </ProtectedRoute>
         } />
 
         {/*Perfiles*/}
         <Route path="/security/profiles" element={
-          <ProtectedRoute allowedRoles={["super admin", "student"]}>
+          <ProtectedRoute allowedRoles={["Super Admin", "Student"]}>
             <ProfilesPage />
           </ProtectedRoute>
         } />
 
         <Route path="/security/permissions/:id" element={
-          <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
+          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
             <PermissionsPage />
           </ProtectedRoute>
         } />

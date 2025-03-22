@@ -40,7 +40,6 @@ const CardList = ({ data , showHeader = true, itemsPage = 5}) => {
                 </Button>    
             </Box> 
             )}
-
             
             <Stack spacing={0.2} sx={{ width: '100%' }}>
                 {currentItems.map((item) => (
