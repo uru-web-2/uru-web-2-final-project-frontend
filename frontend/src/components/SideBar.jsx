@@ -10,7 +10,7 @@ const SideBar = ({ open, handleDrawerToggle, drawerStyles, menuItems, MenuItem, 
   };
 
   return (
-    <CustomDrawer open={open} onClose={handleDrawerToggle} sx={drawerStyles}>
+    <CustomDrawer open={open} onClose={handleDrawerToggle} sx={drawerStyles} >
       {menuItems.map((item) => (
         <MenuItem
           key={item.text}

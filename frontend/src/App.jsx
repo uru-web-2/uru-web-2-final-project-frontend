@@ -112,50 +112,50 @@ function App() {
         } />
 
         <Route path="/inventory/books/form" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super Admin","Student"]}>
             <BookFormPage />
           </ProtectedRoute>
         } />
 
         <Route path="/inventory/magazines/form" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super Admin","Student"]}>
             <MagazineFormPage />
           </ProtectedRoute>
         } />
 
         <Route path="/inventory/articles/form" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super Admin","Student"]}>
             <ArticleFormPage />
           </ProtectedRoute>
         } />
 
         <Route path="/inventory/theses/form" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super Admin","Student"]}>
             <ThesisFormPage />
           </ProtectedRoute>
         } />
         
 
         <Route path="/inventory/books/form" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super Admin","Student"]}>
             <BookFormPage />
           </ProtectedRoute>
         } />
 
         <Route path="/inventory/magazines/form" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super Admin","Student"]}>
             <MagazineFormPage />
           </ProtectedRoute>
         } />
 
         <Route path="/inventory/articles/form" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super Admin","Student"]}>
             <ArticleFormPage />
           </ProtectedRoute>
         } />
 
         <Route path="/inventory/theses/form" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super Admin","Student"]}>
             <ThesisFormPage />
           </ProtectedRoute>
         } />
