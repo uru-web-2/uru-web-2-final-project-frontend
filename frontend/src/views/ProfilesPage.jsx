@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container } from '@mui/material';
 import GridProfiles from '../components/GridProfiles';
 import Layout from '../components/Layout';
-import { getAllProfiles } from '../Services/permissionsPageService';
+import { apiService } from '../Services/Services';
 
 // eslint-disable-next-line react/prop-types
 const MainContent = ({ profiles }) => (
@@ -17,7 +17,7 @@ const ProfilesPage = () => {
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
-        const data = await getAllProfiles();
+        const data = await apiService.getAllProfiles(); // Llama a la función getAllProfiles
         setProfiles(data);
       } catch (error) {
         console.error('Error fetching profiles:', error);

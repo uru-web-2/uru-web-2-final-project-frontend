@@ -1,7 +1,8 @@
 import CardList from "../components/CardList";
-import { Paper,Box, Button } from "@mui/material";
-import React, { useState } from "react";
+import { Paper } from "@mui/material";
+import React from "react";
 import Layout from "../components/Layout";
+import { useNavigate } from 'react-router-dom';
 
 
 const generateData = (numItems) => {
@@ -23,12 +24,19 @@ const generateData = (numItems) => {
 
 const data = generateData(20);
 
+
 function BooksPage() {
+
+    const navigate = useNavigate();
+    
+    const addBook = () =>{
+        navigate('/inventory/books/form');
+    }
 
     return (
         <Layout>
             <Paper elevation={3} sx={{pb: 2}}>
-                <CardList data={data}/>
+                <CardList data={data} addFunction={addBook}/>
             </Paper>
         </Layout>
     );

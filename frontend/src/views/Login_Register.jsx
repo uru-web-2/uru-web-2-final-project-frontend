@@ -4,6 +4,7 @@ import Register from '../components/Register';
 import InfoBox from '../components/InfoBox';
 
 const Login_Register = () => (
+  
   <div className="combined-container">
      <Login />
     <div className="component-box overlay-container">

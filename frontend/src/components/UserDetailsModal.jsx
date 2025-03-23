@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ModalWrapper from './ModalWrapper';
 import '../components/CSS/UserModal.css';
 import { FaTimes } from 'react-icons/fa';
-import { revokeuserProfile, assignuserProfile } from '../Services/userPageServices';
+import { apiService } from '../Services/Services';
 
 const UserDetailsModal = ({ isOpen, onClose, user, userDetails }) => {
   // Estado local para manejar la lista de perfiles
@@ -10,8 +10,8 @@ const UserDetailsModal = ({ isOpen, onClose, user, userDetails }) => {
 
   // Efecto para actualizar localProfiles cuando userDetails cambie
   useEffect(() => {
-    if (userDetails?.out_user_profile_ids) {
-      setLocalProfiles(userDetails.out_user_profile_ids);
+    if (userDetails?.user_profile_ids) {
+      setLocalProfiles(userDetails.user_profile_ids);
     }
   }, [userDetails]);
 
@@ -19,7 +19,7 @@ const UserDetailsModal = ({ isOpen, onClose, user, userDetails }) => {
   const handleDeleteProfile = async (profileId) => {
     try {
       // Llamar a la función revokeUserProfile para eliminar el perfil en el backend
-      const response = await revokeuserProfile(user.user_username, profileId);
+      const response = await apiService.revokeUserProfile(user.user_username, profileId);
 
       // Verificar si la respuesta es exitosa
       if (response.status === 'success' || response.status === 200) {
@@ -47,7 +47,7 @@ const UserDetailsModal = ({ isOpen, onClose, user, userDetails }) => {
 
     try {
       // Llamar a la función assignuserProfile para asignar el perfil en el backend
-      const response = await assignuserProfile(user.user_username, profileId);
+      const response = await apiService.assignUserProfile(user.user_username, profileId);
 
       // Verificar si la respuesta es exitosa
       if (response.status === 'success' || response.status === 200) {
@@ -99,9 +99,9 @@ const UserDetailsModal = ({ isOpen, onClose, user, userDetails }) => {
 
         {/* Segundo bloque de detalles (País, Tipo de Documento, Número de Documento) */}
         <div className="user-details-column">
-          <p><strong>País:</strong> {userDetails?.out_user_document_country}</p>
-          <p><strong>Tipo de Documento:</strong> {userDetails?.out_user_document_type}</p>
-          <p><strong>Número de Documento:</strong> {userDetails?.out_user_document_number}</p>
+          <p><strong>País:</strong> {userDetails?.user_document_country}</p>
+          <p><strong>Tipo de Documento:</strong> {userDetails?.user_document_type}</p>
+          <p><strong>Número de Documento:</strong> {userDetails?.user_document_number}</p>
         </div>
       </div>
 

@@ -1,31 +1,20 @@
-import React, { useState } from "react";
-import CoverImage from "./CoverImage";
+import React, {useState} from "react";
+import CoverImage from "../CoverImage";
 import { Box, Typography, Button } from "@mui/material";
 import { useForm, useFieldArray } from 'react-hook-form';
-import './CSS/Form.css';
+import '../CSS/Form.css';
 
-function ThesisForm() {
+function ArticleForm() {
 
     const { register, handleSubmit, formState: { errors }, control } = useForm();
 
     const { fields: authors, append: appendAuthor, remove: removeAuthor } = useFieldArray({ control, name: "authors" });
-    const { fields: collaborators, append: appendCollaborator, remove: removeCollaborator } = useFieldArray({ control, name: "collaborators" });
     const { fields: categories, append: appendCategory, remove: removeCategory } = useFieldArray({ control, name: "categories" });
+    const { fields: keywords, append: appendKeyword, remove: removeKeyword } = useFieldArray({ control, name: "keywords" });
 
     const [authorInput, setAuthorInput] = useState('');
     const [categoryInput, setCategoryInput] = useState('');
-    const [collaboratorInput, setCollaboratorInput] = useState('');
-
-    const handleAddCollaborator = () => {
-        if (collaboratorInput.trim() !== '') {
-            appendCollaborator({ collaborator: collaboratorInput });
-            setCollaboratorInput('');
-        }
-    };
-
-    const handleRemoveCollaborator = (index) => {
-        removeCollaborator(index);
-    };
+    const [keywordInput, setKeywordInput] = useState('');
 
     const handleAddAuthor = () => {
         if (authorInput.trim() !== '') {
@@ -49,6 +38,17 @@ function ThesisForm() {
         removeCategory(index);
     };
 
+    const handleAddKeyword = () => {
+        if (keywordInput.trim() !== '') {
+            appendKeyword({ keyword: keywordInput });
+            setKeywordInput('');
+        }
+    };
+
+    const handleRemoveKeyword = (index) => {
+        removeKeyword(index);
+    };
+
     const onSubmit = (data) => {
         console.log('Form data:', data);
     };
@@ -56,7 +56,7 @@ function ThesisForm() {
     return (
         <div className="form-container">
             <div className="form-top-group">
-                <Typography variant="h4" sx={{ color: '#1A4568', fontWeight: 'bold' }}>Thesis</Typography>
+                <Typography variant="h4" sx={{ color: '#1A4568', fontWeight: 'bold' }}>Article</Typography>
             </div>
 
             <div className='form-content'>
@@ -72,7 +72,7 @@ function ThesisForm() {
                             type="number"
                             id="pageCount"
                             {...register('pageCount', {
-                                required: 'Number of pages is required',
+                                required: true,
                                 valueAsNumber: true,
                                 min: { value: 1, message: 'Must have at least 1 page' },
                             })}
@@ -86,24 +86,9 @@ function ThesisForm() {
                             type="date"
                             id="publicationDate"
                             {...register('publicationDate', {
-                                required: true,
+                                required: 'Publication date is required',
                             })}
                         />
-                    </div>
-
-                    {/* Field: Language (Select) */}
-                    <div className="form-input">
-                        <label htmlFor="language">Language:</label>
-                        <select
-                            id="language"
-                            {...register('language', { required: true })}
-                        >
-                            <option value="">Select a language</option>
-                            <option value="es">Spanish</option>
-                            <option value="en">English</option>
-                            <option value="fr">French</option>
-                            <option value="de">German</option>
-                        </select>
                     </div>
                 </div>
 
@@ -114,44 +99,34 @@ function ThesisForm() {
                         <input
                             type="text"
                             id="title"
-                            {...register('title', { required: true })}
+                            {...register('title', { required: 'Title is required' })}
                         />
                     </div>
 
-                    {/* Field: Institution */}
+                    {/* Field: Language (Select) */}
                     <div className="form-input">
-                        <label htmlFor="institution">Institution:</label>
-                        <input
-                            type="text"
-                            id="institution"
-                            {...register('institution', { required: true })}
-                        />
-                    </div>
-
-                    {/* Field: Faculty */}
-                    <div className="form-input">
-                        <label htmlFor="faculty">Faculty:</label>
-                        <input
-                            type="text"
-                            id="faculty"
-                            {...register('faculty', { required: true })}
-                        />
-                    </div>
-
-                    {/* Field: Academic Level */}
-                    <div className="form-input">
-                        <label htmlFor="academic-level">Academic Level:</label>
+                        <label htmlFor="language">Language:</label>
                         <select
-                            id="academic-level"
-                            {...register('academicLevel', { required: true })}
+                            id="language"
+                            {...register('language', { required: 'Language is required' })}
                         >
-                            <option value="undergraduate">Undergraduate</option>
-                            <option value="masters">Masters</option>
-                            <option value="doctoral">Doctoral</option>
-                            <option value="postgraduate">Postgraduate</option>
+                            <option value="">Select a language</option>
+                            <option value="es">Spanish</option>
+                            <option value="en">English</option>
+                            <option value="fr">French</option>
+                            <option value="de">German</option>
                         </select>
                     </div>
 
+                    {/* Field: Source */}
+                    <div className="form-input">
+                        <label htmlFor="source">Source:</label>
+                        <input
+                            type="text"
+                            id="source"
+                            {...register('source', { required: true })}
+                        />
+                    </div>
 
                     {/* Field: Description (textarea) */}
                     <div className="form-input">
@@ -170,25 +145,25 @@ function ThesisForm() {
                 </div>
 
                 <div className="form-bottom-group">
-                    {/* Field: Collaborators */}
+                    {/* Field: Keywords */}
                     <div className="form-input-list">
                         <div className="form-input">
-                            <label htmlFor="collaborator">Collaborator:</label>
+                            <label htmlFor="keyword">Keywords:</label>
                             <Box display='flex' alignItems='center' gap={1}>
                                 <input
                                     type="text"
-                                    id="collaborator"
-                                    value={collaboratorInput}
-                                    onChange={(e) => setCollaboratorInput(e.target.value)}
+                                    id="keyword"
+                                    value={keywordInput}
+                                    onChange={(e) => setKeywordInput(e.target.value)}
                                     required
                                 />
-                                <button onClick={handleAddCollaborator}>+</button>
+                                <button onClick={handleAddKeyword}>+</button>
                             </Box>
                         </div>
-                        {collaborators.map((field) => (
+                        {keywords.map((field) => (
                             <div className="form-input-list-item" key={field.id}>
-                                <input type="text" value={field.collaborator} readOnly />
-                                <button onClick={() => handleRemoveCollaborator(field.id)}>X</button>
+                                <input type="text" value={field.keyword} readOnly />
+                                <button onClick={() => handleRemoveKeyword(field.id)}>X</button>
                             </div>
                         ))}
                     </div>
@@ -249,4 +224,4 @@ function ThesisForm() {
     );
 }
 
-export default ThesisForm;
+export default ArticleForm;

@@ -17,7 +17,7 @@ const NavbarHomepage = () => {
   };
 
   return (
-    <AppBar position="fixed" sx={{ backgroundColor: "#003366", zIndex: 1000, padding: "2 20px" }}>
+    <AppBar position="fixed" sx={{ backgroundColor: "#003366", zIndex: 1000, padding: "2 20px", mb: '80px' }}>
       <Toolbar sx= {{ display: "flex", justifyContent: "space-between", minHeight: "64px" }}>
         
         <Box sx={{ display: "flex", alignItems: "center"}}>

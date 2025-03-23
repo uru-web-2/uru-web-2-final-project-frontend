@@ -1,7 +1,8 @@
 import CardList from "../components/CardList";
-import { Paper,Box, Button } from "@mui/material";
-import React, { useState } from "react";
+import { Paper } from "@mui/material";
+import React from "react";
 import Layout from "../components/Layout";
+import { useNavigate } from 'react-router-dom';
 
 
 const generateData = (numItems) => {
@@ -25,10 +26,16 @@ const data = generateData(20);
 
 function MagazinesPage() {
 
+    const navigate = useNavigate();
+    
+    const addMagazine = () =>{
+        navigate('/inventory/magazines/form');
+    }
+
     return (
         <Layout>
             <Paper elevation={3} sx={{pb: 2}}>
-                <CardList data={data}/>
+                <CardList data={data} addFunction={addMagazine}/>
             </Paper>
         </Layout>
     );

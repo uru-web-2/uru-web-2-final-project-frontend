@@ -5,7 +5,7 @@ import CardComponent from './Card';
 import PageSizeSelector from './PageSizeSelector';
 
 
-const CardList = ({ data , showHeader = true, itemsPage = 5}) => {
+const CardList = ({ data , showHeader = true, itemsPage = 5, addFunction}) => {
 
     const [page, setPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(itemsPage);
@@ -35,12 +35,11 @@ const CardList = ({ data , showHeader = true, itemsPage = 5}) => {
                 <PageSizeSelector numberItems={[5,10,15,20]} onChange={handlePageChange} value={itemsPerPage}/>
                 <Search/>
             </Box>
-                <Button variant="contained" color="primary">
+                <Button variant="contained" color="primary" onClick={addFunction}>
                 + Add
                 </Button>    
             </Box> 
             )}
-
             
             <Stack spacing={0.2} sx={{ width: '100%' }}>
                 {currentItems.map((item) => (
