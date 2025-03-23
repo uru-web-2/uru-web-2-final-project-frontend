@@ -1,8 +1,10 @@
 import MenuIcon from '@mui/icons-material/Menu';
-import { AppBar, Toolbar, Typography, IconButton } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton, alertTitleClasses } from '@mui/material';
+import LogoutButton from './LogoutButton';
 
 // Navbar con color de fondo #FFFFFF (blanco)
-const Navbar = ({ handleDrawerToggle }) => (
+
+const Navbar = () => (
     <AppBar
       position="fixed"
       sx={{
@@ -11,19 +13,8 @@ const Navbar = ({ handleDrawerToggle }) => (
         boxShadow: '-moz-initial', // Opcional: eliminar la sombra
       }}
     >
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={handleDrawerToggle}
-          sx={{ mr: 2, color: '#000000' }} // Color del ícono negro
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" noWrap sx={{ color: '#000000' }}>
-          Inicio
-        </Typography>
+      <Toolbar sx={{justifyContent: 'right'}}>
+        <LogoutButton/>
       </Toolbar>
     </AppBar>
   );

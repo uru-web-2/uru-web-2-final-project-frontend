@@ -1,4 +1,5 @@
 export const loginService = async (username, password, profile = 'null') => {
+    
     const response = await fetch('/api/login', {
         method: 'POST',
         headers: {
@@ -9,7 +10,6 @@ export const loginService = async (username, password, profile = 'null') => {
     
     const data = await response.json();
     console.log(data);
-    
     
     // Manejar el caso específico del error de múltiples perfiles
     if (data.status === 'fail' && data.data?.profile) {
@@ -58,4 +58,22 @@ export const registerService = async (data) => {
     }
 
     return res;
+}
+
+
+export const logoutService = async () => {
+    const response = await fetch('/api/logout', {
+        method: 'POST',
+        credentials: 'include',
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        const error = new Error(data);
+        error.data = data;
+        throw error.data;
+    }
+
+    return data;
 }
