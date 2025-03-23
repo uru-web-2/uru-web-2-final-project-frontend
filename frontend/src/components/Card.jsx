@@ -2,6 +2,7 @@ import './CSS/Card.css';
 import { Typography, Paper, CardMedia, Chip,Stack , Link, IconButton} from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import MenuOptions from './MenuOptions';
 
 
 const CardComponent = ({type = 'digital', image,title, text1, text2, text3, categories, id}) => {
@@ -47,9 +48,18 @@ const CardComponent = ({type = 'digital', image,title, text1, text2, text3, cate
                 );
             case 'physical':
                 return (
-                    <IconButton aria-label='Favorite' color='primary' disableFocusRipple style={{ outline: 'none' }} >
-                        <MoreVertIcon fontSize='large'/>
-                    </IconButton>
+                    <MenuOptions
+                    iconButton={
+                      <IconButton aria-label='Options' color='primary' disableFocusRipple style={{ outline: 'none' }} >
+                        <MoreVertIcon />
+                      </IconButton>
+                    }
+                    options={[
+                      { label: 'Copies', onClick: () => console.log(`Ver ejemplares de ${title}`) },
+                      { label: 'Edit', onClick: () => console.log(`Editar ${title}`) },
+                      { label: 'Delete', onClick: () => console.log(`Eliminar ${title}`) },
+                    ]}
+                  />
                 );
             case 'client':
                 return (
