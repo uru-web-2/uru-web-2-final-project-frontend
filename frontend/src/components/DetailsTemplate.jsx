@@ -52,7 +52,7 @@ const DetailsTemplate = ({
                     </div>
                 </div>
 
-                {keywords.length > 0 && (
+                {keywords && (
                     <div className="details-section-keywords">
                         {renderItems(keywords)}
                     </div>
@@ -65,7 +65,7 @@ const DetailsTemplate = ({
                     </div>
                 </div>
 
-                {location.length > 0 && (
+                {location && (
                     <div className="details-section-3">
                         <span className="details-section-name">Location <div className="line-section"></div></span>
                         <div className="details-section-3-content">
@@ -74,7 +74,7 @@ const DetailsTemplate = ({
                     </div>
                 )}
 
-                {formats.length > 0 && (
+                {formats && (
                     <div className="details-section-4">
                         <span className="details-section-name">Format <div className="line-section"></div></span>
                         <div className="details-section-4-content">
