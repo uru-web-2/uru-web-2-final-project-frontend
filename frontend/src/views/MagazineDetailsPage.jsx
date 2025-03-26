@@ -13,13 +13,13 @@ function MagazineDetailsPage() {
             { keyName: 'Title', value: 'Science and Technology Magazine' },
             { keyName: 'Publisher', value: 'National University of Technological Innovation' },
             { keyName: 'Edition', value: 'Vol 1. Ed 2' },
+            { keyName: 'Collection', value: 'asdsa' },
             { keyName: 'Language', value: 'Spanish' },
             { keyName: 'Categories', value: ['Technology', 'Applied Sciences'] },
             { keyName: 'Pages', value: '130' },
             { keyName: 'ISSN', value: '5285-6789' },
             { keyName: 'Frequency', value: 'Monthly' },
             { keyName: 'Editor(s)', value: 'Dr. Carla Hernández' },
-            { keyName: 'Management', value: 'Dr. María López' },
             { keyName: 'Publication Date', value: 'February 24, 2024' }
         ],
         formats: [
