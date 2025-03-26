@@ -5,8 +5,12 @@ import '../components/CSS/Login.css';
 import { loginService } from '../Services/authService';
 import ModalWrapper from './ModalWrapper'; // Importar el componente ModalWrapper
 import { Select, MenuItem, Button } from '@mui/material'; // Importar los componentes necesarios de MUI
+import { useContext } from 'react';
+import { AuthContext } from '../components/AuthContext'; 
 
 const Login = () => {
+    const { login } = useContext(AuthContext);
+
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -42,6 +46,7 @@ const Login = () => {
                 setSaveRoles(res.profiles); // Guardar todos los roles en el estado
                 setIsModalOpen(true); // Activar el modal
             } else if (res.status === 'success') {
+                login();
                 setError('');
                 let selectedRoles = JSON.parse(sessionStorage.getItem("selectedRoles"));     
                 selectedRoles+= "-dashboard";
@@ -75,6 +80,7 @@ const Login = () => {
             setIsModalOpen(false); // Cerrar el modal
 
             if (res.status) {
+                login();
                 selectRole(saveRoles); // Guardar todos los roles
                 navigate(profileRoutes[selectedProfile]); // Redirigir según el perfil seleccionado
             } else {

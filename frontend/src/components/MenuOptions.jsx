@@ -1,12 +1,12 @@
-// components/MenuOptions.js
-import React, { useState } from 'react';
 import { Menu, MenuItem } from '@mui/material';
+import React, { useState } from 'react';
 
-const MenuOptions = ({ options, iconButton }) => {
+const MenuOptions = ({ iconButton, options }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  const handleOpenMenu = (event) => {
+  const handleClick = (event) => {
+    event.stopPropagation(); // Para que no dispare otros eventos
     setAnchorEl(event.currentTarget);
   };
 
@@ -16,7 +16,9 @@ const MenuOptions = ({ options, iconButton }) => {
 
   return (
     <>
-      <span onClick={handleOpenMenu}>{iconButton}</span>
+      <span onClick={handleClick}>
+        {iconButton}
+      </span>
       <Menu
         anchorEl={anchorEl}
         open={open}
@@ -26,8 +28,8 @@ const MenuOptions = ({ options, iconButton }) => {
       >
         {options.map((option, index) => (
           <MenuItem key={index} onClick={() => {
-            option.onClick();
             handleClose();
+            option.onClick && option.onClick();
           }}>
             {option.label}
           </MenuItem>

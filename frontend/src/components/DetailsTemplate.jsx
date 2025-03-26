@@ -1,5 +1,7 @@
-import { Paper, CardMedia } from "@mui/material";
+import { Paper, CardMedia, IconButton } from "@mui/material";
+import ArrowBackIcon  from "@mui/icons-material/ArrowBack";
 import '../components/CSS/DetailsTemplate.css';
+import { useNavigate } from "react-router-dom";
 
 const Item = ({ keyName, value }) => {
     return (
@@ -28,10 +30,35 @@ const DetailsTemplate = ({
     formats, 
     keywords 
 }) => {
+    const navigate = useNavigate();
+
     return (
-        <Paper elevation={3} >
+        <Paper elevation={3} sx={{position: 'relative'}} >
             <div className="details-container">
-                
+
+            {/* Button to go back */}
+            <IconButton
+            onClick={() => navigate(-1)}
+            aria-label="back"
+             sx={{
+                width: 40,
+                height: 40,
+                border: '2px solid black',
+                borderRadius: '50%',
+                color: 'black',
+                backgroundColor: 'transparent',
+                position: 'absolute', 
+                top: 16,
+                outline: 'none',
+                right: 16,
+                '&:hover': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                },
+                }}
+                >
+                    <ArrowBackIcon />
+                    </IconButton>
+                    
                 <div className="details-section-1">
                     <div className="details-section-1-image">
                         <CardMedia

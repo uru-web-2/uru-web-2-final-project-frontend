@@ -57,18 +57,18 @@ const CardComponent = ({type = 'digital', image,title, text1, text2, text3, cate
                 );
             case 'physical':
                 return (
-                    <MenuOptions
-                    iconButton={
-                      <IconButton aria-label='Options' color='primary' disableFocusRipple style={{ outline: 'none' }} >
-                        <MoreVertIcon />
-                      </IconButton>
+                <MenuOptions
+                 iconButton={
+                 <IconButton aria-label='Options' color='primary' disableFocusRipple style={{ outline: 'none' }}>
+                    <MoreVertIcon />
+                    </IconButton>
                     }
                     options={[
-                      { label: 'Copies', onClick: () => console.log(`Ver ejemplares de ${title}`) },
-                      { label: 'Edit', onClick: () => console.log(`Editar ${title}`) },
-                      { label: 'Delete', onClick: () => console.log(`Eliminar ${title}`) },
-                    ]}
-                  />
+                        { label: 'Copies', onClick: () => navigate("/copies") },
+                        { label: 'Edit', onClick: () => navigate("/edit") },
+                        { label: 'Delete', onClick: () => navigate("/delete") },
+  ]}
+/>
                 );
             case 'client':
                 return (

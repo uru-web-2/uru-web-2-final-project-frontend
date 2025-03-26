@@ -11,12 +11,7 @@ import BooksPage from './views/BooksPage'
 import ArticlesPage from './views/ArticlesPage'
 import MagazinesPage from './views/MagazinesPage'
 import ThesesPage from './views/ThesesPage'
-import StudentCatalog from './views/StudentCatalog'
 import PermissionsPage from './views/PermissionsPage'; // Nueva página para Permisos
-import NavbarHomepage from './components/NavbarHomepage';
-import StudentLoans from './views/StudentLoans';
-import StudentAbout from './views/StudentAbout';
-import StudentSupport from './views/StudentSupport';
 import BookFormPage from './views/BookFormPage';
 import ArticleFormPage from './views/ArticleFormPage';
 import MagazineFormPage from './views/MagazineFormPage';
@@ -25,6 +20,11 @@ import BookDetailsPage from './views/BookDetailsPage';
 import ArticleDetailsPage from './views/ArticleDetailsPage';
 import MagazineDetailsPage from './views/MagazineDetailsPage';
 import ThesisDetailsPage from './views/ThesisDetailsPage';
+import StudentBooking from '../src/views/StudentViews/StudentBooking';
+import StudentFavorites from '../src/views/StudentViews/StudentFavorites';
+import StudentLoans from '../src/views/StudentViews/StudentLoans';
+import StudentProfile from '../src/views/StudentViews/StudentProfile';
+import PublicHomepage from '../src/views/PublicHomepage';
 
 
 
@@ -60,41 +60,45 @@ function App() {
 
     <Router>
       <Routes>
-        <Route path="/login" element={isAuthenticated() ? <Navigate to={getDashboardRoute()} /> : <Login_Register />} />
+      
+        <Route path="/" element={<PublicHomepage />} /> {/*coloque esto para que dirija al sitio web*/}
+
+        <Route path="/login" element={<Login_Register />} /> {/*para que pueda mostrarme el login*/}
 
         {/*Student Module */}
+
+        <Route path="/student-booking" element={
+          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
+              <StudentBooking />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/student-favorites" element={
+          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
+              <StudentFavorites />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/student-loans" element={
+          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
+              <StudentLoans />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/student-profile" element={
+          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
+              <StudentProfile/>
+          </ProtectedRoute>
+        } />
+
         <Route path="/student-homepage" element={
           <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
-            <StudentHomepage />
+            <>
+              <StudentHomepage />
+            </>
           </ProtectedRoute>
         } />
 
-        <Route path="/catalogo" element={
-          <ProtectedRoute allowedRoles={["student", "librarian", "super admin"]}>
-            <StudentCatalog/>
-          </ProtectedRoute>
-        } />
-
-        <Route path="/soporte" element={
-          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
-            <StudentSupport />
-          </ProtectedRoute>
-        } />
-
-
-        <Route path="/prestamos" element={
-          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
-            <StudentLoans />
-            <NavbarHomepage />
-          </ProtectedRoute>
-        } />
-
-        <Route path="/nosotros" element={
-          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
-            <StudentAbout />
-            <NavbarHomepage />
-          </ProtectedRoute>
-        } />
 
         {/*Dashboards */}
         <Route path="/librarian-dashboard" element={
