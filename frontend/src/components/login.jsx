@@ -26,7 +26,7 @@ const Login = () => {
     };
 
     const profileRoutes = {
-        "Student": "/student-homepage",
+        "Student": "/homepage",
         "Librarian": "/librarian-dashboard",
         "Super Admin": "/admin-dashboard",
     };

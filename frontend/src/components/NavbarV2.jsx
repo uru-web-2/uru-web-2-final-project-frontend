@@ -65,6 +65,8 @@ const NavbarHomepage = () => {
 
         {/*Icon user*/}
         <Box>
+          {console.log(isAuthenticated)
+          }
           {isAuthenticated ? (
             <MenuOptions
               iconButton={

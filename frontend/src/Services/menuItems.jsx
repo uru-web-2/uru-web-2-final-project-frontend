@@ -32,3 +32,17 @@ export const menuItems = [
   { text: 'Revisión', icon: <AssignmentIcon sx={{ color: '#FFFFFF' }} /> },
   { text: 'Configuración', icon: <SettingsIcon sx={{ color: '#FFFFFF' }} /> },
 ];
+
+export const menuItemsLibrarian = [
+  { text: 'Inventario', icon: <InventoryIcon sx={{ color: '#FFFFFF' }} />,
+  children:[
+    { text: 'Books', icon: <MenuBookIcon sx={{ color: '#FFFFFF'}}/>, path: '/inventory/books'},
+    { text: 'Articles', icon:<DescriptionIcon sx={{color: '#FFFFFF'}}/>, path: '/inventory/articles'},
+    { text: 'Theses', icon: <CollectionsBookmarkIcon sx={{ color: '#FFFFFF'}}/>, path: '/inventory/theses'},
+    { text: 'Magazines', icon: <ImportContactsIcon sx={{ color: '#FFFFFF'}}/>, path: '/inventory/magazines'},
+    ],
+  },
+  { text: 'Préstamos', icon: <LocalAtmIcon sx={{ color: '#FFFFFF' }} /> },
+  { text: 'Revisión', icon: <AssignmentIcon sx={{ color: '#FFFFFF' }} /> },
+  { text: 'Configuración', icon: <SettingsIcon sx={{ color: '#FFFFFF' }} /> },
+];

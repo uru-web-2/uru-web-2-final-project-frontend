@@ -158,7 +158,7 @@ function BookForm() {
                                 required: 'Description is required',
                                 minLength: {
                                     value: 500,
-                                    message: 'Description must have at least 10 characters',
+                                    message: 'Description must have at least 500 characters',
                                 },
                             })}
                         />

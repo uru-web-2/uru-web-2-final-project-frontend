@@ -13,7 +13,9 @@ class ApiService {
             const result = await asyncFunction(); // Ejecutar la función asíncrona
             return result;
         } catch (error) {
-            console.error('Error:', error);
+            console.log('ErrorACA:');    
+            
+            console.error('ErrorACA ES:', error);
             throw error; // Propagar el error
         } finally {
             this.setLoading(false); // Desactivar el estado de carga

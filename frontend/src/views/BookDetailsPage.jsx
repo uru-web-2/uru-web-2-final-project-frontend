@@ -35,9 +35,6 @@ function BookDetailsPage() {
             { keyName: 'PDF', value: 'Link' },
             { keyName: 'EPUB', value: 'Link' }
         ],
-        keywords: [
-            { keyName: 'Keywords', value: ['Macondo', 'Magical Realism', 'Buendía Family'] }
-        ]
     };
 
     return (

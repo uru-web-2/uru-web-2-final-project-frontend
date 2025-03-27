@@ -14,13 +14,11 @@ function ThesisDetailsPage() {
             { keyName: 'Title', value: 'Desarrollo de Algoritmos de Machine Learning para la Predicción de Enfermedades' },
             { keyName: 'Institution', value: 'Universidad Tecnológica de Caracas' },
             { keyName: 'Author', value: 'Laura Fernández' },
-            { keyName: 'Collaborator', value: 'Francisco García' },
             { keyName: 'Publication Date', value: '24 de febrero, 2024' },
             { keyName: 'Page Count', value: '150' },
             { keyName: 'Categories', value: ['Tecnología', 'Ciencias Aplicadas'] },
             { keyName: 'Type', value: 'Maestría' },
             { keyName: 'Faculty', value: 'Ingeniería' },
-            { keyName: 'School', value: 'Computación' },
             { keyName: 'Language', value: 'Español' }
         ],
         formats: [

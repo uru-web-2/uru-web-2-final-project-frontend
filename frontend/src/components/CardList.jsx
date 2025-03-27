@@ -5,7 +5,7 @@ import CardComponent from './Card';
 import PageSizeSelector from './PageSizeSelector';
 
 
-const CardList = ({ data , showHeader = true, itemsPage = 5, addFunction}) => {
+const CardList = ({ data , showHeader = true, itemsPage = 5, addFunction = false}) => {
 
     const [page, setPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(itemsPage);
@@ -26,19 +26,20 @@ const CardList = ({ data , showHeader = true, itemsPage = 5, addFunction}) => {
 
     return (
 
-        <Box sx={{ display: 'grid', justifyItems: 'center'}}>
+        <Box sx={{ display: 'grid', justifyItems: 'center', width: '100%' }}>
 
-        {showHeader && (<Box sx={{ bgcolor:'#A6B7C5', width:'100%', height:'80px', display:'flex', placeItems:'center', justifyContent:'space-between', padding:2}}>
-
-                
+        {showHeader && (
+        
+        <Box sx={{bgcolor:'#A6B7C5', width:'100%', height:'80px', display:'flex', placeItems:'center', justifyContent:'space-between'}}>     
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <PageSizeSelector numberItems={[5,10,15,20]} onChange={handlePageChange} value={itemsPerPage}/>
                 <Search/>
             </Box>
-                <Button variant="contained" color="primary" onClick={addFunction}>
+                {addFunction && (
+                <Button variant="contained" color="primary" onClick={addFunction} sx={{marginRight: 2}}>
                 + Add
-                </Button>    
-            </Box> 
+                </Button>)} 
+        </Box> 
             )}
             
             <Stack spacing={0.2} sx={{ width: '100%' }}>
@@ -62,7 +63,7 @@ const CardList = ({ data , showHeader = true, itemsPage = 5, addFunction}) => {
                 page={page}
                 onChange={handlePageChange}
                 color="primary"
-                sx={{marginTop: 2}}
+                sx={{marginTop: 2, marginBottom: 2}}
             />
         </Box>
     );
