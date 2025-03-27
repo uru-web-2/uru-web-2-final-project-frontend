@@ -46,7 +46,7 @@ const NavbarHomepage = () => {
         </Box>
 
         <Box sx={{ display: "flex", gap: 2 }}>
-          <Button component={Link} to="/student-homepage" color="inherit">
+          <Button component={Link} to="/homepage" color="inherit">
             Home
           </Button>
           <Button component={Link} to="/catalog" color="inherit">

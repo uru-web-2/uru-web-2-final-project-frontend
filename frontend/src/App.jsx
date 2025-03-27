@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import Login_Register from './views/Login_Register';
-import StudentHomepage from './views/StudentHomepage';
+import Homepage from './views/Homepage';
 import LibrarianDashboard from './views/LibrarianDashboard';
 import AdminDashboard from './views/AdminDashboard';
 import UsersPage from './views/UsersPage'; // Nueva página para Usuarios
@@ -24,7 +24,7 @@ import StudentBooking from '../src/views/StudentViews/StudentBooking';
 import StudentFavorites from '../src/views/StudentViews/StudentFavorites';
 import StudentLoans from '../src/views/StudentViews/StudentLoans';
 import StudentProfile from '../src/views/StudentViews/StudentProfile';
-import PublicHomepage from '../src/views/PublicHomepage';
+import GridCategories from '../src/views/GridCategories';
 
 
 
@@ -38,7 +38,7 @@ function App() {
     }
     
     const routes = {
-      "Student": "/student-homepage",
+      "Student": "/homepage",
       "Librarian": "/librarian-dashboard",
       "Super Admin": "/admin-dashboard",
     };
@@ -61,9 +61,9 @@ function App() {
     <Router>
       <Routes>
       
-        <Route path="/" element={<PublicHomepage />} /> {/*coloque esto para que dirija al sitio web*/}
-
-        <Route path="/login" element={<Login_Register />} /> {/*para que pueda mostrarme el login*/}
+        <Route path="/" element={<Homepage />} />
+        <Route path="/login" element={<Login_Register />} />
+        <Route path="/login" element={isAuthenticated() ? <Navigate to={getDashboardRoute()} /> : <Login_Register />} />
 
         {/*Student Module */}
 
@@ -91,13 +91,12 @@ function App() {
           </ProtectedRoute>
         } />
 
-        <Route path="/student-homepage" element={
+        <Route path="/homepage" element={
           <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
-            <>
-              <StudentHomepage />
-            </>
+              <Homepage />
           </ProtectedRoute>
         } />
+
 
 
         {/*Dashboards */}
@@ -117,50 +116,50 @@ function App() {
         
 
         <Route path="/inventory/books/form" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super admin","Student"]}>
             <BookFormPage />
           </ProtectedRoute>
         } />
 
         <Route path="/inventory/magazines/form" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super admin","Student"]}>
             <MagazineFormPage />
           </ProtectedRoute>
         } />
 
         <Route path="/inventory/articles/form" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super admin","Student"]}>
             <ArticleFormPage />
           </ProtectedRoute>
         } />
 
         <Route path="/inventory/theses/form" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super admin","Student"]}>
             <ThesisFormPage />
           </ProtectedRoute>
         } />
         
 
         <Route path="/inventory/books/form" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super admin","Student"]}>
             <BookFormPage />
           </ProtectedRoute>
         } />
 
         <Route path="/inventory/magazines/form" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super admin","Student"]}>
             <MagazineFormPage />
           </ProtectedRoute>
         } />
 
         <Route path="/inventory/articles/form" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super admin","Student"]}>
             <ArticleFormPage />
           </ProtectedRoute>
         } />
 
         <Route path="/inventory/theses/form" element={
-          <ProtectedRoute allowedRoles={["super admin","student"]}>
+          <ProtectedRoute allowedRoles={["Super admin","Student"]}>
             <ThesisFormPage />
           </ProtectedRoute>
         } />
@@ -230,6 +229,12 @@ function App() {
         <Route path="/security/permissions/:id" element={
           <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
             <PermissionsPage />
+          </ProtectedRoute>
+        } />
+
+        <Route path= "/inventory/loans" element={
+          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
+            <GridCategories />
           </ProtectedRoute>
         } />
 
