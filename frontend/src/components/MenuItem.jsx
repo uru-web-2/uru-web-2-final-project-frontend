@@ -32,7 +32,8 @@ const MenuItem = ({ text, icon, sx, children, path, onClickItem }) => {
             primary: {
               sx: {
                 fontSize: '20px',
-                fontWeight: 'medium'
+                fontWeight: 'medium',
+                cursor: 'pointer',
               }
             }
           }} />

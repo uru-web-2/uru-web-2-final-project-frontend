@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import NavbarHomepage from "../components/NavbarHomepage";
 import { Container, Grid2, TextField, Button, Card, CardMedia, CardContent, Typography, InputAdornment } from "@mui/material";
-import "../components/CSS/StudentHomepageBg.css";
+import "../components/CSS/Homepagebg.css";
 import Search from "../components/Search";
 
-const StudentHomePage = () => {
+const HomePage = () => {
   const cardsData = [
     { image: "libros.png", title: "Libros", description: "Consulta nuestro catálogo de libros físicos y digitales. Encuentra tu próxima lectura en nuestra colección." },
     { image: "revistas.jpg", title: "Revistas", description: "Consulta nuestro catálogo de revistas digitales y físicas. Encuentra la publicación perfecta para ti hoy mismo." },
@@ -82,5 +82,5 @@ const StudentHomePage = () => {
   );
 };
 
-export default StudentHomePage;
+export default HomePage;
 
