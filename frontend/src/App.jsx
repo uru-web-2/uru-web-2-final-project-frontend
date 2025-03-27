@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import Login_Register from './views/Login_Register';
-import StudentHomepage from './views/StudentHomepage';
+import Homepage from './views/Homepage';
 import LibrarianDashboard from './views/LibrarianDashboard';
 import AdminDashboard from './views/AdminDashboard';
 import UsersPage from './views/UsersPage'; // Nueva página para Usuarios
@@ -11,12 +11,7 @@ import BooksPage from './views/BooksPage'
 import ArticlesPage from './views/ArticlesPage'
 import MagazinesPage from './views/MagazinesPage'
 import ThesesPage from './views/ThesesPage'
-import StudentCatalog from './views/StudentCatalog'
 import PermissionsPage from './views/PermissionsPage'; // Nueva página para Permisos
-import NavbarHomepage from './components/NavbarHomepage';
-import StudentLoans from './views/StudentLoans';
-import StudentAbout from './views/StudentAbout';
-import StudentSupport from './views/StudentSupport';
 import BookFormPage from './views/BookFormPage';
 import ArticleFormPage from './views/ArticleFormPage';
 import MagazineFormPage from './views/MagazineFormPage';
@@ -25,6 +20,11 @@ import BookDetailsPage from './views/BookDetailsPage';
 import ArticleDetailsPage from './views/ArticleDetailsPage';
 import MagazineDetailsPage from './views/MagazineDetailsPage';
 import ThesisDetailsPage from './views/ThesisDetailsPage';
+import StudentBooking from '../src/views/StudentViews/StudentBooking';
+import StudentFavorites from '../src/views/StudentViews/StudentFavorites';
+import StudentLoans from '../src/views/StudentViews/StudentLoans';
+import StudentProfile from '../src/views/StudentViews/StudentProfile';
+import GridCategories from '../src/views/GridCategories';
 
 
 
@@ -38,7 +38,7 @@ function App() {
     }
     
     const routes = {
-      "Student": "/student-homepage",
+      "Student": "/homepage",
       "Librarian": "/librarian-dashboard",
       "Super Admin": "/admin-dashboard",
     };
@@ -60,41 +60,44 @@ function App() {
 
     <Router>
       <Routes>
+      
+        <Route path="/" element={<Homepage />} />
+        <Route path="/login" element={<Login_Register />} />
         <Route path="/login" element={isAuthenticated() ? <Navigate to={getDashboardRoute()} /> : <Login_Register />} />
 
         {/*Student Module */}
-        <Route path="/student-homepage" element={
+
+        <Route path="/student-booking" element={
           <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
-            <StudentHomepage />
+              <StudentBooking />
           </ProtectedRoute>
         } />
 
-        <Route path="/catalogo" element={
-          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super admin"]}>
-            <StudentCatalog/>
-          </ProtectedRoute>
-        } />
-
-        <Route path="/soporte" element={
+        <Route path="/student-favorites" element={
           <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
-            <StudentSupport />
+              <StudentFavorites />
           </ProtectedRoute>
         } />
 
-
-        <Route path="/prestamos" element={
+        <Route path="/student-loans" element={
           <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
-            <StudentLoans />
-            <NavbarHomepage />
+              <StudentLoans />
           </ProtectedRoute>
         } />
 
-        <Route path="/nosotros" element={
+        <Route path="/student-profile" element={
           <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
-            <StudentAbout />
-            <NavbarHomepage />
+              <StudentProfile/>
           </ProtectedRoute>
         } />
+
+        <Route path="/homepage" element={
+          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
+              <Homepage />
+          </ProtectedRoute>
+        } />
+
+
 
         {/*Dashboards */}
         <Route path="/librarian-dashboard" element={
@@ -226,6 +229,12 @@ function App() {
         <Route path="/security/permissions/:id" element={
           <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
             <PermissionsPage />
+          </ProtectedRoute>
+        } />
+
+        <Route path= "/inventory/loans" element={
+          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
+            <GridCategories />
           </ProtectedRoute>
         } />
 
