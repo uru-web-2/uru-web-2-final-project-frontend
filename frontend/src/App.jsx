@@ -34,7 +34,7 @@ function App() {
     console.log(roles);
 
     if(!roles || !Array.isArray(roles)) {
-      return "/login";
+      return "/login"
     }
     
     const routes = {
@@ -62,7 +62,7 @@ function App() {
       <Routes>
       
         <Route path="/" element={<Homepage />} />
-        <Route path="/login" element={<Login_Register />} />
+        
         <Route path="/login" element={isAuthenticated() ? <Navigate to={getDashboardRoute()} /> : <Login_Register />} />
 
         {/*Student Module */}
@@ -92,12 +92,8 @@ function App() {
         } />
 
         <Route path="/homepage" element={
-          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
               <Homepage />
-          </ProtectedRoute>
         } />
-
-
 
         {/*Dashboards */}
         <Route path="/librarian-dashboard" element={
