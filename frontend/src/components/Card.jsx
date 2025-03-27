@@ -2,9 +2,18 @@ import './CSS/Card.css';
 import { Typography, Paper, CardMedia, Chip,Stack , Link, IconButton} from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { useNavigate } from 'react-router-dom';
 
 
 const CardComponent = ({type = 'digital', image,title, text1, text2, text3, categories, id}) => {
+
+    const typeCard = window.location.href.split('/').pop();
+
+    const navigate = useNavigate();
+
+    const handleRedirect = (id) => {
+        navigate(`/inventory/${typeCard}/detail/${id}`);  
+    };
 
     //Para renderizar las categorias
     const renderChips = () => {
@@ -66,7 +75,7 @@ const CardComponent = ({type = 'digital', image,title, text1, text2, text3, cate
 
     return (
     <Paper elevation={3} sx={{'&:hover': { backgroundColor: 'rgba(234, 234, 234, 0.83)'}}}>
-        <div className="cardContainer">
+        <div className="cardContainer" onClick={() => handleRedirect(id)}>
             <div className='cardImage'>
                 <CardMedia
                     sx={{ width: 65, height: 92, boxShadow: 6}}

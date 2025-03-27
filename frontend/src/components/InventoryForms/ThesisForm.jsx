@@ -9,22 +9,22 @@ function ThesisForm() {
     const { register, handleSubmit, formState: { errors }, control } = useForm();
 
     const { fields: authors, append: appendAuthor, remove: removeAuthor } = useFieldArray({ control, name: "authors" });
-    const { fields: collaborators, append: appendCollaborator, remove: removeCollaborator } = useFieldArray({ control, name: "collaborators" });
+    const { fields: keywords, append: appendKeyword, remove: removeKeyword } = useFieldArray({ control, name: "keywords" });
     const { fields: categories, append: appendCategory, remove: removeCategory } = useFieldArray({ control, name: "categories" });
 
     const [authorInput, setAuthorInput] = useState('');
     const [categoryInput, setCategoryInput] = useState('');
-    const [collaboratorInput, setCollaboratorInput] = useState('');
+    const [keyWordsInput, setkeyWordsInput] = useState('');
 
-    const handleAddCollaborator = () => {
-        if (collaboratorInput.trim() !== '') {
-            appendCollaborator({ collaborator: collaboratorInput });
-            setCollaboratorInput('');
+    const handleAddKeyWord = () => {
+        if (keyWordsInput.trim() !== '') {
+            appendKeyword({ keyword: keyWordsInput });
+            setkeyWordsInput('');
         }
     };
 
-    const handleRemoveCollaborator = (index) => {
-        removeCollaborator(index);
+    const handleRemoveKeyword = (index) => {
+        removeKeyword(index);
     };
 
     const handleAddAuthor = () => {
@@ -170,25 +170,25 @@ function ThesisForm() {
                 </div>
 
                 <div className="form-bottom-group">
-                    {/* Field: Collaborators */}
+                    {/* Field: keywords */}
                     <div className="form-input-list">
                         <div className="form-input">
-                            <label htmlFor="collaborator">Collaborator:</label>
+                            <label htmlFor="keywords">KeyWords:</label>
                             <Box display='flex' alignItems='center' gap={1}>
                                 <input
                                     type="text"
-                                    id="collaborator"
-                                    value={collaboratorInput}
-                                    onChange={(e) => setCollaboratorInput(e.target.value)}
+                                    id="Keywords"
+                                    value={keyWordsInput}
+                                    onChange={(e) => setkeyWordsInput(e.target.value)}
                                     required
                                 />
-                                <button onClick={handleAddCollaborator}>+</button>
+                                <button onClick={handleAddKeyWord}>+</button>
                             </Box>
                         </div>
-                        {collaborators.map((field) => (
+                        {keywords.map((field) => (
                             <div className="form-input-list-item" key={field.id}>
-                                <input type="text" value={field.collaborator} readOnly />
-                                <button onClick={() => handleRemoveCollaborator(field.id)}>X</button>
+                                <input type="text" value={field.keyWord} readOnly />
+                                <button onClick={() => handleRemoveKeyword(field.id)}>X</button>
                             </div>
                         ))}
                     </div>

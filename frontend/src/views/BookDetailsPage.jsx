@@ -1,7 +1,17 @@
 import Layout from "../components/Layout";
 import DetailsTemplate from "../components/DetailsTemplate";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
-function DetailsPage() {
+
+function BookDetailsPage() {
+
+    const {id} = useParams();
+
+    useEffect(() => {
+        console.log('Aqui va el fetch de los detalles del libro usando el id de la card');
+    });
+
     const bookDetails = {
         title: "One Hundred Years of Solitude",
         subtitle1: "Gabriel García Márquez",
@@ -25,9 +35,6 @@ function DetailsPage() {
             { keyName: 'PDF', value: 'Link' },
             { keyName: 'EPUB', value: 'Link' }
         ],
-        keywords: [
-            { keyName: 'Keywords', value: ['Macondo', 'Magical Realism', 'Buendía Family'] }
-        ]
     };
 
     return (
@@ -37,4 +44,4 @@ function DetailsPage() {
     );
 }
 
-export default DetailsPage;
+export default BookDetailsPage;
