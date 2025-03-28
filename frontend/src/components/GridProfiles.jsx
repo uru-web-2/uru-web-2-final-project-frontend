@@ -8,11 +8,12 @@ import { useNavigate } from 'react-router-dom';
 const GridProfiles = ({ data }) => {
   // Hook para redireccionar
   const navigate = useNavigate();
-
+  console.log(data,"achu");
+  
   // Definir las columnas que se mostrarán
   const columns = [
-    { key: 'profile_id', label: 'ID' },
-    { key: 'profile_name', label: 'Name' },
+    { key: 'id', label: 'ID' },
+    { key: 'name', label: 'Name' },
   ];
 
   // Estado para la paginación
@@ -41,6 +42,8 @@ const GridProfiles = ({ data }) => {
 
   // Abrir el modal y establecer el usuario seleccionado
   const handleOpenModal = (user) => {
+    console.log(user);
+    
     setSelectedUser(user); // Establece el usuario seleccionado
     setIsModalOpen(true); // Abre el modal
   };
@@ -131,7 +134,7 @@ const GridProfiles = ({ data }) => {
           <TableBody>
             {currentUsers.map((user, index) => (
               <TableRow
-                key={user.profile_id}
+                key={user.id}
                 sx={{
                   backgroundColor: index % 2 === 0 ? '#FFFFFF' : '#E3EAF9',
                   '&:hover': {
@@ -141,7 +144,7 @@ const GridProfiles = ({ data }) => {
               >
                 {/* Columnas dinámicas */}
                 {columns.map((column) => (
-                  <TableCell key={`${user.profile_id}-${column.key}`}>
+                  <TableCell key={`${user.id}-${column.key}`}>
                     {user[column.key]}
                   </TableCell>
                 ))}
@@ -156,7 +159,7 @@ const GridProfiles = ({ data }) => {
                     Details
                   </Button>
                   <Button 
-                    onClick={() => handlePermissions(user.profile_id)} // Redirige a la página de permisos
+                    onClick={() => handlePermissions(user.id)} // Redirige a la página de permisos
                     variant="outlined" 
                     color="secondary" 
                   >
