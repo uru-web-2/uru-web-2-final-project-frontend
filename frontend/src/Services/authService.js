@@ -15,6 +15,7 @@ export const loginService = async (username, password, profile = 'null') => {
     if (data.status === 'fail' && data.data?.profile) {
         const profileString = data.data.profile[0];
         const profiles = profileString.match(/between: (.*)/)[1].split(',').map(profile => profile.trim());
+        console.log(profiles, "dorito5");
         
         if (profiles.length === 1) {
             sessionStorage.setItem("selectedRoles", JSON.stringify(profiles));

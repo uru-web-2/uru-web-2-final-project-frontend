@@ -11,9 +11,12 @@ function LogoutButton () {
         try {
 
             const res = await logoutService();
-
+            console.log(res,"aja");
+            
             if (res.status === 'success') {
                 sessionStorage.clear();
+                console.log("Logout successful:", res);
+                
                 navigate('/login');
             }else{
                 console.log("Error during logout:", res);

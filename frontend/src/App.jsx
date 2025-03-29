@@ -29,14 +29,13 @@ import GridCategories from '../src/views/GridCategories';
 import { GlobalLoader } from './components/LoadingComponente';
 
 
-
 function App() {
   const getDashboardRoute = () => {
     const roles = JSON.parse(sessionStorage.getItem("selectedRoles"));
     console.log(roles);
 
     if(!roles || !Array.isArray(roles)) {
-      return "/login"
+      return "/homepage"
     }
     
     const routes = {

@@ -133,9 +133,7 @@ const GridUsers = () => {
     const fetchUserDetails = async () => {
       if (selectedUser) {
         try {
-          const response = await apiService.getUserDetailsByUserID(selectedUser.user_id); // Obtiene los detalles del usuario
-          console.log(response.data, 'user achu');
-          
+          const response = await apiService.getUserDetailsByUserID(selectedUser.id); // Obtiene los detalles del usuario
           setUserDetails(response.data); // Almacena los detalles en el estado
         } catch (error) {
           console.error('Error fetching user details:', error);
