@@ -66,9 +66,9 @@ export const logoutService = async () => {
         method: 'POST',
         credentials: 'include',
     });
-
+    console.log(1);
+    
     const data = await response.json();
-
     if (!response.ok) {
         const error = new Error(data);
         error.data = data;

@@ -8,30 +8,37 @@ class ApiService {
 
     // Método para envolver cualquier función asíncrona con la lógica de carga
     async wrapWithLoading(asyncFunction) {
-        this.setLoading(true); // Activar el estado de carga
+        this.dispatchLoading(true); // Activar el estado de carga
+        
+        // Retraso artificial antes de la solicitud (2 segundos)
+        await new Promise(resolve => setTimeout(resolve, 4000));
+        
         try {
             const result = await asyncFunction(); // Ejecutar la función asíncrona
+            
+            // Retraso artificial después de la solicitud (2 segundos)
+            await new Promise(resolve => setTimeout(resolve, 0));
+            
             return result;
         } catch (error) {
-            console.log('ErrorACA:');    
+            console.error('Error en la solicitud:', error);
             
-            console.error('ErrorACA ES:', error);
+            // Retraso artificial incluso en caso de error
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
             throw error; // Propagar el error
         } finally {
-            this.setLoading(false); // Desactivar el estado de carga
+            this.dispatchLoading(false); // Desactivar el estado de carga
         }
     }
 
-    // Método para cambiar el estado de carga
-    setLoading(isLoading) {
+    // Disparar evento personalizado para notificar el cambio de estado de carga
+    dispatchLoading(isLoading) {
         this.isLoading = isLoading;
-        if (this.isLoading) {
-            console.log('Cargando...');
-            // Aquí podrías mostrar un spinner o mensaje de carga
-        } else {
-            console.log('Carga completada');
-            // Aquí podrías ocultar el spinner o mensaje de carga
-        }
+        const event = new CustomEvent('globalLoading', {
+            detail: { isLoading }
+        });
+        document.dispatchEvent(event);
     }
 
     // Métodos de la API envueltos con wrapWithLoading
@@ -39,6 +46,8 @@ class ApiService {
         return this.wrapWithLoading(async () => {
             const response = await this.api.Execute(['Security'], 'Profile', 'GetAllProfiles');
             const data = await response.json();
+            console.log(data);
+            
             return data.data.sort((a, b) => a.profile_id - b.profile_id);
         });
     }
@@ -78,7 +87,11 @@ class ApiService {
     async setProfilePermissions(profileID, assignMethodIDs, revokeMethodIDs) {
         return this.wrapWithLoading(async () => {
             const response = await this.api.SetProfilePermissions(profileID, assignMethodIDs, revokeMethodIDs);
+            console.log(response,"p");
+            
             const data = await response.json();
+            console.log(data);
+            
             return data;
         });
     }
@@ -120,6 +133,8 @@ class ApiService {
         return this.wrapWithLoading(async () => {
             const response = await this.api.GetAllUsers();
             const data = await response.json();
+            console.log(data,"lol");
+            
             return data;
         });
     }

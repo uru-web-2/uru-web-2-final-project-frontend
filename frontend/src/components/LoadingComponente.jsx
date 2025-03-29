@@ -1,45 +1,47 @@
-const LoadingComponent = () => {
+import { useEffect, useState } from 'react';
+import './CSS/GlobalLoader.css'; // Asegúrate de que la ruta sea correcta
+
+export const GlobalLoader = () => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [progress, setProgress] = useState(0);
+
+    useEffect(() => {
+        const handleLoading = (e) => {
+            setIsLoading(e.detail.isLoading);
+            if (e.detail.isLoading) {
+                setProgress(0);
+                // Simulación de progreso (opcional)
+                const interval = setInterval(() => {
+                    setProgress((prev) => (prev < 90 ? prev + 10 : prev));
+                }, 500);
+                return () => clearInterval(interval);
+            }
+        };
+
+        document.addEventListener('globalLoading', handleLoading);
+        return () => document.removeEventListener('globalLoading', handleLoading);
+    }, []);
+
+    if (!isLoading) return null;
+
     return (
-        <div style={styles.loadingContainer}>
-            <div style={styles.spinner}></div>
-            <p style={styles.loadingText}>Cargando...</p>
+        <div className="pro-loader">
+            {/* Loader principal con logo o icono */}
+            <div className="logo-pulse">
+                <svg viewBox="0 0 100 100" className="logo-icon">
+                    <path d="M50 10 L90 50 L50 90 L10 50 Z" fill="none" stroke="currentColor" strokeWidth="8" />
+                </svg>
+            </div>
+
+            {/* Barra de progreso minimalista */}
+            <div className="sleek-progress">
+                <div className="progress-track" style={{ width: `${progress}%` }}></div>
+            </div>
+
+            {/* Texto con efecto sutil */}
+            <p className="loading-text">
+                Cargando <span className="loading-dots">...</span>
+            </p>
         </div>
     );
 };
-
-// Estilos básicos para el componente
-const styles = {
-    loadingContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(255, 255, 255, 0.8)', // Fondo semitransparente
-        zIndex: 1000, // Asegura que esté por encima de otros elementos
-    },
-    spinner: {
-        border: '4px solid rgba(0, 0, 0, 0.1)',
-        borderTop: '4px solid #007BFF', // Color del spinner
-        borderRadius: '50%',
-        width: '40px',
-        height: '40px',
-        animation: 'spin 1s linear infinite', // Animación de rotación
-    },
-    loadingText: {
-        marginTop: '10px',
-        fontSize: '16px',
-        color: '#007BFF',
-    },
-    // Definición de la animación de rotación
-    '@keyframes spin': {
-        '0%': { transform: 'rotate(0deg)' },
-        '100%': { transform: 'rotate(360deg)' },
-    },
-};
-
-export default LoadingComponent;

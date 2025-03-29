@@ -26,6 +26,8 @@ import StudentLoans from '../src/views/StudentViews/StudentLoans';
 import StudentProfile from '../src/views/StudentViews/StudentProfile';
 import GridCategories from '../src/views/GridCategories';
 
+import { GlobalLoader } from './components/LoadingComponente';
+
 
 
 function App() {
@@ -49,6 +51,7 @@ function App() {
       }
     }
 
+    
     return "/login"; 
   };
 
@@ -59,10 +62,11 @@ function App() {
   return (
 
     <Router>
+
+      <GlobalLoader /> {/* Componente de carga global */}
+
       <Routes>
       
-        <Route path="/" element={<Homepage />} />
-        
         <Route path="/login" element={isAuthenticated() ? <Navigate to={getDashboardRoute()} /> : <Login_Register />} />
 
         {/*Student Module */}
