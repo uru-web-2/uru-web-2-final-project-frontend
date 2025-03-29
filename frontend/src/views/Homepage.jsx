@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import NavbarHomepage from "../components/NavbarHomepage";
+import NavbarHomepage from "../components/NavbarV2";
 import { Container, Grid2, TextField, Button, Card, CardMedia, CardContent, Typography, InputAdornment } from "@mui/material";
 import "../components/CSS/Homepagebg.css";
 import Search from "../components/Search";

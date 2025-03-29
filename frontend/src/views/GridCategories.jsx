@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import GridGeneric from '../components/GridGeneric'; 
+import Layout from '../components/Layout';
 
 const Categories = () => {
   const [categories, setCategories] = useState([
@@ -30,14 +31,16 @@ const Categories = () => {
   };
 
   return (
-    <GridGeneric
-      title="Categories"
-      data={categories}
-      columns={columns}
-      onEdit={handleEdit}
-      onDelete={handleDelete}
-      onAdd={handleAdd}
-    />
+    <Layout>
+      <GridGeneric
+        title="Categories"
+        data={categories}
+        columns={columns}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        onAdd={handleAdd}
+      />
+    </Layout>
   );
 };
 

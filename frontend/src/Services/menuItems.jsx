@@ -20,7 +20,7 @@ export const menuItems = [
     { text: 'Magazines', icon: <ImportContactsIcon sx={{ color: '#FFFFFF'}}/>, path: '/inventory/magazines'},
     ],
   },
-  { text: 'Préstamos', icon: <LocalAtmIcon sx={{ color: '#FFFFFF' }} /> },
+  { text: 'Préstamos', icon: <LocalAtmIcon sx={{ color: '#FFFFFF' }} />, path: '/inventory/loans' },
   {
     text: 'Seguridad',
     icon: <SecurityIcon sx={{ color: '#FFFFFF' }} />,

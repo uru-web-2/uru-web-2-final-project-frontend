@@ -11,12 +11,7 @@ import BooksPage from './views/BooksPage'
 import ArticlesPage from './views/ArticlesPage'
 import MagazinesPage from './views/MagazinesPage'
 import ThesesPage from './views/ThesesPage'
-import StudentCatalog from './views/StudentCatalog'
 import PermissionsPage from './views/PermissionsPage'; // Nueva página para Permisos
-import NavbarHomepage from './components/NavbarHomepage';
-import StudentLoans from './views/StudentLoans';
-import StudentAbout from './views/StudentAbout';
-import StudentSupport from './views/StudentSupport';
 import BookFormPage from './views/BookFormPage';
 import ArticleFormPage from './views/ArticleFormPage';
 import MagazineFormPage from './views/MagazineFormPage';
@@ -36,7 +31,7 @@ import GridCategories from '../src/views/GridCategories';
 function App() {
   const getDashboardRoute = () => {
     const roles = JSON.parse(sessionStorage.getItem("selectedRoles"));
-    console.log(roles);
+    console.log(roles, "haksjdhkjashdkjashk");
 
     if(!roles || !Array.isArray(roles)) {
       return "/login"
@@ -65,8 +60,8 @@ function App() {
 
     <Router>
       <Routes>
-      
-        <Route path="/" element={<Homepage />} />
+{/*       
+        <Route path="/" element={<Homepage />} /> */}
         
         <Route path="/login" element={isAuthenticated() ? <Navigate to={getDashboardRoute()} /> : <Login_Register />} />
 
@@ -213,7 +208,12 @@ function App() {
           </ProtectedRoute>
         } />
 
-      
+        <Route path= "/inventory/loans" element={
+                  <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
+                    <GridCategories />
+                  </ProtectedRoute>
+                } />
+
         {/*Security Module */}
         <Route path="/security/users" element={
           <ProtectedRoute allowedRoles={["Super Admin", "Student"]}>
@@ -233,12 +233,7 @@ function App() {
           </ProtectedRoute>
         } />
 
-        <Route path= "/inventory/loans" element={
-          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
-            <GridCategories />
-          </ProtectedRoute>
-        } />
-
+        
         <Route path="*" element={<Navigate to={getDashboardRoute()} />} />
       </Routes>
     </Router>
