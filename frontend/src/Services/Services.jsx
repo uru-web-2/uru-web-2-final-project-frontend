@@ -178,6 +178,47 @@ class ApiService {
             return data.data;
         });
     }
+
+    async createTopic(categoryData) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.CreateTopic(categoryData.name, categoryData.description);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    //Probarlo, tiene un error.
+    async deteleTopic(topicID) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.DeleteTopic(topicID);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async updateTopic(topicID, categoryData) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.UpdateTopic(topicID, categoryData.name, categoryData.description);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async getAllTopics() {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.GetAllTopics();
+            const data = await response.json();
+            return data;
+        });
+    }
+    
+    async searchTopicByName(name) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.SearchTopicByName(name);
+            const data = await response.json();
+            return data;
+        });
+    }
 }
 
 export const apiService = new ApiService();
