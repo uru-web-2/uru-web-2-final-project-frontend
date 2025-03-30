@@ -38,9 +38,21 @@ const Categories = () => {
     setIsModalOpen(true);
   };
 
-  const handleDelete = (item) => {
+  const handleDelete = async (item) => {
     console.log('Delete category:', item);
-    setCategories(prev => prev.filter(cat => cat.id !== item.id));
+    
+    try{
+      const response = await apiService.removeTopic(item.id);
+
+      if(response.status === 'success' || response.status === 200){
+        console.log('Category deleted successfully!');
+        setState(Math.random()); 
+      }else{
+        console.error('Error deleting category:', response);
+      }
+    }catch{
+      console.error('Error deleting category:', error);
+    }
   };
 
   const handleAdd = () => {
@@ -74,9 +86,9 @@ const Categories = () => {
     if (currentCategory) {
 
       try {
-        // Update the category data with the current category ID
-        const response = await apiService.updateTopic(currentCategory.id , categoryData);
+    
 
+        const response = await apiService.updateTopic(currentCategory.id , categoryData);
 
         if (response.status === 'success' || response.status === 201) {
 
@@ -118,6 +130,7 @@ const Categories = () => {
 
 
   return (
+    
     <Layout>
 
       <GridGeneric
@@ -136,6 +149,7 @@ const Categories = () => {
         onSave={handleSaveCategory}
         initialData={currentCategory}
       />
+
     </Layout>
   );
 };

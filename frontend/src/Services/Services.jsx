@@ -187,10 +187,9 @@ class ApiService {
         });
     }
 
-    //Probarlo, tiene un error.
-    async deteleTopic(topicID) {
+    async removeTopic(topicID) {
         return this.wrapWithLoading(async () => {
-            const response = await this.api.DeleteTopic(topicID);
+            const response = await this.api.RemoveTopic(topicID);
             const data = await response.json();
             return data;
         });
@@ -215,6 +214,46 @@ class ApiService {
     async searchTopicByName(name) {
         return this.wrapWithLoading(async () => {
             const response = await this.api.SearchTopicByName(name);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async getAllPublishers(){
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.GetAllPublishers();
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async createPublisher(publisherData) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.CreatePublisher(publisherData.name, publisherData.description);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async removePublisher(publisherID) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.RemovePublisher(publisherID);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async updatePublisher(publisherID, publisherData) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.UpdatePublisher(publisherID, publisherData.name, publisherData.description);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async searchPublisherByName(name) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.SearchPublisherByName(name);
             const data = await response.json();
             return data;
         });

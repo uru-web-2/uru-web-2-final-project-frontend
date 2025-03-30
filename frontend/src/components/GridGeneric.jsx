@@ -32,7 +32,7 @@ const GridGeneric = ({
   return (
      <Paper elevation={3} sx={{ padding: 3, margin: '40px auto', maxWidth: '1200px', width: '100%' }}>
        <Typography variant="h6" gutterBottom>
-         Categories
+         {title}
        </Typography>
        <Box sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
           <Search click={onSearch}/>

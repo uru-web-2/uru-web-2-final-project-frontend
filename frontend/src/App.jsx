@@ -25,6 +25,7 @@ import StudentFavorites from '../src/views/StudentViews/StudentFavorites';
 import StudentLoans from '../src/views/StudentViews/StudentLoans';
 import StudentProfile from '../src/views/StudentViews/StudentProfile';
 import GridCategories from '../src/views/GridCategories';
+import GridPublishers from '../src/views/GridPublishers';
 
 import { GlobalLoader } from './components/LoadingComponente';
 
@@ -62,8 +63,8 @@ function App() {
   return (
 
     <Router>
-
-      <GlobalLoader /> {/* Componente de carga global */}
+{/* 
+      <GlobalLoader /> Componente de carga global */}
 
       <Routes>
       
@@ -213,10 +214,10 @@ function App() {
         } />
 
         <Route path= "/inventory/loans" element={
-                  <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
-                    <GridCategories />
-                  </ProtectedRoute>
-                } />
+          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
+            <GridPublishers/>
+          </ProtectedRoute>
+        } />
 
         {/*Security Module */}
         <Route path="/security/users" element={
