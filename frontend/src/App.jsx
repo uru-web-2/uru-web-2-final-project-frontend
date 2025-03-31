@@ -32,14 +32,13 @@ import GridSections from '../src/views/GridSections';
 import { GlobalLoader } from './components/LoadingComponente';
 
 
-
 function App() {
   const getDashboardRoute = () => {
     const roles = JSON.parse(sessionStorage.getItem("selectedRoles"));
     console.log(roles, "haksjdhkjashdkjashk");
 
     if(!roles || !Array.isArray(roles)) {
-      return "/login"
+      return "/homepage"
     }
     
     const routes = {

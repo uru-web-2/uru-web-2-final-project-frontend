@@ -22,6 +22,8 @@ const Login = () => {
     const navigate = useNavigate(); // Hook para redireccionar
 
     const selectRole = (roles) => {
+        console.log(roles, "dorito7");
+        
         sessionStorage.setItem("selectedRoles", JSON.stringify(roles));
     };
 
@@ -48,9 +50,20 @@ const Login = () => {
             } else if (res.status === 'success') {
                 login();
                 setError('');
-                let selectedRoles = JSON.parse(sessionStorage.getItem("selectedRoles"));     
-                selectedRoles+= "-dashboard";
-                navigate(`/${selectedRoles}`); // Redirigir según el perfil seleccionado
+                let selectedRoles = JSON.parse(sessionStorage.getItem("selectedRoles"));
+                console.log(selectedRoles, "dorito10");
+                
+                if(selectedRoles[0] =='Student'){
+                    console.log(profileRoutes[selectedRoles], "dorito9");
+                    
+                    navigate(profileRoutes[selectedRoles]); // Redirigir según el perfil seleccionado
+                }else{
+                    selectedRoles+= "-dashboard";
+                    console.log(profileRoutes[selectedRoles], "dorito8");
+                    
+                    navigate(`/${profileRoutes[selectedRoles]}`); // Redirigir según el perfil seleccionado
+                }
+                
             }
         } catch (error) {
             setError(error.data?.username || error.data?.password || 'Login failed');

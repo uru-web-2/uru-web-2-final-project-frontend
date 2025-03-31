@@ -8,10 +8,10 @@ class ApiService {
 
     // Método para envolver cualquier función asíncrona con la lógica de carga
     async wrapWithLoading(asyncFunction) {
-        this.dispatchLoading(true); // Activar el estado de carga
+        //this.dispatchLoading(true); // Activar el estado de carga
         
         // Retraso artificial antes de la solicitud (2 segundos)
-        await new Promise(resolve => setTimeout(resolve, 4000));
+        //await new Promise(resolve => setTimeout(resolve, 4000));
         
         try {
             const result = await asyncFunction(); // Ejecutar la función asíncrona
@@ -24,11 +24,11 @@ class ApiService {
             console.error('Error en la solicitud:', error);
             
             // Retraso artificial incluso en caso de error
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            //await new Promise(resolve => setTimeout(resolve, 2000));
             
             throw error; // Propagar el error
         } finally {
-            this.dispatchLoading(false); // Desactivar el estado de carga
+           // this.dispatchLoading(false); // Desactivar el estado de carga
         }
     }
 

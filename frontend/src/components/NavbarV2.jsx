@@ -84,7 +84,7 @@ const NavbarHomepage = () => {
                     await logoutService();
                     sessionStorage.removeItem("selectedRoles");
                     logout();
-                    navigate("/");
+                    navigate("/login");
                   } catch (error) {
                     console.log(error);
                   }

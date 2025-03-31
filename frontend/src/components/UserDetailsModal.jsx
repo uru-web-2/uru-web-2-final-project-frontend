@@ -10,6 +10,8 @@ const UserDetailsModal = ({ isOpen, onClose, user, userDetails }) => {
 
   // Efecto para actualizar localProfiles cuando userDetails cambie
   useEffect(() => {
+    console.log('userDetails', user);
+    
     if (userDetails?.user_profile_ids) {
       setLocalProfiles(userDetails.user_profile_ids);
     }
@@ -19,7 +21,7 @@ const UserDetailsModal = ({ isOpen, onClose, user, userDetails }) => {
   const handleDeleteProfile = async (profileId) => {
     try {
       // Llamar a la función revokeUserProfile para eliminar el perfil en el backend
-      const response = await apiService.revokeUserProfile(user.user_username, profileId);
+      const response = await apiService.revokeUserProfile(user.username, profileId);
 
       // Verificar si la respuesta es exitosa
       if (response.status === 'success' || response.status === 200) {
@@ -47,7 +49,7 @@ const UserDetailsModal = ({ isOpen, onClose, user, userDetails }) => {
 
     try {
       // Llamar a la función assignuserProfile para asignar el perfil en el backend
-      const response = await apiService.assignUserProfile(user.user_username, profileId);
+      const response = await apiService.assignUserProfile(user.username, profileId);
 
       // Verificar si la respuesta es exitosa
       if (response.status === 'success' || response.status === 200) {
@@ -91,10 +93,10 @@ const UserDetailsModal = ({ isOpen, onClose, user, userDetails }) => {
       <div className="user-details-container">
         {/* Primer bloque de detalles (Nombre, Apellido, Email, Username) */}
         <div className="user-details-column">
-          <p><strong>Nombre:</strong> {user?.user_first_name}</p>
-          <p><strong>Apellido:</strong> {user?.user_last_name}</p>
-          <p><strong>Email:</strong> {user?.user_email}</p>
-          <p><strong>Username:</strong> {user?.user_username}</p>
+          <p><strong>Nombre:</strong> {userDetails?.user_first_name}</p>
+          <p><strong>Apellido:</strong> {userDetails?.user_last_name}</p>
+          <p><strong>Email:</strong> {userDetails?.user_email}</p>
+          <p><strong>Username:</strong> {userDetails?.user_username}</p>
         </div>
 
         {/* Segundo bloque de detalles (País, Tipo de Documento, Número de Documento) */}
