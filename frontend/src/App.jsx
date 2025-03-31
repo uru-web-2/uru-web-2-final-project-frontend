@@ -116,7 +116,26 @@ function App() {
 
         {/*Inventory Module */}
         
-        <Route path="/inventory/maintain/locations/section/:id" element={
+
+        <Route path="/inventory/maintenance/categories" element={
+          <ProtectedRoute allowedRoles={["Super Admin", "Student"]}>
+            <GridCategories />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/inventory/maintenance/publishers" element={
+          <ProtectedRoute allowedRoles={["Super Admin", "Student"]}>
+            <GridPublishers />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/inventory/maintenance/locations" element={
+          <ProtectedRoute allowedRoles={["Super Admin", "Student"]}>
+            <GridLocations />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/inventory/maintenance/locations/section/:id" element={
           <ProtectedRoute allowedRoles={["Super Admin", "Student"]}>
             <GridSections />
           </ProtectedRoute>

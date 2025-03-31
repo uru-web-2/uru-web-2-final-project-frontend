@@ -63,7 +63,7 @@ const Locations = () => {
     const handleViewSections = (locationId) => {
         console.log('View sections for location:', locationId);
         
-        navigate(`/inventory/maintain/locations/section/${locationId}`);
+        navigate(`/inventory/maintenance/locations/section/${locationId}`);
     };
 
     const handleSearchClick = async (location) => {
