@@ -26,6 +26,8 @@ import StudentLoans from '../src/views/StudentViews/StudentLoans';
 import StudentProfile from '../src/views/StudentViews/StudentProfile';
 import GridCategories from '../src/views/GridCategories';
 import GridPublishers from '../src/views/GridPublishers';
+import GridLocations from '../src/views/GridLocations';
+import GridSections from '../src/views/GridSections';
 
 import { GlobalLoader } from './components/LoadingComponente';
 
@@ -115,6 +117,11 @@ function App() {
 
         {/*Inventory Module */}
         
+        <Route path="/inventory/maintain/locations/section/:id" element={
+          <ProtectedRoute allowedRoles={["Super Admin", "Student"]}>
+            <GridSections />
+          </ProtectedRoute>
+        } />
 
         <Route path="/inventory/books/form" element={
           <ProtectedRoute allowedRoles={["Super admin","Student"]}>
@@ -215,7 +222,7 @@ function App() {
 
         <Route path= "/inventory/loans" element={
           <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
-            <GridPublishers/>
+            <GridLocations/>
           </ProtectedRoute>
         } />
 

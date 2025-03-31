@@ -258,6 +258,70 @@ class ApiService {
             return data;
         });
     }
+
+    async getAllLocations() {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.GetAllLocations(0,10);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async createLocation(locationData) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.CreateLocation(locationData.floor, locationData.area);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async removeLocation(locationID) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.RemoveLocation(locationID);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async updateLocation(locationID, locationData) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.UpdateLocation(locationID, locationData.floor, locationData.area);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async createLocationSection(locationID, name) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.CreateLocationSection(locationID, name);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async updateLocationSection(sectionID, name) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.UpdateLocationSection(sectionID, name);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async removeLocationSection(sectionID) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.RemoveLocationSection(sectionID);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async getLocationSectionsByLocationID(locationID) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.GetLocationSectionsByLocationID(locationID);
+            const data = await response.json();
+            return data;
+        });
+    }
 }
 
 export const apiService = new ApiService();
