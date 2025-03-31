@@ -3,6 +3,7 @@ import { Toolbar, CssBaseline, Container } from '@mui/material';
 import Layout from '../components/Layout';
 import GridUsers from '../components/GridUsers';
 //import { drawerStyles, listItemTextStyles } from '../components/styles'; // Importa estilos
+import { menuItems} from "../Services/menuItems";
 
 // Datos de ejemplo para la tabla
 const users = [
@@ -34,7 +35,7 @@ const UsersPage = () => {
   };
 
   return (
-    <Layout>
+    <Layout menuItemsGeneral={menuItems}>
       <MainContent/>
     </Layout>
   );

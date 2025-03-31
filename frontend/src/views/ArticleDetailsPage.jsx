@@ -1,5 +1,6 @@
 import Layout from "../components/Layout";
 import DetailsTemplate from "../components/DetailsTemplate";
+import { menuItemsLibrarian } from "../Services/menuItems";
 
 function ArticleDetailsPage() {
     
@@ -29,7 +30,7 @@ function ArticleDetailsPage() {
     };
 
     return (
-        <Layout>
+        <Layout menuItemsGeneral={menuItemsLibrarian}>
             <DetailsTemplate {...articleDetails} />
         </Layout>
     );

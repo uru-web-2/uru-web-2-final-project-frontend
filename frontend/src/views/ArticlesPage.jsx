@@ -3,6 +3,7 @@ import { Paper,Box, Button } from "@mui/material";
 import React, { useState } from "react";
 import Layout from "../components/Layout";
 import { useNavigate } from 'react-router-dom';
+import { menuItemsLibrarian } from "../Services/menuItems";
 
 const generateData = (numItems) => {
     const data = [];
@@ -34,7 +35,7 @@ function ArticlesPage() {
     }
 
     return (
-        <Layout>
+        <Layout menuItemsGeneral={menuItemsLibrarian}>
             <Paper elevation={3} sx={{pb: 2}}>
                 <CardList data={data} addFunction={addArticle}/>
             </Paper>

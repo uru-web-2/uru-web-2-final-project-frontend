@@ -1,6 +1,7 @@
 import { Container } from '@mui/material';
 import PermissionsGrid from '../components/PermissionsGrid'; // Importa el componente PermissionsGrid
 import Layout from '../components/Layout';
+import { menuItems} from "../Services/menuItems";
 
 const MainContent = () => (
   <Container>
@@ -10,7 +11,7 @@ const MainContent = () => (
 
 function PermissionsPage() {
   return (
-    <Layout>
+    <Layout menuItemsGeneral={menuItems}>
       <MainContent />
     </Layout>
   );

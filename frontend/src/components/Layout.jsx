@@ -5,11 +5,8 @@ import Navbar from "../components/Navbar";
 import SideBar from "../components/SideBar";
 import CustomDrawer from "../components/CustomDrawer";
 import MenuItem from "../components/MenuItem";
-import { menuItems } from '../Services/menuItems'; 
 
-
-
-function Layout({children}) {
+function Layout({children, menuItemsGeneral}) {
 
     const [mobileOpen, setMobileOpen] = useState(false);
     const handleDrawerToggle = () => {
@@ -32,7 +29,7 @@ function Layout({children}) {
         open={mobileOpen}
         handleDrawerToggle={handleDrawerToggle}
         //drawerStyles={drawerStyles}
-        menuItems={menuItems}
+        menuItems={menuItemsGeneral}
         MenuItem={MenuItem}
         //listItemTextStyles={listItemTextStyles}
         CustomDrawer={CustomDrawer}

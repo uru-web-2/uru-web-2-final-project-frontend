@@ -71,12 +71,12 @@ const UserDetailsModal = ({ isOpen, onClose, user, userDetails }) => {
 
   // Mapeo de IDs de perfiles a nombres
   const profiles = {
-    1: 'student',
-    2: 'teacher',
-    3: 'librarian',
-    4: 'admin',
-    5: 'superadmin',
-    6: 'developer',
+    2: 'student',
+    3: 'teacher',
+    4: 'librarian',
+    5: 'admin',
+    6: 'superadmin',
+    7: 'developer',
   };
 
   // Filtrar los perfiles que el usuario no tiene

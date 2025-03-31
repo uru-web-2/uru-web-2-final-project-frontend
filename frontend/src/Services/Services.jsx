@@ -98,7 +98,7 @@ class ApiService {
 
     async assignProfilePermissions(methodID, profileID) {
         return this.wrapWithLoading(async () => {
-            const response = await this.api.AssignProfilePermission(methodID, profileID);
+            const response = await this.api.CreateProfilePermission(methodID, profileID);
             const data = await response.json();
             return data;
         });
@@ -106,7 +106,7 @@ class ApiService {
 
     async revokeProfilePermissions(methodID, profileID) {
         return this.wrapWithLoading(async () => {
-            const response = await this.api.RevokeProfilePermission(methodID, profileID);
+            const response = await this.api.RemoveProfilePermission(methodID, profileID);
             const data = await response.json();
             return data;
         });
@@ -157,7 +157,7 @@ class ApiService {
 
     async revokeUserProfile(username, profileID) {
         return this.wrapWithLoading(async () => {
-            const response = await this.api.RevokeUserProfile(username, profileID);
+            const response = await this.api.RemoveUserProfile(username, profileID);
             const data = await response.json();
             return data;
         });
@@ -165,7 +165,7 @@ class ApiService {
 
     async assignUserProfile(username, profileID) {
         return this.wrapWithLoading(async () => {
-            const response = await this.api.AssignUserProfile(username, profileID);
+            const response = await this.api.CreateUserProfile(username, profileID);
             const data = await response.json();
             return data;
         });

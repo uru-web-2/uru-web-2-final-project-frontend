@@ -3,6 +3,7 @@ import { Container } from '@mui/material';
 import GridProfiles from '../components/GridProfiles';
 import Layout from '../components/Layout';
 import { apiService } from '../Services/Services';
+import { menuItems} from "../Services/menuItems";
 
 // eslint-disable-next-line react/prop-types
 const MainContent = ({ profiles }) => (
@@ -28,7 +29,7 @@ const ProfilesPage = () => {
   }, []);
 
   return (
-    <Layout>
+    <Layout menuItemsGeneral={menuItems}>
       <MainContent profiles={profiles} />
     </Layout>
   );

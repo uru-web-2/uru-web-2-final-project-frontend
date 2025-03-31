@@ -82,6 +82,8 @@ const NavbarHomepage = () => {
                 { label: "Logout", onClick: async () => {
                   try {
                     await logoutService();
+                    console.log(1);
+                    
                     sessionStorage.removeItem("selectedRoles");
                     logout();
                     navigate("/login");
