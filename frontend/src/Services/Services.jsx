@@ -178,6 +178,86 @@ class ApiService {
             return data.data;
         });
     }
+
+    async createTopic(categoryData) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.CreateTopic(categoryData.name, categoryData.description);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async removeTopic(topicID) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.RemoveTopic(topicID);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async updateTopic(topicID, categoryData) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.UpdateTopic(topicID, categoryData.name, categoryData.description);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async getAllTopics() {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.GetAllTopics();
+            const data = await response.json();
+            return data;
+        });
+    }
+    
+    async searchTopicByName(name) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.SearchTopicByName(name);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async getAllPublishers(){
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.GetAllPublishers();
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async createPublisher(publisherData) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.CreatePublisher(publisherData.name, publisherData.description);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async removePublisher(publisherID) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.RemovePublisher(publisherID);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async updatePublisher(publisherID, publisherData) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.UpdatePublisher(publisherID, publisherData.name, publisherData.description);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async searchPublisherByName(name) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.SearchPublisherByName(name);
+            const data = await response.json();
+            return data;
+        });
+    }
 }
 
 export const apiService = new ApiService();

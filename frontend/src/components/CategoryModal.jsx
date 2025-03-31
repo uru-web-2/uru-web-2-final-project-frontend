@@ -1,0 +1,78 @@
+import React, { useState, useEffect } from 'react';
+import ModalWrapper from './ModalWrapper';
+import { TextField, Button } from '@mui/material';
+
+const CategoryModal = ({ isOpen, onClose, onSave, initialData }) => {
+    const [categoryData, setCategoryData] = useState({
+        name: '',
+        description: ''
+    });
+
+
+    useEffect(() => {
+        if (initialData) {
+        setCategoryData(initialData);
+        } else {
+        setCategoryData({ name: '', description: '' });
+        }
+    }, [initialData]);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setCategoryData({
+        ...categoryData,
+        [name]: value
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onSave(categoryData);
+        setCategoryData({ name: '', description: '' });
+        onClose();
+    };
+
+    return (
+        <ModalWrapper
+        isOpen={isOpen}
+        title={initialData ? "Edit Category" : "Add New Category"}
+        onClose={onClose}
+        actions={
+            <>
+            <Button onClick={onClose} color="secondary">
+                Cancel
+            </Button>
+            <Button variant="contained" color="primary" onClick={handleSubmit}>
+                {initialData ? "Update" : "Save"}
+            </Button>
+            </>
+        }
+        >
+        <form onSubmit={handleSubmit}>
+            <TextField
+            fullWidth
+            label="Name"
+            name="name"
+            value={categoryData.name}
+            onChange={handleChange}
+            margin="normal"
+            size="small"
+            required
+            />
+            <TextField
+            fullWidth
+            label="Description"
+            name="description"
+            value={categoryData.description}
+            onChange={handleChange}
+            margin="normal"
+            size="small"
+            multiline
+            rows={4}
+            />
+        </form>
+        </ModalWrapper>
+    );
+};
+
+export default CategoryModal;

@@ -24,9 +24,9 @@ const ModalWrapper = ({ isOpen, title, children, onClose, actions }) => {
         <Typography id="modal-title" variant="h6" component="h2" fontWeight={700} fontSize={25}>
           {title}
         </Typography>
-        <Typography id="modal-description" sx={{ mt: 2 }}>
+        <Box id="modal-description" sx={{ mt: 2 }}>
           {children}
-        </Typography>
+        </Box>
         <div className="modal-actions">
           {actions}
         </div>

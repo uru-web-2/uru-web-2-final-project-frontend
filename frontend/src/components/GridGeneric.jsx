@@ -14,6 +14,7 @@ const GridGeneric = ({
   onEdit = null,
   onDelete = null,
   customActions = null,
+  onSearch = null,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(7);
@@ -31,11 +32,12 @@ const GridGeneric = ({
   return (
      <Paper elevation={3} sx={{ padding: 3, margin: '40px auto', maxWidth: '1200px', width: '100%' }}>
        <Typography variant="h6" gutterBottom>
-         Categories
+         {title}
        </Typography>
        <Box sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-
+          <Search click={onSearch}/>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          
           <PageSizeSelector numberItems={[5, 7, 10, 15]} onChange={handleItemsPerPageChange} value={itemsPerPage} />
           {onAdd && <Button variant="contained" onClick={onAdd} sx={{ ml: 1 }}>+ Add</Button>}
         </Box>

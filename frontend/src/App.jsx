@@ -25,6 +25,7 @@ import StudentFavorites from '../src/views/StudentViews/StudentFavorites';
 import StudentLoans from '../src/views/StudentViews/StudentLoans';
 import StudentProfile from '../src/views/StudentViews/StudentProfile';
 import GridCategories from '../src/views/GridCategories';
+import GridPublishers from '../src/views/GridPublishers';
 
 import { GlobalLoader } from './components/LoadingComponente';
 
@@ -32,7 +33,7 @@ import { GlobalLoader } from './components/LoadingComponente';
 function App() {
   const getDashboardRoute = () => {
     const roles = JSON.parse(sessionStorage.getItem("selectedRoles"));
-    console.log(roles);
+    console.log(roles, "haksjdhkjashdkjashk");
 
     if(!roles || !Array.isArray(roles)) {
       return "/homepage"
@@ -61,8 +62,8 @@ function App() {
   return (
 
     <Router>
-
-      <GlobalLoader /> {/* Componente de carga global */}
+{/* 
+      <GlobalLoader /> Componente de carga global */}
 
       <Routes>
       
@@ -211,7 +212,12 @@ function App() {
           </ProtectedRoute>
         } />
 
-      
+        <Route path= "/inventory/loans" element={
+          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
+            <GridPublishers/>
+          </ProtectedRoute>
+        } />
+
         {/*Security Module */}
         <Route path="/security/users" element={
           <ProtectedRoute allowedRoles={["Super Admin", "Student"]}>
@@ -231,12 +237,7 @@ function App() {
           </ProtectedRoute>
         } />
 
-        <Route path= "/inventory/loans" element={
-          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
-            <GridCategories />
-          </ProtectedRoute>
-        } />
-
+        
         <Route path="*" element={<Navigate to={getDashboardRoute()} />} />
       </Routes>
     </Router>
