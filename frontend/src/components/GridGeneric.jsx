@@ -13,7 +13,7 @@ const GridGeneric = ({
   onAdd = null,
   onEdit = null,
   onDelete = null,
-  customActions = null,
+  customActions = [],
   onSearch = null,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,7 +35,7 @@ const GridGeneric = ({
          {title}
        </Typography>
        <Box sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-          <Search click={onSearch}/>
+          {onSearch ? <Search click={onSearch} /> : <div></div>}
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           
           <PageSizeSelector numberItems={[5, 7, 10, 15]} onChange={handleItemsPerPageChange} value={itemsPerPage} />
@@ -81,7 +81,7 @@ const GridGeneric = ({
                   {col.label}
                 </TableCell>
               ))}
-              {(onEdit || onDelete || customActions) && (
+              {(onEdit || onDelete || customActions.length > 0) && (
                 <TableCell
                   sx={{
                     backgroundColor: '#1A4568',
@@ -112,11 +112,21 @@ const GridGeneric = ({
                     {item[col.key]}
                   </TableCell>
                 ))}
-                {(onEdit || onDelete || customActions) && (
+                {(onEdit || onDelete || customActions.length > 0) && (
                   <TableCell>
                     {onEdit && <Button size="small" variant="outlined" color="primary" onClick={() => onEdit(item)} sx={{ mr: 1 }}>Edit</Button>}
-                    {onDelete && <Button size="small" variant="outlined" color="error" onClick={() => onDelete(item)}>Delete</Button>}
-                    {customActions && customActions(item)}
+                    {onDelete && <Button size="small" variant="outlined" color="error" onClick={() => onDelete(item)} sx={{ mr: 1 }}>Delete</Button>}
+                    {customActions.map((action, i) => (
+                      <Button
+                        key={i}
+                        size="small"
+                        variant="outlined"
+                        color={action.color || 'primary'}
+                        onClick={() => action.onClick(item)}
+                      >
+                        {action.label}
+                      </Button>
+                    ))}
                   </TableCell>
                 )}
               </TableRow>

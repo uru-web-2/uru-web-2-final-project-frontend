@@ -21,6 +21,7 @@ const [state, setState] = useState(null);
         }
         }
         fetchPublishers();
+        
     }, [state]);
 
     const columns = [
