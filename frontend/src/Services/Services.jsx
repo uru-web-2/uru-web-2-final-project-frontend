@@ -322,6 +322,21 @@ class ApiService {
             return data;
         });
     }
+
+    async getAllLocationSections(){
+        return this.wrapWithLoading(async () =>{
+            const response = await this.api.GetAllLocationSections(0,50);
+            const data = await response.json();
+            return data
+        })
+    }
+    async getAllLanguages(){
+        return this.wrapWithLoading(async () =>{
+            const response = await this.api.GetAllLanguages();
+            const data = await response.json();
+            return data
+        })
+    }
 }
 
 export const apiService = new ApiService();

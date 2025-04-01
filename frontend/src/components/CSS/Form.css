@@ -109,6 +109,31 @@
     width: 300px;
     min-height: 42px;
 }
+
+
+.form-select__control {
+width: 300px; 
+height: 42px; 
+}
+
+
+.form-select__value-container {
+height: 100%;
+display: flex;
+align-content: center;
+}
+
+
+.form-select__single-value {
+font-size: 16px;
+margin: 0; 
+}
+
+.form-select__option {
+padding: 10px;
+font-size: 14px; 
+}
+
 .form-input-list-item input{
     border: none;
     border-bottom: 2px solid #000;
@@ -145,4 +170,5 @@
     opacity: 0.6; 
     cursor: not-allowed;
     color: #ccc;
-  }
+}
+

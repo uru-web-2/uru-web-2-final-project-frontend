@@ -17,12 +17,12 @@ const Locations = () => {
 
     useEffect(() => {
         const fetchLocations = async () => {
-        try {
-            const response = await apiService.getAllLocations();
-            setLocations(response.data.locations);
-        } catch (error) {
-            console.error('Error fetching locations:', error);
-        }
+            try {
+                const response = await apiService.getAllLocations();
+                setLocations(response.data.locations);
+            } catch (error) {
+                console.error('Error fetching locations:', error);
+            }
         }
         fetchLocations();
     }, [state]);
@@ -65,23 +65,6 @@ const Locations = () => {
         
         navigate(`/inventory/maintenance/locations/section/${locationId}`);
     };
-
-    const handleSearchClick = async (location) => {
-        try {
-        const response = await apiService.searchLocationByFloor(location);
-
-        if(response.data.locations.length === 0) {
-            console.log('No results found');
-            return;
-        }
-        
-        if(response.status === 'success' || response.status === 200) {
-            setLocations(response.data.locations);
-        }
-        } catch (error) {
-        console.log(error);
-        }
-    }
 
     const handleSaveLocation = async(locationData) => {
         if (currentLocation) {
@@ -131,7 +114,6 @@ const Locations = () => {
                 onEdit={handleEdit}
                 onDelete={handleDelete}
                 onAdd={handleAdd}
-                onSearch={handleSearchClick}
                 customActions={customActions}
             />
             <LocationModal
