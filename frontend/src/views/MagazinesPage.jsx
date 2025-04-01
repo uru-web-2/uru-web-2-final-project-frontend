@@ -3,7 +3,7 @@ import { Paper } from "@mui/material";
 import React from "react";
 import Layout from "../components/Layout";
 import { useNavigate } from 'react-router-dom';
-import { menuItemsLibrarian } from "../Services/menuItems";
+import { menuItems } from "../Services/menuItems";
 
 const generateData = (numItems) => {
     const data = [];
@@ -33,7 +33,7 @@ function MagazinesPage() {
     }
 
     return (
-        <Layout menuItemsGeneral={menuItemsLibrarian}>
+        <Layout menuItemsGeneral={menuItems}>
             <Paper elevation={3} sx={{pb: 2}}>
                 <CardList data={data} addFunction={addMagazine}/>
             </Paper>

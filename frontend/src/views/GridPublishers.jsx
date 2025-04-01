@@ -3,6 +3,7 @@ import GridGeneric from '../components/GridGeneric';
 import Layout from '../components/Layout';
 import { apiService } from '../Services/Services';
 import PublisherModal from '../components/PublisherModal';
+import { menuItems } from '../Services/menuItems';
 
 const Publishers = () => {
 
@@ -106,7 +107,7 @@ const [state, setState] = useState(null);
     };
 
     return (
-        <Layout>
+        <Layout menuItemsGeneral={menuItems}>
             <GridGeneric
                 title="Publishers"
                 data={publishers}

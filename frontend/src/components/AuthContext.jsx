@@ -1,36 +1,51 @@
-import { createContext, useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { createContext, useState, useEffect, useContext } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authState, setAuthState] = useState({
+    isAuthenticated: false,
+    roles: []
+  });
 
   useEffect(() => {
-    // Verificamos si existe 'selectedRoles' en localStorage
-    const roles = sessionStorage.getItem('selectedRoles');
-    
-    if (roles) {
-      setIsAuthenticated(true);
-    }
+    const checkAuth = () => {
+      const rolesJSON = sessionStorage.getItem('selectedRoles');
+      if (rolesJSON) {
+        setAuthState({
+          isAuthenticated: true,
+          roles: JSON.parse(rolesJSON)
+        });
+      }
+    };
+    checkAuth();
   }, []);
 
-  const login = () => {
-    // Al hacer login, guardamos el arreglo como JSON
-    const roles = ['Student']; // Puedes agregar más roles aquí
-    sessionStorage.setItem('selectedRoles', JSON.stringify(roles)); // Guardar como JSON
-    setIsAuthenticated(true);
+  const login = (roles) => {
+    sessionStorage.setItem('selectedRoles', JSON.stringify(roles));
+    setAuthState({
+      isAuthenticated: true,
+      roles
+    });
   };
 
   const logout = () => {
-    // Al hacer logout, eliminamos selectedRoles
     sessionStorage.removeItem('selectedRoles');
-    setIsAuthenticated(false);
+    setAuthState({
+      isAuthenticated: false,
+      roles: []
+    });
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ ...authState, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
+};
+
+// Hook personalizado simplificado
+export const useAuth = () => {
+  return useContext(AuthContext);
 };

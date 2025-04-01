@@ -1,6 +1,6 @@
 import Layout from "../components/Layout";
 import DetailsTemplate from "../components/DetailsTemplate";
-import { menuItemsLibrarian } from "../Services/menuItems";
+import { menuItems } from "../Services/menuItems";
 
 function MagazineDetailsPage() {
     const magazineDetails = {
@@ -33,7 +33,7 @@ function MagazineDetailsPage() {
     };
 
     return (
-        <Layout menuItemsGeneral={menuItemsLibrarian}>
+        <Layout menuItemsGeneral={menuItems}>
             <DetailsTemplate {...magazineDetails} />
         </Layout>
     );

@@ -5,7 +5,7 @@ import { AuthProvider } from './components/AuthContext.jsx'
 
 createRoot(document.getElementById('root')).render(
     <AuthProvider>
-    <App />
+        <App />
     </AuthProvider>
 
 )

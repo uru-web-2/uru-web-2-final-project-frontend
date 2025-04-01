@@ -3,6 +3,7 @@ import GridGeneric from '../components/GridGeneric';
 import Layout from '../components/Layout';
 import { apiService } from '../Services/Services';
 import CategoryModal from '../components/CategoryModal';
+import { menuItems } from '../Services/menuItems';
 
 const Categories = () => {
 
@@ -131,7 +132,7 @@ const Categories = () => {
 
   return (
     
-    <Layout>
+    <Layout menuItemsGeneral={menuItems}>
 
       <GridGeneric
         title="Categories"

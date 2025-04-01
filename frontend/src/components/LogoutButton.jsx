@@ -2,10 +2,14 @@ import { Button } from "@mui/material";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { logoutService } from "../Services/authService";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "./AuthContext";
+
 
 function LogoutButton () {
 
     const navigate = useNavigate();
+    const { logout } = useContext(AuthContext);
 
     const onLogout = async () => {
         try {
@@ -16,8 +20,8 @@ function LogoutButton () {
             if (res.status === 'success') {
                 sessionStorage.clear();
                 console.log("Logout successful:", res);
-                
-                navigate('/login');
+                logout(); // Clear the auth state in context
+                navigate("/login");
             }else{
                 console.log("Error during logout:", res);
             }

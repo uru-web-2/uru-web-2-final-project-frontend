@@ -33,6 +33,7 @@ import { GlobalLoader } from './components/LoadingComponente';
 
 
 function App() {
+
   const getDashboardRoute = () => {
     const roles = JSON.parse(sessionStorage.getItem("selectedRoles"));
     console.log(roles, "haksjdhkjashdkjashk");
@@ -58,6 +59,8 @@ function App() {
   };
 
   const isAuthenticated = () => {
+    console.log('hola');
+    
     return sessionStorage.getItem("selectedRoles") !== null;
   };
 

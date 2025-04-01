@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 
 const SideBar = ({ open, handleDrawerToggle, drawerStyles, menuItems, MenuItem, listItemTextStyles, CustomDrawer }) => {
   const navigate = useNavigate();
+  console.log('menuItems:', menuItems);
+  
 
   // Función para manejar el clic en un ítem del menú
   const handleClickItem = (path) => {

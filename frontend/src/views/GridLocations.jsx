@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import { apiService } from '../Services/Services';
 import LocationModal from '../components/LocationModal';
 import { useNavigate } from 'react-router-dom';
+import { menuItems } from '../Services/menuItems';
 
 const Locations = () => {
 
@@ -123,7 +124,7 @@ const Locations = () => {
     ];
 
     return (
-        <Layout>
+        <Layout menuItemsGeneral={menuItems}>
             <GridGeneric
                 title="Locations"
                 data={locations}

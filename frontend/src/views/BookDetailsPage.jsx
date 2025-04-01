@@ -2,7 +2,7 @@ import Layout from "../components/Layout";
 import DetailsTemplate from "../components/DetailsTemplate";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { menuItemsLibrarian } from "../Services/menuItems";
+import { menuItems } from "../Services/menuItems";
 
 
 function BookDetailsPage() {
@@ -39,7 +39,7 @@ function BookDetailsPage() {
     };
 
     return (
-        <Layout menuItemsGeneral={menuItemsLibrarian}>
+        <Layout menuItemsGeneral={menuItems}>
             <DetailsTemplate {...bookDetails} />
         </Layout>
     );
