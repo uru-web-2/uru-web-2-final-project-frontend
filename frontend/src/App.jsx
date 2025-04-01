@@ -25,18 +25,20 @@ import StudentFavorites from '../src/views/StudentViews/StudentFavorites';
 import StudentLoans from '../src/views/StudentViews/StudentLoans';
 import StudentProfile from '../src/views/StudentViews/StudentProfile';
 import GridCategories from '../src/views/GridCategories';
+import GridPublishers from '../src/views/GridPublishers';
+import GridLocations from '../src/views/GridLocations';
+import GridSections from '../src/views/GridSections';
 
 import { GlobalLoader } from './components/LoadingComponente';
-
 
 
 function App() {
   const getDashboardRoute = () => {
     const roles = JSON.parse(sessionStorage.getItem("selectedRoles"));
-    console.log(roles);
+    console.log(roles, "haksjdhkjashdkjashk");
 
     if(!roles || !Array.isArray(roles)) {
-      return "/login"
+      return "/homepage"
     }
     
     const routes = {
@@ -62,8 +64,8 @@ function App() {
   return (
 
     <Router>
-
-      <GlobalLoader /> {/* Componente de carga global */}
+{/* 
+      <GlobalLoader /> Componente de carga global */}
 
       <Routes>
       
@@ -114,6 +116,30 @@ function App() {
 
         {/*Inventory Module */}
         
+
+        <Route path="/inventory/maintenance/categories" element={
+          <ProtectedRoute allowedRoles={["Super Admin", "Student"]}>
+            <GridCategories />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/inventory/maintenance/publishers" element={
+          <ProtectedRoute allowedRoles={["Super Admin", "Student"]}>
+            <GridPublishers />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/inventory/maintenance/locations" element={
+          <ProtectedRoute allowedRoles={["Super Admin", "Student"]}>
+            <GridLocations />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/inventory/maintenance/locations/section/:id" element={
+          <ProtectedRoute allowedRoles={["Super Admin", "Student"]}>
+            <GridSections />
+          </ProtectedRoute>
+        } />
 
         <Route path="/inventory/books/form" element={
           <ProtectedRoute allowedRoles={["Super admin","Student"]}>
@@ -212,7 +238,12 @@ function App() {
           </ProtectedRoute>
         } />
 
-      
+        <Route path= "/inventory/loans" element={
+          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
+            <GridLocations/>
+          </ProtectedRoute>
+        } />
+
         {/*Security Module */}
         <Route path="/security/users" element={
           <ProtectedRoute allowedRoles={["Super Admin", "Student"]}>
@@ -232,12 +263,7 @@ function App() {
           </ProtectedRoute>
         } />
 
-        <Route path= "/inventory/loans" element={
-          <ProtectedRoute allowedRoles={["Student", "Librarian", "Super Admin"]}>
-            <GridCategories />
-          </ProtectedRoute>
-        } />
-
+        
         <Route path="*" element={<Navigate to={getDashboardRoute()} />} />
       </Routes>
     </Router>

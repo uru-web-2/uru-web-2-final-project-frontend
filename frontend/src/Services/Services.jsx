@@ -8,10 +8,10 @@ class ApiService {
 
     // Método para envolver cualquier función asíncrona con la lógica de carga
     async wrapWithLoading(asyncFunction) {
-        this.dispatchLoading(true); // Activar el estado de carga
+        //this.dispatchLoading(true); // Activar el estado de carga
         
         // Retraso artificial antes de la solicitud (2 segundos)
-        await new Promise(resolve => setTimeout(resolve, 4000));
+        //await new Promise(resolve => setTimeout(resolve, 4000));
         
         try {
             const result = await asyncFunction(); // Ejecutar la función asíncrona
@@ -24,11 +24,11 @@ class ApiService {
             console.error('Error en la solicitud:', error);
             
             // Retraso artificial incluso en caso de error
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            //await new Promise(resolve => setTimeout(resolve, 2000));
             
             throw error; // Propagar el error
         } finally {
-            this.dispatchLoading(false); // Desactivar el estado de carga
+           // this.dispatchLoading(false); // Desactivar el estado de carga
         }
     }
 
@@ -176,6 +176,150 @@ class ApiService {
             const response = await this.api.SearchUserByUsername(username, 10);
             const data = await response.json();
             return data.data;
+        });
+    }
+
+    async createTopic(categoryData) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.CreateTopic(categoryData.name, categoryData.description);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async removeTopic(topicID) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.RemoveTopic(topicID);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async updateTopic(topicID, categoryData) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.UpdateTopic(topicID, categoryData.name, categoryData.description);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async getAllTopics() {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.GetAllTopics();
+            const data = await response.json();
+            return data;
+        });
+    }
+    
+    async searchTopicByName(name) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.SearchTopicByName(name);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async getAllPublishers(){
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.GetAllPublishers();
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async createPublisher(publisherData) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.CreatePublisher(publisherData.name, publisherData.description);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async removePublisher(publisherID) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.RemovePublisher(publisherID);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async updatePublisher(publisherID, publisherData) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.UpdatePublisher(publisherID, publisherData.name, publisherData.description);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async searchPublisherByName(name) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.SearchPublisherByName(name);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async getAllLocations() {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.GetAllLocations(0,10);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async createLocation(locationData) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.CreateLocation(locationData.floor, locationData.area);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async removeLocation(locationID) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.RemoveLocation(locationID);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async updateLocation(locationID, locationData) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.UpdateLocation(locationID, locationData.floor, locationData.area);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async createLocationSection(locationID, name) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.CreateLocationSection(locationID, name);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async updateLocationSection(sectionID, name) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.UpdateLocationSection(sectionID, name);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async removeLocationSection(sectionID) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.RemoveLocationSection(sectionID);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+    async getLocationSectionsByLocationID(locationID) {
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.GetLocationSectionsByLocationID(locationID);
+            const data = await response.json();
+            return data;
         });
     }
 }

@@ -27,8 +27,8 @@ const Register = () => {
     }));
 
     const documentTypes = [
-        { code: 'V', name: 'identity_document' },
-        { code: 'P', name: 'passport' },
+        { code: 'V', name: 'Identity Document' },
+        { code: 'P', name: 'Passport' },
     ];
 
     const togglePasswordVisibility = () => {

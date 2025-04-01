@@ -13,7 +13,8 @@ const GridGeneric = ({
   onAdd = null,
   onEdit = null,
   onDelete = null,
-  customActions = null,
+  customActions = [],
+  onSearch = null,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(7);
@@ -31,11 +32,12 @@ const GridGeneric = ({
   return (
      <Paper elevation={3} sx={{ padding: 3, margin: '40px auto', maxWidth: '1200px', width: '100%' }}>
        <Typography variant="h6" gutterBottom>
-         Categories
+         {title}
        </Typography>
        <Box sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-
+          {onSearch ? <Search click={onSearch} /> : <div></div>}
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          
           <PageSizeSelector numberItems={[5, 7, 10, 15]} onChange={handleItemsPerPageChange} value={itemsPerPage} />
           {onAdd && <Button variant="contained" onClick={onAdd} sx={{ ml: 1 }}>+ Add</Button>}
         </Box>
@@ -79,7 +81,7 @@ const GridGeneric = ({
                   {col.label}
                 </TableCell>
               ))}
-              {(onEdit || onDelete || customActions) && (
+              {(onEdit || onDelete || customActions.length > 0) && (
                 <TableCell
                   sx={{
                     backgroundColor: '#1A4568',
@@ -110,11 +112,21 @@ const GridGeneric = ({
                     {item[col.key]}
                   </TableCell>
                 ))}
-                {(onEdit || onDelete || customActions) && (
+                {(onEdit || onDelete || customActions.length > 0) && (
                   <TableCell>
                     {onEdit && <Button size="small" variant="outlined" color="primary" onClick={() => onEdit(item)} sx={{ mr: 1 }}>Edit</Button>}
-                    {onDelete && <Button size="small" variant="outlined" color="error" onClick={() => onDelete(item)}>Delete</Button>}
-                    {customActions && customActions(item)}
+                    {onDelete && <Button size="small" variant="outlined" color="error" onClick={() => onDelete(item)} sx={{ mr: 1 }}>Delete</Button>}
+                    {customActions.map((action, i) => (
+                      <Button
+                        key={i}
+                        size="small"
+                        variant="outlined"
+                        color={action.color || 'primary'}
+                        onClick={() => action.onClick(item)}
+                      >
+                        {action.label}
+                      </Button>
+                    ))}
                   </TableCell>
                 )}
               </TableRow>

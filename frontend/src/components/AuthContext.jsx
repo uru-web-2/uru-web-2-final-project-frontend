@@ -16,8 +16,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = () => {
-    // Al hacer login, establecemos algún valor en selectedRoles
-    sessionStorage.setItem('selectedRoles', 'user'); // Puedes guardar el rol real aquí
+    // Al hacer login, guardamos el arreglo como JSON
+    const roles = ['Student']; // Puedes agregar más roles aquí
+    sessionStorage.setItem('selectedRoles', JSON.stringify(roles)); // Guardar como JSON
     setIsAuthenticated(true);
   };
 
