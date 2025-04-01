@@ -3,43 +3,55 @@ import { ListItem, ListItemIcon, ListItemText, Collapse, List } from '@mui/mater
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
-const MenuItem = ({ text, icon, sx, children, path, onClickItem }) => {
-  const [open, setOpen] = useState(false); // Estado para controlar la expansión
+const MenuItem = ({ text, icon, sx = {}, children, path, onClickItem }) => {
+  const [open, setOpen] = useState(false);
 
   const handleClick = () => {
-    setOpen(!open); // Alternar estado de expansión
+    setOpen(!open);
   };
 
   const handleItemClick = () => {
-    if (onClickItem) {
-      onClickItem(path); // Ejecuta la función callback con la ruta como argumento
+    if (onClickItem && path) {
+      onClickItem(path);
     }
   };
+
+  const isExpandable = Array.isArray(children);
 
   return (
     <>
       <ListItem
-        onClick={(e) => {
-          handleClick(); // Maneja la expansión
-          if (!children) {
-            handleItemClick(); // Maneja el clic en el ítem (solo si no tiene hijos)
+        onClick={() => {
+          if (isExpandable) {
+            handleClick();
+          } else {
+            handleItemClick();
           }
         }}
-        sx={sx}
+        sx={{
+          ...sx,
+          cursor: 'pointer',
+          '&:hover': {
+            backgroundColor: '#5F84A2',
+          },
+        }}
       >
-        <ListItemIcon>{icon}</ListItemIcon>
-        <ListItemText primary={text} slotProps={{
-            primary: {
+        <ListItemIcon sx={{ color: '#fff' }}>{icon}</ListItemIcon>
+        <ListItemText
+          primary={text}
+          slotProps={{
+            primary:{
               sx: {
                 fontSize: '20px',
                 fontWeight: 'medium',
-                cursor: 'pointer',
-              }
             }
-          }} />
-        {children ? (open ? <ExpandLess /> : <ExpandMore />) : null}
+            },
+          }}
+        />
+        {isExpandable ? (open ? <ExpandLess /> : <ExpandMore />) : null}
       </ListItem>
-      {children && (
+
+      {isExpandable && (
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {children.map((child, index) => (
@@ -47,11 +59,15 @@ const MenuItem = ({ text, icon, sx, children, path, onClickItem }) => {
                 key={index}
                 text={child.text}
                 icon={child.icon}
-                sx={{ pl: 4, ...sx }} // Añadir sangría para los subítems
-                children={child.children} // Soporte para más niveles anidados
                 path={child.path}
-                onClickItem={onClickItem} // Pasa la función callback a los hijos
-              />
+                onClickItem={onClickItem}
+                sx={{
+                  pl: child.nested ? 6 : 4, 
+                  color: '#fff',
+                }}
+              >
+                {child.children}
+              </MenuItem>
             ))}
           </List>
         </Collapse>
