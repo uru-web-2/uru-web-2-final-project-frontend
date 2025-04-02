@@ -1,18 +1,28 @@
 import { useNavigate } from 'react-router-dom';
-
+import { Box, Typography } from '@mui/material';
 const SideBar = ({ open, handleDrawerToggle, drawerStyles, menuItems, MenuItem, listItemTextStyles, CustomDrawer }) => {
   const navigate = useNavigate();
   console.log('menuItems:', menuItems);
   
 
-  // Función para manejar el clic en un ítem del menú
   const handleClickItem = (path) => {
-    console.log('Navegando a:', path);
-    navigate(path); // Redirige a la ruta especificada
+    navigate(path);
   };
 
   return (
-    <CustomDrawer open={open} onClose={handleDrawerToggle} sx={drawerStyles} >
+    <CustomDrawer open={open} onClose={handleDrawerToggle} sx={drawerStyles}>
+
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          paddingY: 2,
+        }}
+      >
+        <img src= "/ubook.png"  style={{ height: 170}} />
+      </Box>
+
       {menuItems.map((item) => (
         <MenuItem
           key={item.text}
@@ -21,7 +31,7 @@ const SideBar = ({ open, handleDrawerToggle, drawerStyles, menuItems, MenuItem, 
           sx={listItemTextStyles}
           children={item.children}
           path={item.path}
-          onClickItem={handleClickItem} // Pasa la función handleClickItem como prop
+          onClickItem={handleClickItem}
         />
       ))}
     </CustomDrawer>

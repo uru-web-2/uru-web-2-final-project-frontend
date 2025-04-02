@@ -125,7 +125,7 @@ const allMenuItems = [
     requiredRoles: ['Librarian'] 
   },
   {
-    text: 'Seguridad',
+    text: 'Security',
     icon: <SecurityIcon sx={{ color: '#FFFFFF' }} />,
     requiredRoles: ['Admin'],
     children: [
