@@ -1,53 +1,62 @@
 import { useState } from 'react';
 
-const regexRules = {
-  text: /^[a-zA-Z\s]+$/, 
-  number: /^[0-9]+$/, 
-  alphanumeric: /^[a-zA-Z0-9\s]+$/, 
-  email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-};
-
 const useValidator = () => {
   const [errors, setErrors] = useState({});
 
-  const validateField = (name, value, rule) => {
-    if (rule && regexRules[rule]) {
-      if (!regexRules[rule].test(value)) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          [name]: `Invalid ${rule} format`,
-        }));
-        return false;
-      } else {
-        setErrors((prevErrors) => {
-          const newErrors = { ...prevErrors };
-          delete newErrors[name];
-          return newErrors;
-        });
-        return true;
+  const validateField = (name, value, rules = []) => {
+    let error = '';
+
+    for (const rule of rules) {
+      if (rule.type === 'required' && !value.trim()) {
+        error = rule.message || 'This field is required';
+        break;
+      }
+
+      if (rule.type === 'regex' && rule.pattern && !rule.pattern.test(value)) {
+        error = rule.message || 'Invalid format';
+        break;
+      }
+
+      if (rule.type === 'maxLength' && value.length > rule.max) {
+        error = rule.message || `Maximum ${rule.max} characters allowed`;
+        break;
+      }
+
+      if (rule.type === 'minLength' && value.length < rule.min) {
+        error = rule.message || `Minimum ${rule.min} characters required`;
+        break;
+      }
+
+      if (rule.type === 'numberOnly' && isNaN(value)) {
+        error = rule.message || 'Only numeric values are allowed';
+        break;
       }
     }
-    return true;
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: error
+    }));
+    
+
+    return !error;
   };
 
-  const validateForm = (data, rules) => {
+  const validateForm = (data, rulesMap) => {
     let isValid = true;
-    for (const field in data) {
-      if (rules[field]) {
-        const isFieldValid = validateField(field, data[field], rules[field]);
-        if (!isFieldValid) {
-          isValid = false;
-        }
-      }
+    for (const field in rulesMap) {
+      const valid = validateField(field, data[field], rulesMap[field]);
+      if (!valid) isValid = false;
     }
     return isValid;
   };
 
-  return {
-    errors,
-    validateField,
-    validateForm,
+  const clearErrors = () => {
+    setErrors({});
   };
+  
+
+  return { errors, validateField, validateForm, clearErrors };
 };
 
 export default useValidator;
