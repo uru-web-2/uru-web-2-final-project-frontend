@@ -155,17 +155,17 @@ class ApiService {
         });
     }
 
-    async revokeUserProfile(username, profileID) {
+    async removeUserProfile(username, profileID) {
         return this.wrapWithLoading(async () => {
-            const response = await this.api.RevokeUserProfile(username, profileID);
+            const response = await this.api.RemoveUserProfile(username, profileID);
             const data = await response.json();
             return data;
         });
     }
 
-    async assignUserProfile(username, profileID) {
+    async createUserProfile(username, profileID) {
         return this.wrapWithLoading(async () => {
-            const response = await this.api.AssignUserProfile(username, profileID);
+            const response = await this.api.CreateUserProfile(username, profileID);
             const data = await response.json();
             return data;
         });
