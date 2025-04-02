@@ -338,9 +338,9 @@ class ApiService {
         })
     }
 
-    async createBook(title, description, releaseDate, pages, authors, topicIDs, locationSectionIDs, languageIDs, isbn, publisherID){
+    async createBook(filesBuffer,imagesBuffer,title, description, releaseDate, pages, authors, topicIDs, locationSectionIDs, languageIDs, isbn, publisherID){
         return this.wrapWithLoading(async () =>{
-            const response = await this.api.CreateBook(title, description, releaseDate, pages, authors, topicIDs, locationSectionIDs, languageIDs, isbn, publisherID);
+            const response = await this.api.CreateBook(filesBuffer,imagesBuffer,title, description, releaseDate, pages, authors, topicIDs, locationSectionIDs, languageIDs, isbn, publisherID);
             const data = await response.json();
             return data
         })
