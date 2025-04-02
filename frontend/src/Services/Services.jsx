@@ -171,7 +171,7 @@ class ApiService {
         });
     }
 
-    async searchUser(username) {
+    async searchUser(username, limit) {
         return this.wrapWithLoading(async () => {
             const response = await this.api.SearchUserByUsername(username, 10);
             const data = await response.json();
@@ -251,9 +251,9 @@ class ApiService {
         });
     }
 
-    async searchPublisherByName(name) {
+    async searchPublisherByName(name,limit) {
         return this.wrapWithLoading(async () => {
-            const response = await this.api.SearchPublisherByName(name);
+            const response = await this.api.SearchPublisherByName(name,limit);
             const data = await response.json();
             return data;
         });
