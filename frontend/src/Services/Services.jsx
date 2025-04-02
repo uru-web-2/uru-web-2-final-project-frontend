@@ -211,9 +211,9 @@ class ApiService {
         });
     }
     
-    async searchTopicByName(name) {
+    async searchTopicByName(name, limit) {
         return this.wrapWithLoading(async () => {
-            const response = await this.api.SearchTopicByName(name);
+            const response = await this.api.SearchTopicByName(name, limit);
             const data = await response.json();
             return data;
         });

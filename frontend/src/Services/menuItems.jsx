@@ -16,13 +16,14 @@ import BusinessIcon from '@mui/icons-material/Business';
 import MapIcon from '@mui/icons-material/Map';
 
 export const menuItems = [
-  { text: 'Inventario', icon: <InventoryIcon sx={{ color: '#FFFFFF' }} />,
+  { text: 'Inventory', icon: <InventoryIcon sx={{ color: '#FFFFFF' }} />,
   children:[
     { text: 'Maintenance', icon: <ConstructionIcon sx={{ color: '#FFFFFF'}}/>, 
     children:[
-      { text: 'Categories', icon: <CategoryIcon sx={{ color: '#FFFFFF' }} />, path: '/inventory/maintenance/categories'},
-      { text: 'Publishers', icon: <BusinessIcon sx={{ color: '#FFFFFF'}}/>, path: '/inventory/maintenance/publishers'},
-      { text: 'Locations', icon: <MapIcon sx={{ color: '#FFFFFF'}}/>, path: '/inventory/maintenance/locations'},
+      { text: 'Categories', icon: <CategoryIcon sx={{ color: '#FFFFFF' }} />, path: '/inventory/maintenance/categories', nested: true },
+      { text: 'Authors', icon: <PeopleIcon sx={{ color: '#FFFFFF'}}/>, path: '/inventory/maintenance/authors', nested: true },
+      { text: 'Publishers', icon: <BusinessIcon sx={{ color: '#FFFFFF'}}/>, path: '/inventory/maintenance/publishers', nested: true },
+      { text: 'Locations', icon: <MapIcon sx={{ color: '#FFFFFF'}}/>, path: '/inventory/maintenance/locations', nested: true },
     ], path: '/inventory/maintenance'},
     { text: 'Books', icon: <MenuBookIcon sx={{ color: '#FFFFFF'}}/>, path: '/inventory/books'},
     { text: 'Articles', icon:<DescriptionIcon sx={{color: '#FFFFFF'}}/>, path: '/inventory/articles'},
@@ -30,21 +31,21 @@ export const menuItems = [
     { text: 'Magazines', icon: <ImportContactsIcon sx={{ color: '#FFFFFF'}}/>, path: '/inventory/magazines'},,
     ],
   },
-  { text: 'Préstamos', icon: <LocalAtmIcon sx={{ color: '#FFFFFF' }} />, path: '/inventory/loans' },
+  { text: 'Loans', icon: <LocalAtmIcon sx={{ color: '#FFFFFF' }} />, path: '/inventory/loans' },
   {
-    text: 'Seguridad',
+    text: 'Security',
     icon: <SecurityIcon sx={{ color: '#FFFFFF' }} />,
     children: [
-      { text: 'Usuarios', icon: <PeopleIcon sx={{ color: '#FFFFFF' }} />, path: '/security/users' }, // Ruta para Usuarios
-      { text: 'Perfiles', icon: <AccountCircleIcon sx={{ color: '#FFFFFF' }} />, path: '/security/profiles' }, // Ruta para Perfiles
+      { text: 'Users', icon: <PeopleIcon sx={{ color: '#FFFFFF' }} />, path: '/security/users' }, // Ruta para Usuarios
+      { text: 'Profiles', icon: <AccountCircleIcon sx={{ color: '#FFFFFF' }} />, path: '/security/profiles' }, // Ruta para Perfiles
     ],
   },
-  { text: 'Revisión', icon: <AssignmentIcon sx={{ color: '#FFFFFF' }} /> },
-  { text: 'Configuración', icon: <SettingsIcon sx={{ color: '#FFFFFF' }} /> },
+  { text: 'Review', icon: <AssignmentIcon sx={{ color: '#FFFFFF' }} /> },
+  { text: 'Configuration', icon: <SettingsIcon sx={{ color: '#FFFFFF' }} /> },
 ];
 
 export const menuItemsLibrarian = [
-  { text: 'Inventario', icon: <InventoryIcon sx={{ color: '#FFFFFF' }} />,
+  { text: 'Inventory', icon: <InventoryIcon sx={{ color: '#FFFFFF' }} />,
   children:[
     { text: 'Books', icon: <MenuBookIcon sx={{ color: '#FFFFFF'}}/>, path: '/inventory/books'},
     { text: 'Articles', icon:<DescriptionIcon sx={{color: '#FFFFFF'}}/>, path: '/inventory/articles'},
@@ -52,7 +53,7 @@ export const menuItemsLibrarian = [
     { text: 'Magazines', icon: <ImportContactsIcon sx={{ color: '#FFFFFF'}}/>, path: '/inventory/magazines'},
     ],
   },
-  { text: 'Préstamos', icon: <LocalAtmIcon sx={{ color: '#FFFFFF' }} /> },
-  { text: 'Revisión', icon: <AssignmentIcon sx={{ color: '#FFFFFF' }} /> },
-  { text: 'Configuración', icon: <SettingsIcon sx={{ color: '#FFFFFF' }} /> },
+  { text: 'Loans', icon: <LocalAtmIcon sx={{ color: '#FFFFFF' }} /> },
+  { text: 'Review', icon: <AssignmentIcon sx={{ color: '#FFFFFF' }} /> },
+  { text: 'Configuration', icon: <SettingsIcon sx={{ color: '#FFFFFF' }} /> },
 ];

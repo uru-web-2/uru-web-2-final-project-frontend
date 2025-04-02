@@ -64,7 +64,10 @@ const Categories = () => {
   
       try {
 
-        const response = await apiService.searchTopicByName(category)
+        const response = await apiService.searchTopicByName(category, 10)
+
+        console.log('Search response:', response);  
+        
 
         if(response.data.topics.length === 0){
           console.log('No results found');
