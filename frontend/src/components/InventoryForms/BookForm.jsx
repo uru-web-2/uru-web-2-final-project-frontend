@@ -1,47 +1,135 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CoverImage from "../CoverImage";
-import { Box, Typography,Button } from "@mui/material";
-import { useForm, useFieldArray } from 'react-hook-form';
+import { Box, Typography, Button } from "@mui/material";
+import { set, useForm } from 'react-hook-form';
+import { apiService } from "../../Services/Services";
 import '../CSS/Form.css';
+import Select from 'react-select';
 
 function BookForm() {
-    const { register, handleSubmit, formState: { errors }, control } = useForm();
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm();
     const [availabilityType, setAvailabilityType] = useState('');
 
-    const { fields: authors, append: appendAuthor, remove: removeAuthor } = useFieldArray({ control, name: "authors" });
-    const { fields: categories, append: appendCategory, remove: removeCategory } = useFieldArray({ control, name: "categories" });
+    const [authors, setAuthors] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [sections, setSections] = useState([]);
 
     const [authorInput, setAuthorInput] = useState('');
     const [categoryInput, setCategoryInput] = useState('');
+    const [sectionInput, setSectionInput] = useState('');
+    const [languageOptions, setLanguageOptions] = useState([]);
+    const [publisherOptions, setPublisherOptions] = useState([]);
+    const [categoryOptions, setCategoryOptions] = useState([]);
+    const [sectionOptions, setSectionOptions] = useState([]);
 
-    const handleAvailabilityChange = (event) => {
-        setAvailabilityType(event.target.value);
+    const findNameById = (id, options) => {
+        const found = options.find(option => option.id === id);
+        return found ? found.label : id;
     };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [publishersRes, topicsRes, languagesRes, sectionsRes] = await Promise.all([
+                    apiService.getAllPublishers(),
+                    apiService.getAllTopics(),
+                    apiService.getAllLanguages(),
+                    apiService.getAllLocationSections()
+                ]);
+    
+                setPublisherOptions(publishersRes.data.publishers.map(p => ({
+                    id: p.id,
+                    label: p.name,
+                    value: p.name
+                })));
+    
+                setCategoryOptions(topicsRes.data.topics.map(t => ({
+                    id: t.id,
+                    label: t.name,
+                    value: t.name
+                })));
+    
+                setLanguageOptions(languagesRes.data.languages.map(l => ({
+                    id: l.id,
+                    label: l.name,
+                    value: l.name
+                })));
+    
+                setSectionOptions(sectionsRes.data.location_sections.map(s => ({
+                    id: s.id,
+                    label: s.name,
+                    value: s.name
+                })));
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+    
+        fetchData();
+    }, []);
+
+
+    useEffect(() => {
+        setValue('authors', authors.map(a => a.author));
+        setValue('categories', categories.map(c => c.category));
+        setValue('sections', sections.map(s => s.section));
+    }, [authors, categories, sections, setValue]);
+    
 
     const handleAddAuthor = () => {
         if (authorInput.trim() !== '') {
-            appendAuthor({ author: authorInput });
+            setAuthors([...authors, { author: authorInput }]);
             setAuthorInput('');
         }
     };
 
     const handleRemoveAuthor = (index) => {
-        removeAuthor(index);
+        setAuthors(authors.filter((_, i) => i !== index));
     };
 
     const handleAddCategory = () => {
         if (categoryInput.trim() !== '') {
-            appendCategory({ category: categoryInput });
+            setCategories([...categories, { category: categoryInput }]);
             setCategoryInput('');
         }
     };
 
     const handleRemoveCategory = (index) => {
-        removeCategory(index);
+        setCategories(categories.filter((_, i) => i !== index));
     };
 
-    const onSubmit = (data) => {
-        console.log('Form data:', data);
+    const handleAddSection = () => {
+        if (sectionInput.trim() !== '') {
+            setSections([...sections, { section: sectionInput }]);
+            setSectionInput('');
+        }
+    };
+
+    const handleRemoveSection = (index) => {
+        setSections(sections.filter((_, i) => i !== index));
+    };
+
+    const onSubmit = async (data) => {
+        
+        try{
+            const response = await apiService.createBook(
+                data.title, 
+                data.description, 
+                data.publicationDate, 
+                data.pageCount, 
+                data.authors, 
+                data.categories, 
+                data.sections, 
+                data.languages,
+                data.isbn, 
+                data.publisher);
+
+            if (response.status === 'success' || response.status === 200) {
+                console.log('Book created successfully:', response);
+            }
+        }catch (error) {
+            console.error('Error submitting form:', error);
+        }
     };
 
     return (
@@ -87,17 +175,17 @@ function BookForm() {
                     {/* Field: Language (Select) */}
                     <div className="form-input">
                         <label htmlFor="language">Language:</label>
-                        <select
+                        <Select
                             id="language"
-                            {...register('language', { required: 'Language is required' })}
-                        >
-                            <option value="">Select a language</option>
-                            <option value="es">Spanish</option>
-                            <option value="en">English</option>
-                            <option value="fr">French</option>
-                            <option value="de">German</option>
-                        </select>
-                        {errors.language && <span>{errors.language.message}</span>}
+                            options={languageOptions}
+                            onChange={(selectedOption) => {
+                                setValue('language', selectedOption.label);
+                            }}
+                            isSearchable 
+                            placeholder="Select a language"
+                        />
+                        <input type="hidden" {...register('language', { required: true })} />
+                        {errors.language && <span>This field is required</span>}
                     </div>
                 </div>
 
@@ -117,36 +205,45 @@ function BookForm() {
                     <div className="form-input">
                         <label htmlFor="isbn">ISBN:</label>
                         <input
-                            type="number"
+                            type="text"
                             id="isbn"
                             {...register('isbn', {
                                 required: 'ISBN is required',
-                                valueAsNumber: true,
                             })}
                         />
                         {errors.isbn && <span>{errors.isbn.message}</span>}
                     </div>
 
-                    {/* Field: Edition */}
+                    {/* Field: Format */}
                     <div className="form-input">
-                        <label htmlFor="edition">Edition:</label>
-                        <input
-                            type="text"
-                            id="edition"
-                            {...register('edition', { required: 'Edition is required' })}
+                        <label htmlFor="format">Format:</label>
+                        <Select
+                            id="format"
+                            options={[{id:1,label:'physical'}, {id:2, label:'digital' }]}
+                            onChange={(selectedOption) => {
+                                setAvailabilityType(selectedOption.label);
+                                setValue('format', selectedOption.label);
+                            }}
+                            placeholder="Select a format"
                         />
-                        {errors.edition && <span>{errors.edition.message}</span>}
+                        <input type="hidden" {...register('format', { required: true })} />
+                        {errors.format && <span>This field is required</span>}
                     </div>
 
                     {/* Field: Publisher */}
                     <div className="form-input">
                         <label htmlFor="publisher">Publisher:</label>
-                        <input
-                            type="text"
+                        <Select
                             id="publisher"
-                            {...register('publisher', { required: 'Publisher is required' })}
+                            options={publisherOptions}
+                            onChange={(selectedOption) => {
+                                setValue('publisher', selectedOption.id);
+                            }}
+                            isSearchable 
+                            placeholder="Select a publisher"
                         />
-                        {errors.publisher && <span>{errors.publisher.message}</span>}
+                        <input type="hidden" {...register('publisher', { required: true })} />
+                        {errors.publisher && <span>This field is required</span>}
                     </div>
 
                     {/* Field: Description (textarea) */}
@@ -157,8 +254,8 @@ function BookForm() {
                             {...register('description', {
                                 required: 'Description is required',
                                 minLength: {
-                                    value: 500,
-                                    message: 'Description must have at least 500 characters',
+                                    value: 100,
+                                    message: 'Description must have at least 100 characters',
                                 },
                             })}
                         />
@@ -179,13 +276,13 @@ function BookForm() {
                                     onChange={(e) => setAuthorInput(e.target.value)}
                                     required
                                 />
-                                <button onClick={handleAddAuthor}>+</button>
+                                <button type="button" onClick={handleAddAuthor}>+</button>
                             </Box>
                         </div>
-                        {authors.map((field) => (
-                            <div className="form-input-list-item" key={field.id}>
+                        {authors.map((field, index) => (
+                            <div className="form-input-list-item" key={index}>
                                 <input type="text" value={field.author} readOnly />
-                                <button onClick={() => handleRemoveAuthor(field.id)}>X</button>
+                                <button type="button" onClick={() => handleRemoveAuthor(index)}>X</button>
                             </div>
                         ))}
                     </div>
@@ -195,44 +292,80 @@ function BookForm() {
                         <div className="form-input">
                             <label htmlFor="category">Category:</label>
                             <Box display='flex' alignItems='center' gap={1}>
-                                <input
-                                    type="text"
+                                <Select
                                     id="category"
-                                    value={categoryInput}
-                                    onChange={(e) => setCategoryInput(e.target.value)}
-                                    required
+                                    options={categoryOptions}
+                                    onChange={(selectedOption) => {
+                                        setValue('category', selectedOption.id);
+                                        setCategoryInput(selectedOption.id);
+                                    }}
+                                    isSearchable 
+                                    placeholder="Select a category"
+                                    classNamePrefix="form-select"
                                 />
-                                <button onClick={handleAddCategory}>+</button>
+                                <input type="hidden" {...register('category', { required: true })} />
+                                {errors.category && <span>This field is required</span>}
+
+                                <button type="button" onClick={handleAddCategory}>+</button>
                             </Box>
                         </div>
-                        {categories.map((field) => (
-                            <div className="form-input-list-item" key={field.id}>
-                                <input type="text" value={field.category} readOnly />
-                                <button onClick={() => handleRemoveCategory(field.id)}>X</button>
-                            </div>
-                        ))}
+                        {categories.map((field, index) => {
+                            const categoryName = findNameById(field.category, categoryOptions);
+                            return (
+                                <div className="form-input-list-item" key={index}>
+                                    <input type="text" value={categoryName} readOnly />
+                                    <button type="button" onClick={() => handleRemoveCategory(index)}>X</button>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {/* Field: Sections */}
+                    <div className="form-input-list">
+                        <div className={`form-input ${availabilityType === 'digital' ? 'disabled-input' : ''}`}>
+                            <label htmlFor="section">Section:</label>
+                            <Box display='flex' alignItems='center' gap={1}>
+                                <Select
+                                    id="section"
+                                    options={sectionOptions}
+                                    onChange={(selectedOption) => {
+                                        setValue('section', selectedOption.id);
+                                        setSectionInput(selectedOption.id);
+                                    }}
+                                    isSearchable 
+                                    placeholder="Select a section"
+                                    classNamePrefix="form-select"
+                                    isDisabled={availabilityType ==='digital'}
+                                />
+                                <input 
+                                    type="hidden" 
+                                    {...register('section', { required: availabilityType !== 'digital' })}
+                                    disabled={availabilityType === 'digital'}
+                                />
+                                {errors.section && <span>This field is required</span>}
+
+                                <button type="button" onClick={handleAddSection}>+</button>
+                            </Box>
+                        </div>
+                        {sections.map((field, index) => {
+                            const sectionName = findNameById(field.section, sectionOptions);
+                            return (
+                                <div className="form-input-list-item" key={index}>
+                                    <input type="text" value={sectionName} readOnly />
+                                    <button type="button" onClick={() => handleRemoveSection(index)}>X</button>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
 
                 <div className="form-bottom-group-2">
                     <Box display='flex' gap={26.5} marginTop={5}>
                         <Typography variant="h4" sx={{ color: '#1A4568', fontWeight: 'bold' }}>Availability</Typography>
-                        <div className="form-input">
-                            <select
-                                id="type"
-                                {...register('type', { required: true })}
-                                onChange={handleAvailabilityChange}
-                                value={availabilityType}
-                            >
-                                <option value="">Select a format</option>
-                                <option value="physical">Physical</option>
-                                <option value="digital">Digital</option>
-                                <option value="mixed">Mixed</option>
-                            </select>
-                        </div>
                     </Box>
                     <Box display='grid' gap={2}>
                         <Box display='flex' justifyContent={'space-between'} marginRight={3}>
+
                             {/* Field: Number of copies */}
                             <div className={`form-input ${availabilityType === 'digital' ? 'disabled-input' : ''}`}>
                                 <label htmlFor="copyCount">Number of copies:</label>
@@ -240,50 +373,13 @@ function BookForm() {
                                     type="number"
                                     id="copyCount"
                                     {...(availabilityType === 'physical' && register('copyCount', {
-                                        required: true,
+                                        required: 'Number of copies is required',
                                         valueAsNumber: true,
                                         min: { value: 1, message: 'Must have at least 1 copy' },
                                     }))}
                                     disabled={availabilityType === 'digital'}
                                 />
-                            </div>
-
-                            {/* Field: Shelf */}
-                            <div className={`form-input ${availabilityType === 'digital' ? 'disabled-input' : ''}`}>
-                                <label htmlFor="shelf">Shelf:</label>
-                                <input
-                                    type="text"
-                                    id="shelf"
-                                    {...(availabilityType === 'physical' && register('shelf', { required: true }))}
-                                    disabled={availabilityType === 'digital'}
-                                />
-                            </div>
-
-                            {/* Field: Section */}
-                            <div className={`form-input ${availabilityType === 'digital' ? 'disabled-input' : ''}`}>
-                                <label htmlFor="section">Section:</label>
-                                <input
-                                    type="text"
-                                    id="section"
-                                    {...(availabilityType === 'physical' && register('section', { required: true }))}
-                                    disabled={availabilityType === 'digital'}
-                                />
-                            </div>
-                        </Box>
-
-                        <Box display='flex' justifyContent={'space-between'} marginRight={3}>
-                            {/* Field: Format */}
-                            <div className={`form-input ${availabilityType === 'physical' ? 'disabled-input' : ''}`}>
-                                <label htmlFor="format">Format:</label>
-                                <select
-                                    id="format"
-                                    disabled={availabilityType === 'physical'}
-                                    {...(availabilityType === 'digital' && register('format', { required: true }))}
-                                >
-                                    <option value="">Select a format</option>
-                                    <option value="PDF">PDF</option>
-                                    <option value="EPUB">EPUB</option>
-                                </select>
+                                {errors.copyCount && <span>{errors.copyCount.message}</span>}
                             </div>
 
                             {/* Field: File */}
@@ -292,9 +388,12 @@ function BookForm() {
                                 <input
                                     type="file"
                                     id="file"
-                                    {...(availabilityType === 'digital' && register('file', { required: true }))}
+                                    {...(availabilityType === 'digital' && register('file', { 
+                                        required: 'File is required for digital format' 
+                                    }))}
                                     disabled={availabilityType === 'physical'}
                                 />
+                                {errors.file && <span>{errors.file.message}</span>}
                             </div>
 
                             {/* Field: Link */}
@@ -303,9 +402,12 @@ function BookForm() {
                                 <input
                                     type="text"
                                     id="link"
-                                    {...(availabilityType === 'digital' && register('link', { required: true }))}
+                                    {...(availabilityType === 'digital' && register('link', { 
+                                        required: 'Link is required for digital format' 
+                                    }))}
                                     disabled={availabilityType === 'physical'}
                                 />
+                                {errors.link && <span>{errors.link.message}</span>}
                             </div>
                         </Box>
                     </Box>
@@ -314,7 +416,7 @@ function BookForm() {
 
             <div className="form-button">
                 <Button variant="contained" onClick={handleSubmit(onSubmit)}>Submit</Button>
-                <Button variant="contained" onClick={handleSubmit(onSubmit)}>Cancel</Button>
+                <Button variant="contained" color="error">Cancel</Button>
             </div>
         </div>
     );
