@@ -27,6 +27,10 @@ const CategoryModal = ({ isOpen, onClose, onSave, initialData }) => {
 
       const { errors, validateField, validateForm, clearErrors } = useValidator();
 
+      const capitalizeFirstLetter = (text) => {
+        return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+      };
+
     useEffect(() => {
         if (initialData) {
         setCategoryData(initialData);
@@ -37,12 +41,16 @@ const CategoryModal = ({ isOpen, onClose, onSave, initialData }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+
+        const normalizedValue =
+        name === 'name' ? capitalizeFirstLetter(value) : value;
+
         setCategoryData({
         ...categoryData,
-        [name]: value
+        [name]: normalizedValue
         });
 
-        validateField(name, value, validationRules[name]);
+        validateField(name, normalizedValue, validationRules[name]);
     };
 
     const handleSubmit = (e) => {
