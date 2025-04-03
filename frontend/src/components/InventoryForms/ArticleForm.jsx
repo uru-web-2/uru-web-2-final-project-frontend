@@ -1,56 +1,127 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import CoverImage from "../CoverImage";
 import { Box, Typography, Button } from "@mui/material";
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import { apiService } from "../../Services/Services";
 import '../CSS/Form.css';
+import Select from 'react-select';
 
 function ArticleForm() {
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm();
+    
+    // Estados para arrays (como en BookForm)
+    const [authors, setAuthors] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [keywords, setKeywords] = useState([]);
+    const [Image, setImage] = useState(null);
 
-    const { register, handleSubmit, formState: { errors }, control } = useForm();
-
-    const { fields: authors, append: appendAuthor, remove: removeAuthor } = useFieldArray({ control, name: "authors" });
-    const { fields: categories, append: appendCategory, remove: removeCategory } = useFieldArray({ control, name: "categories" });
-    const { fields: keywords, append: appendKeyword, remove: removeKeyword } = useFieldArray({ control, name: "keywords" });
-
+    // Estados para inputs
     const [authorInput, setAuthorInput] = useState('');
     const [categoryInput, setCategoryInput] = useState('');
     const [keywordInput, setKeywordInput] = useState('');
 
+    // Opciones para selects
+    const [languageOptions, setLanguageOptions] = useState([]);
+    const [categoryOptions, setCategoryOptions] = useState([]);
+
+    // Sincronizar arrays con react-hook-form (como en BookForm)
+    useEffect(() => {
+        setValue('authors', authors.map(a => a.author));
+        setValue('categories', categories.map(c => c.category));
+        setValue('keywords', keywords.map(k => k.keyword));
+    }, [authors, categories, keywords, setValue]);
+
+    // Cargar opciones desde API
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [languagesRes, topicsRes] = await Promise.all([
+                    apiService.getAllLanguages(),
+                    apiService.getAllTopics()
+                ]);
+
+                setLanguageOptions(languagesRes.data.languages.map(l => ({
+                    id: l.id,
+                    label: l.name,
+                    value: l.name
+                })));
+
+                setCategoryOptions(topicsRes.data.topics.map(t => ({
+                    id: t.id,
+                    label: t.name,
+                    value: t.name
+                })));
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    // Funciones para manejar arrays (como en BookForm)
     const handleAddAuthor = () => {
         if (authorInput.trim() !== '') {
-            appendAuthor({ author: authorInput });
+            setAuthors([...authors, { author: authorInput }]);
             setAuthorInput('');
         }
     };
 
     const handleRemoveAuthor = (index) => {
-        removeAuthor(index);
+        setAuthors(authors.filter((_, i) => i !== index));
     };
 
     const handleAddCategory = () => {
         if (categoryInput.trim() !== '') {
-            appendCategory({ category: categoryInput });
+            setCategories([...categories, { category: categoryInput }]);
             setCategoryInput('');
         }
     };
 
     const handleRemoveCategory = (index) => {
-        removeCategory(index);
+        setCategories(categories.filter((_, i) => i !== index));
     };
 
     const handleAddKeyword = () => {
         if (keywordInput.trim() !== '') {
-            appendKeyword({ keyword: keywordInput });
+            setKeywords([...keywords, { keyword: keywordInput }]);
             setKeywordInput('');
         }
     };
 
     const handleRemoveKeyword = (index) => {
-        removeKeyword(index);
+        setKeywords(keywords.filter((_, i) => i !== index));
     };
 
-    const onSubmit = (data) => {
-        console.log('Form data:', data);
+    const onSubmit = async (data) => {
+        try {
+            const imageBlob = Image ? new Blob([Image], { type: 'image/jpeg' }) : null;
+            
+            const response = await apiService.createArticle(
+                imageBlob,
+                data.title,
+                data.description,
+                data.publicationDate,
+                data.pageCount,
+                data.authors,
+                data.categories,
+                data.keywords,
+                data.language,
+                data.source
+            );
+
+            if (response.status === 'success' || response.status === 200) {
+                console.log('Article created successfully:', response);
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
+    };
+
+    // Función auxiliar para mostrar nombres de categorías
+    const findNameById = (id, options) => {
+        const found = options.find(option => option.id === id);
+        return found ? found.label : id;
     };
 
     return (
@@ -62,24 +133,23 @@ function ArticleForm() {
             <div className='form-content'>
                 <div className="form-left-group">
                     <div className="form-cover-image">
-                        <CoverImage image='https://picsum.photos/200/300' />
+                        <CoverImage imageFile={setImage} />
                     </div>
 
-                    {/* Field: Number of pages */}
                     <div className="form-input">
                         <label htmlFor="pageCount">Number of pages:</label>
                         <input
                             type="number"
                             id="pageCount"
                             {...register('pageCount', {
-                                required: true,
+                                required: 'Number of pages is required',
                                 valueAsNumber: true,
                                 min: { value: 1, message: 'Must have at least 1 page' },
                             })}
                         />
+                        {errors.pageCount && <span className="error-message">{errors.pageCount.message}</span>}
                     </div>
 
-                    {/* Field: Publication date */}
                     <div className="form-input">
                         <label htmlFor="publicationDate">Publication date:</label>
                         <input
@@ -89,11 +159,11 @@ function ArticleForm() {
                                 required: 'Publication date is required',
                             })}
                         />
+                        {errors.publicationDate && <span className="error-message">{errors.publicationDate.message}</span>}
                     </div>
                 </div>
 
                 <div className="form-right-group">
-                    {/* Field: Title */}
                     <div className="form-input">
                         <label htmlFor="title">Title:</label>
                         <input
@@ -101,51 +171,52 @@ function ArticleForm() {
                             id="title"
                             {...register('title', { required: 'Title is required' })}
                         />
+                        {errors.title && <span className="error-message">{errors.title.message}</span>}
                     </div>
 
-                    {/* Field: Language (Select) */}
                     <div className="form-input">
                         <label htmlFor="language">Language:</label>
-                        <select
+                        <Select
                             id="language"
-                            {...register('language', { required: 'Language is required' })}
-                        >
-                            <option value="">Select a language</option>
-                            <option value="es">Spanish</option>
-                            <option value="en">English</option>
-                            <option value="fr">French</option>
-                            <option value="de">German</option>
-                        </select>
+                            options={languageOptions}
+                            onChange={(selectedOption) => {
+                                setValue('language', selectedOption.id);
+                            }}
+                            isSearchable
+                            placeholder="Select a language"
+                        />
+                        <input type="hidden" {...register('language', { required: 'Language is required' })} />
+                        {errors.language && <span className="error-message">{errors.language.message}</span>}
                     </div>
 
-                    {/* Field: Source */}
                     <div className="form-input">
                         <label htmlFor="source">Source:</label>
                         <input
                             type="text"
                             id="source"
-                            {...register('source', { required: true })}
+                            {...register('source', { required: 'Source is required' })}
                         />
+                        {errors.source && <span className="error-message">{errors.source.message}</span>}
                     </div>
 
-                    {/* Field: Description (textarea) */}
                     <div className="form-input">
                         <label htmlFor="description">Description:</label>
                         <textarea
                             id="description"
                             {...register('description', {
-                                required: true,
+                                required: 'Description is required',
                                 minLength: {
-                                    value: 500,
-                                    message: 'Description must be at least 10 characters long',
+                                    value: 100,
+                                    message: 'Description must have at least 100 characters',
                                 },
                             })}
                         />
+                        {errors.description && <span className="error-message">{errors.description.message}</span>}
                     </div>
                 </div>
 
                 <div className="form-bottom-group">
-                    {/* Field: Keywords */}
+                    {/* Keywords */}
                     <div className="form-input-list">
                         <div className="form-input">
                             <label htmlFor="keyword">Keywords:</label>
@@ -155,20 +226,19 @@ function ArticleForm() {
                                     id="keyword"
                                     value={keywordInput}
                                     onChange={(e) => setKeywordInput(e.target.value)}
-                                    required
                                 />
-                                <button onClick={handleAddKeyword}>+</button>
+                                <button type="button" onClick={handleAddKeyword}>+</button>
                             </Box>
                         </div>
-                        {keywords.map((field) => (
-                            <div className="form-input-list-item" key={field.id}>
+                        {keywords.map((field, index) => (
+                            <div className="form-input-list-item" key={index}>
                                 <input type="text" value={field.keyword} readOnly />
-                                <button onClick={() => handleRemoveKeyword(field.id)}>X</button>
+                                <button type="button" onClick={() => handleRemoveKeyword(index)}>X</button>
                             </div>
                         ))}
                     </div>
 
-                    {/* Field: Authors */}
+                    {/* Authors */}
                     <div className="form-input-list">
                         <div className="form-input">
                             <label htmlFor="author">Author:</label>
@@ -178,47 +248,52 @@ function ArticleForm() {
                                     id="author"
                                     value={authorInput}
                                     onChange={(e) => setAuthorInput(e.target.value)}
-                                    required
                                 />
-                                <button onClick={handleAddAuthor}>+</button>
+                                <button type="button" onClick={handleAddAuthor}>+</button>
                             </Box>
                         </div>
-                        {authors.map((field) => (
-                            <div className="form-input-list-item" key={field.id}>
+                        {authors.map((field, index) => (
+                            <div className="form-input-list-item" key={index}>
                                 <input type="text" value={field.author} readOnly />
-                                <button onClick={() => handleRemoveAuthor(field.id)}>X</button>
+                                <button type="button" onClick={() => handleRemoveAuthor(index)}>X</button>
                             </div>
                         ))}
                     </div>
 
-                    {/* Field: Categories */}
+                    {/* Categories */}
                     <div className="form-input-list">
                         <div className="form-input">
                             <label htmlFor="category">Category:</label>
                             <Box display='flex' alignItems='center' gap={1}>
-                                <input
-                                    type="text"
+                                <Select
                                     id="category"
-                                    value={categoryInput}
-                                    onChange={(e) => setCategoryInput(e.target.value)}
-                                    required
+                                    options={categoryOptions}
+                                    onChange={(selectedOption) => {
+                                        setCategoryInput(selectedOption.id);
+                                    }}
+                                    isSearchable
+                                    placeholder="Select a category"
+                                    classNamePrefix="form-select"
                                 />
-                                <button onClick={handleAddCategory}>+</button>
+                                <button type="button" onClick={handleAddCategory}>+</button>
                             </Box>
                         </div>
-                        {categories.map((field) => (
-                            <div className="form-input-list-item" key={field.id}>
-                                <input type="text" value={field.category} readOnly />
-                                <button onClick={() => handleRemoveCategory(field.id)}>X</button>
-                            </div>
-                        ))}
+                        {categories.map((field, index) => {
+                            const categoryName = findNameById(field.category, categoryOptions);
+                            return (
+                                <div className="form-input-list-item" key={index}>
+                                    <input type="text" value={categoryName || field.category} readOnly />
+                                    <button type="button" onClick={() => handleRemoveCategory(index)}>X</button>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
 
             <div className="form-button">
                 <Button variant="contained" onClick={handleSubmit(onSubmit)}>Submit</Button>
-                <Button variant="contained" onClick={handleSubmit(onSubmit)}>Cancel</Button>
+                <Button variant="contained" color="error">Cancel</Button>
             </div>
         </div>
     );
