@@ -9,6 +9,7 @@ import Select from 'react-select';
 function BookForm() {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
     const [availabilityType, setAvailabilityType] = useState('');
+    const [Image, setImage] = useState(null);
 
     const [authors, setAuthors] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -17,10 +18,12 @@ function BookForm() {
     const [authorInput, setAuthorInput] = useState('');
     const [categoryInput, setCategoryInput] = useState('');
     const [sectionInput, setSectionInput] = useState('');
+
     const [languageOptions, setLanguageOptions] = useState([]);
     const [publisherOptions, setPublisherOptions] = useState([]);
     const [categoryOptions, setCategoryOptions] = useState([]);
     const [sectionOptions, setSectionOptions] = useState([]);
+
 
     const findNameById = (id, options) => {
         const found = options.find(option => option.id === id);
@@ -110,9 +113,16 @@ function BookForm() {
     };
 
     const onSubmit = async (data) => {
+
+        console.log(data, "data");
+        
+        const fileBlob = new Blob([data.file], { type: 'application/pdf' });
+        const imageBlob = new Blob([Image], { type: 'image/jpeg' });
         
         try{
             const response = await apiService.createBook(
+                fileBlob,
+                [imageBlob],
                 data.title, 
                 data.description, 
                 data.publicationDate, 
@@ -124,6 +134,8 @@ function BookForm() {
                 data.isbn, 
                 data.publisher);
 
+                console.log(response, "response");
+                
             if (response.status === 'success' || response.status === 200) {
                 console.log('Book created successfully:', response);
             }
@@ -141,7 +153,7 @@ function BookForm() {
             <div className='form-content'>
                 <div className="form-left-group">
                     <div className="form-cover-image">
-                        <CoverImage image='https://picsum.photos/200/300' />
+                        <CoverImage imageFile={setImage}/>
                     </div>
 
                     {/* Field: Number of pages */}
@@ -387,7 +399,7 @@ function BookForm() {
                                 <label htmlFor="file">File:</label>
                                 <input
                                     type="file"
-                                    id="file"
+                                    name="file"
                                     {...(availabilityType === 'digital' && register('file', { 
                                         required: 'File is required for digital format' 
                                     }))}

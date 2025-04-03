@@ -4,14 +4,14 @@ import Login_Register from './views/Login_Register';
 import Homepage from './views/Homepage';
 import LibrarianDashboard from './views/LibrarianDashboard';
 import AdminDashboard from './views/AdminDashboard';
-import UsersPage from './views/UsersPage'; // Nueva página para Usuarios
-import ProfilesPage from './views/ProfilesPage'; // Nueva página para Perfiles
-import ProtectedRoute from './components/ProtectedRoute'; // Importa la protección de rutas
+import UsersPage from './views/UsersPage';
+import ProfilesPage from './views/ProfilesPage'; 
+import ProtectedRoute from './components/ProtectedRoute'; 
 import BooksPage from './views/BooksPage'
 import ArticlesPage from './views/ArticlesPage'
 import MagazinesPage from './views/MagazinesPage'
 import ThesesPage from './views/ThesesPage'
-import PermissionsPage from './views/PermissionsPage'; // Nueva página para Permisos
+import PermissionsPage from './views/PermissionsPage';
 import BookFormPage from './views/BookFormPage';
 import ArticleFormPage from './views/ArticleFormPage';
 import MagazineFormPage from './views/MagazineFormPage';
@@ -28,6 +28,7 @@ import GridCategories from '../src/views/GridCategories';
 import GridPublishers from '../src/views/GridPublishers';
 import GridLocations from '../src/views/GridLocations';
 import GridSections from '../src/views/GridSections';
+import GridMagazines from '../src/views/GridMagazines';
 
 import { GlobalLoader } from './components/LoadingComponente';
 
@@ -132,6 +133,12 @@ function App() {
         <Route path="/inventory/maintenance/locations" element={
           <ProtectedRoute allowedRoles={["Super Admin", "Student"]}>
             <GridLocations />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/inventory/maintenance/magazines" element={
+          <ProtectedRoute allowedRoles={["Super Admin", "Student"]}>
+            <GridMagazines />
           </ProtectedRoute>
         } />
 

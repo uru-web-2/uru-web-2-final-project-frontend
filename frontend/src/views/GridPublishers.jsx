@@ -59,7 +59,7 @@ const [state, setState] = useState(null);
 
     const handleSearchClick = async (publisher) => {
         try {
-        const response = await apiService.searchPublisherByName(publisher);
+        const response = await apiService.searchPublisherByName(publisher,10);
 
         if(response.data.publishers.length === 0) {
             console.log('No results found');

@@ -171,7 +171,7 @@ class ApiService {
         });
     }
 
-    async searchUser(username) {
+    async searchUser(username, limit) {
         return this.wrapWithLoading(async () => {
             const response = await this.api.SearchUserByUsername(username, 10);
             const data = await response.json();
@@ -211,9 +211,9 @@ class ApiService {
         });
     }
     
-    async searchTopicByName(name) {
+    async searchTopicByName(name, limit) {
         return this.wrapWithLoading(async () => {
-            const response = await this.api.SearchTopicByName(name);
+            const response = await this.api.SearchTopicByName(name, limit);
             const data = await response.json();
             return data;
         });
@@ -251,9 +251,9 @@ class ApiService {
         });
     }
 
-    async searchPublisherByName(name) {
+    async searchPublisherByName(name,limit) {
         return this.wrapWithLoading(async () => {
-            const response = await this.api.SearchPublisherByName(name);
+            const response = await this.api.SearchPublisherByName(name,limit);
             const data = await response.json();
             return data;
         });
@@ -338,9 +338,48 @@ class ApiService {
         })
     }
 
-    async createBook(title, description, releaseDate, pages, authors, topicIDs, locationSectionIDs, languageIDs, isbn, publisherID){
+    async createMagazine(magazineData){
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.CreateMagazine(magazineData.name,magazineData.description,magazineData.releaseDate);
+            const data = await response.json();
+            return data
+        })
+    }
+
+    async removeMagazine(magazineID){
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.RemoveMagazine(magazineID);
+            const data = await response.json();
+            return data
+        })
+    }
+
+    async updateMagazine(magazineID,name,description,releaseDate){
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.UpdateMagazine(magazineID,name,description,releaseDate);
+            const data = await response.json();
+            return data
+        })
+    }
+    async searchMagazineByName(name, limit){
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.SearchMagazineByName(name, limit);
+            const data = await response.json();
+            return data
+        })
+    }
+
+    async getAllMagazines(offset,limit){
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.GetAllMagazines(offset,limit);
+            const data = await response.json();
+            return data
+        })
+    }
+
+    async createBook(filesBuffer,imagesBuffer,title, description, releaseDate, pages, authors, topicIDs, locationSectionIDs, languageIDs, isbn, publisherID){
         return this.wrapWithLoading(async () =>{
-            const response = await this.api.CreateBook(title, description, releaseDate, pages, authors, topicIDs, locationSectionIDs, languageIDs, isbn, publisherID);
+            const response = await this.api.CreateBook(filesBuffer,imagesBuffer,title, description, releaseDate, pages, authors, topicIDs, locationSectionIDs, languageIDs, isbn, publisherID);
             const data = await response.json();
             return data
         })
