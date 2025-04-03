@@ -59,11 +59,11 @@ const Register = () => {
                 first_name: firstName,
                 last_name: lastName,
                 username,
-                email,
                 password,
-                document_country: documentCountry,
-                document_type: documentType,
+                email,
                 document_number: documentNumber,
+                document_type: documentType,
+                document_country: documentCountry,
         });
         } catch (error) {
             setError(error.data?.username || error.data?.password || 'Registration failed');

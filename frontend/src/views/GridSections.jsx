@@ -75,7 +75,9 @@ const Sections = () => {
         }
         } else {
         try {
-            const response = await apiService.createLocationSection(`${id}`,sectionData.name);
+            console.log(id);
+            
+            const response = await apiService.createLocationSection(id,sectionData.name);
             if (response.status === 'success' || response.status === 201) {
             console.log('Section created successfully!');
             setState(Math.random()); 

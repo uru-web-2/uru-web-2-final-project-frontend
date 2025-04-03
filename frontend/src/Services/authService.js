@@ -1,3 +1,6 @@
+import { apiService } from "./Services";
+
+
 export const loginService = async (username, password, profile = 'null') => {
     
     const response = await fetch('/api/login', {
@@ -40,22 +43,32 @@ export const loginService = async (username, password, profile = 'null') => {
 };
 
 export const registerService = async (data) => {
-    const response = await fetch('/api/signup', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    });
-    console.log(data);
     
-    const res = await response.json();
-    console.log(res);
-    
-    if (!response.ok) {
-        const error = new Error(res);
-        error.data = res;
-        throw error.data;
+    try{
+        console.log(data.email);
+        
+        const response = await apiService.signUp(
+
+            data.first_name,
+            data.last_name,
+            data.username,
+            data.password,
+            data.email,
+            data.document_number,
+            data.document_type,
+            data.document_country,
+
+        );
+        
+        if (response.status === 'success' || response.status === 201) {
+            console.log('User registered successfully!');
+        }
+        else{
+            console.error('Error registering user:', response);
+        }
+
+    }catch(error){
+        console.log(error, response);
     }
 
     return res;

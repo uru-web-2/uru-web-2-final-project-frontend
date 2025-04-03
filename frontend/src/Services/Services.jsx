@@ -41,7 +41,15 @@ class ApiService {
         document.dispatchEvent(event);
     }
 
-    // Métodos de la API envueltos con wrapWithLoading
+    async signUp(firstName, lastName, username, password, email, documentNumber, documentType, documentCountryName){
+        return this.wrapWithLoading(async () => {
+            const response = await this.api.SignUp(firstName, lastName, username, password, email, documentNumber, documentType, documentCountryName);
+            const data = await response.json();
+            return data;
+        });
+    }
+
+
     async getAllProfiles() {
         return this.wrapWithLoading(async () => {
             const response = await this.api.Execute(['Security'], 'Profile', 'GetAllProfiles');
